@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/hello")
     public ModelAndView hello(Model model){
         model.addAttribute("userList",userService.getUserList());
-        return new ModelAndView("index","userModel",model);
+        return new ModelAndView("list","userModel",model);
     }
 
 

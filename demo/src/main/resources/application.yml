@@ -9,6 +9,12 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    encoding: UTF-8
+#    false是指不对Thymeleaf模板进行缓存
+#    这样在开发阶段修改了Thymeleaf模板之后，就能够再浏览器中及时看到修改后的页面效果
+    cache: false
+    mode: HTML5
 #    # 使用druid数据源
 #    type: com.alibaba.druid.pool.DruidDataSource
 #    driver-class-name: com.mysql.jdbc.Driver
