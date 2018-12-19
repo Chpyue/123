@@ -17,6 +17,5 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface UserService {
-    int addUser(User user);
-    User getUser(int id);
+    List<User> getUserList();
 }
