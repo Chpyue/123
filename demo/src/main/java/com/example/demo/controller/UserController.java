@@ -1,10 +1,17 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Authority;
+import com.example.demo.model.User;
+import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ProjectName: demo
@@ -22,9 +29,14 @@ import org.springframework.web.servlet.ModelAndView;
 //@RequestMapping(value = "/user")
 public class UserController {
 
+    private static final Integer ROLE_USER_AUTHORITY_ID = 1;
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
+    private static final String ROLE_USER = "ROLE_USER";
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthorityService authorityService;
 
 //    public UserController(UserService userService) {
 //        this.userService = userService;
@@ -34,6 +46,24 @@ public class UserController {
         model.addAttribute("userList",userService.getUserList());
         return new ModelAndView("list","userModel",model);
     }
+    @GetMapping("/add")
+    public void add(Model model){
+        User user = new User();
+        user.setName("chpyue");
+        user.setPassword("123456");
+        user.setUserId(UUIDUtil.getUUID());
+        List<Authority> authorities = new ArrayList<>();
+//        Authority authority = new Authority();
+
+        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
+        user.setAuthorities(authorities);
+//        System.out.println("haha");
+//        System.out.println(authorities.size());
+//        System.out.println(user.toString());
+        userService.saveUser(user);
+        return;
+    }
+
 
 
 //    @ResponseBody

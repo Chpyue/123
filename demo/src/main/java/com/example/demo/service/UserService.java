@@ -18,4 +18,6 @@ import java.util.List;
  */
 public interface UserService {
     List<User> getUserList();
+    User saveUser(User user);
+    User getUser();
 }

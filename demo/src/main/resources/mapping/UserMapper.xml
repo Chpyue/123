@@ -2,10 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.example.demo.model.User" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, password, phone
+    user_id, birth, email, name, password, phone, portrait, username
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.model.UserExample" >
     select
@@ -75,7 +79,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_user
+    from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,36 +87,44 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from t_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    from user
+    where user_id = #{userId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_user
-    where user_id = #{userId,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.example.demo.model.UserExample" >
-    delete from t_user
+    delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.User" >
-    insert into t_user (user_id, user_name, password, 
-      phone)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR})
+    insert into user (user_id, birth, email, 
+      name, password, phone, 
+      portrait, username)
+    values (#{userId,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{portrait,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.model.User" >
-    insert into t_user
+    insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="userName != null" >
-        user_name,
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="name != null" >
+        name,
       </if>
       <if test="password != null" >
         password,
@@ -120,13 +132,25 @@
       <if test="phone != null" >
         phone,
       </if>
+      <if test="portrait != null" >
+        portrait,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -134,22 +158,34 @@
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="portrait != null" >
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.example.demo.model.UserExample" resultType="java.lang.Integer" >
-    select count(*) from t_user
+    select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_user
+    update user
     <set >
       <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userName != null" >
-        user_name = #{record.userName,jdbcType=VARCHAR},
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
@@ -157,26 +193,42 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.portrait != null" >
+        portrait = #{record.portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_user
-    set user_id = #{record.userId,jdbcType=INTEGER},
-      user_name = #{record.userName,jdbcType=VARCHAR},
+    update user
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      birth = #{record.birth,jdbcType=TIMESTAMP},
+      email = #{record.email,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR}
+      phone = #{record.phone,jdbcType=VARCHAR},
+      portrait = #{record.portrait,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.User" >
-    update t_user
+    update user
     <set >
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -184,14 +236,24 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="portrait != null" >
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.User" >
-    update t_user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    update user
+    set birth = #{birth,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+      phone = #{phone,jdbcType=VARCHAR},
+      portrait = #{portrait,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>
