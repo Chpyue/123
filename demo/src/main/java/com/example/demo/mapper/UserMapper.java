@@ -3,9 +3,10 @@ package com.example.demo.mapper;
 import com.example.demo.model.User;
 import com.example.demo.model.UserExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface UserMapper {
     int countByExample(UserExample example);
 

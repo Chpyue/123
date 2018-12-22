@@ -1,6 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -16,8 +20,50 @@ import java.util.List;
  * @UpdateRemark: The modified content
  * @Version: 1.0
  */
-public interface UserService {
-    List<User> getUserList();
-    User saveUser(User user);
+@Component
+public interface UserService extends UserDetailsService {
+//    List<User> getUserList();
+//    User saveUser(User user);
+
+    /**
+     * 获取整个用户信息
+     * @return
+     */
     User getUser();
+
+    /**
+     * 通过用户名称获取用户信息
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
+
+    /**
+     * 通过用户ID查询对应用户
+     * @param userId
+     * @return
+     */
+    User findByUserId(String userId);
+
+    /**
+     * 获取全部用户信息列表
+     * @return
+     */
+    List<User> getUserList();
+    /**
+     * 禁止调用
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    /**
+     * 插入一条用户信息
+     * @param user
+     * @return
+     */
+    User insertUser(User user);
+
+
 }

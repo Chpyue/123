@@ -4,17 +4,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <title>im test page</title>
+    <title th:text="title">用户列表</title>
 </head>
 <body>
     <table border="1">
         <tr th:if="${userList.size()} eq 0">
             <td> 没有用户信息</td>
         </tr>
+        <tr>
+            <td>用户名</td>
+            <td>密码</td>
+        </tr>
         <tr th:each="user:${userList}">
-            <td th:text="${user.userName}">userName</td>
+            <td th:text="${user.username}">userName</td>
             <td th:text="${user.password}">password</td>
-            <td th:text="${user.phone}">phone</td>
+            <!--<td th:text="${user.phone}">phone</td>-->
 
         </tr>
     </table>

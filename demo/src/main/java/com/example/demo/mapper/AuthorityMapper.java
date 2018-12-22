@@ -3,9 +3,10 @@ package com.example.demo.mapper;
 import com.example.demo.model.Authority;
 import com.example.demo.model.AuthorityExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface AuthorityMapper {
     int countByExample(AuthorityExample example);
 

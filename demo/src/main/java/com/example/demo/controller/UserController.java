@@ -4,8 +4,12 @@ import com.example.demo.model.Authority;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.Msg;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,11 +29,13 @@ import java.util.List;
  * @UpdateRemark: The modified content
  * @Version: 1.0
  */
-@RestController
-//@RequestMapping(value = "/user")
+@Controller
+//开启权限认证
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequestMapping(value = "/user")
 public class UserController {
 
-    private static final Integer ROLE_USER_AUTHORITY_ID = 1;
+    private static final Integer ROLE_USER_AUTHORITY_ID = 2;
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
     private static final String ROLE_USER = "ROLE_USER";
 
@@ -38,31 +44,85 @@ public class UserController {
     @Autowired
     private AuthorityService authorityService;
 
+    @GetMapping("/list")
+    public ModelAndView getUserList(Model model){
+        List<User> userList = userService.getUserList();
+        model.addAttribute("title","用户列表");
+        model.addAttribute("userList",userList);
+        return new ModelAndView("user/list","userModel",model);
+    }
+
+    /**
+     * 通过userId查找对应用户信息
+     * @param userId
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/{userId}")
+    public ModelAndView getUserInfo(@PathVariable("userId") String userId, Model model){
+        model.addAttribute("user",userService.findByUserId(userId));
+        model.addAttribute("title","个人信息");
+        return new ModelAndView("users/view","userModel",model);
+    }
+//    @GetMapping("/hello")
+////    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public ModelAndView index(Model model){
+//        Msg msg = new Msg("测试标题","测试内容","额外信息，只对管理员显示");
+//        model.addAttribute("msg",msg);
+//        return new ModelAndView("index","userModel",model);
+//    }
+//    @GetMapping("/hi")
+//    public void hi(){
+//        User user = new User();
+//        user.setUsername("admin");
+//        user.setUserId(UUIDUtil.getUUID());
+//        user.setPassword("admin");
+//        List<Authority> authorities = new ArrayList<>();
+//        authorities.add(authorityService.getAuthorityById(1));
+//        user.setAuthorities(authorities);
+//        userService.insertUser(user);
+//    }
+
 //    public UserController(UserService userService) {
 //        this.userService = userService;
 //    }
-    @GetMapping("/hello")
-    public ModelAndView hello(Model model){
-        model.addAttribute("userList",userService.getUserList());
-        return new ModelAndView("list","userModel",model);
-    }
-    @GetMapping("/add")
-    public void add(Model model){
-        User user = new User();
-        user.setName("chpyue");
-        user.setPassword("123456");
-        user.setUserId(UUIDUtil.getUUID());
-        List<Authority> authorities = new ArrayList<>();
-//        Authority authority = new Authority();
-
-        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
-        user.setAuthorities(authorities);
-//        System.out.println("haha");
-//        System.out.println(authorities.size());
+//    @GetMapping("/hello")
+//    public ModelAndView hello(Model model){
+//        model.addAttribute("userList",userService.getUserList());
+//        return new ModelAndView("list","userModel",model);
+//    }
+//    @GetMapping("/add")
+//    public void add(Model model){
+//        User user = new User();
+//        user.setName("chpyue");
+//        user.setPassword("123456");
+//        user.setUserId(UUIDUtil.getUUID());
+//        List<Authority> authorities = new ArrayList<>();
+////        Authority authority = new Authority();
+//
+//        authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
+//        user.setAuthorities(authorities);
+////        System.out.println("haha");
+////        System.out.println(authorities.size());
+////        System.out.println(user.toString());
+//        userService.saveUser(user);
+//        return;
+//    }
+//    @GetMapping("/user")
+//    public void user(Model model){
+//        User user=userService.getUser();
 //        System.out.println(user.toString());
-        userService.saveUser(user);
-        return;
-    }
+//    }
+//    @GetMapping("/")
+//    public Object index(Model model){
+//        return "hello world";
+//    }
+//    @GetMapping("/role")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public String role(){
+//        return "you have the role";
+//    }
+
 
 
 
@@ -89,4 +149,4 @@ public class UserController {
 //
 //        return userService.findAllUser(pageNum,pageSize);
 //    }
-}
+ }

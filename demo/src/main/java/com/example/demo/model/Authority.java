@@ -30,4 +30,12 @@ public class Authority implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "authorityId=" + authorityId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

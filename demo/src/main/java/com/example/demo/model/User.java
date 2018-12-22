@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public class User implements UserDetails, Serializable {
+public class User implements UserDetails, Serializable{
     private String userId;
 
     private Date birth;
@@ -29,6 +29,8 @@ public class User implements UserDetails, Serializable {
 
 //    权限 非自动生成
     private List<Authority> authorities;
+
+
 
     public String getUserId() {
         return userId;
@@ -62,6 +64,20 @@ public class User implements UserDetails, Serializable {
         this.name = name == null ? null : name.trim();
     }
 
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public List<Authority> getAuthorityList() {
+        return authorities;
+    }
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //  需将 List<Authority> 转成 List<SimpleGrantedAuthority>，否则前端拿不到角色列表名称
@@ -70,9 +86,6 @@ public class User implements UserDetails, Serializable {
             simpleGrantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
         }
         return simpleGrantedAuthorities;
-    }
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
     }
 
     public String getPassword() {
@@ -99,6 +112,7 @@ public class User implements UserDetails, Serializable {
         this.portrait = portrait == null ? null : portrait.trim();
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -122,6 +136,7 @@ public class User implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
+
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
