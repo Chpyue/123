@@ -6,9 +6,11 @@ import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -44,11 +46,14 @@ public class MainController {
     public String test(){
         System.out.println("进入测试函数");
         User user = userService.getUser();
-        System.out.println("controller:____"+user.toString());
+        System.out.println(user.getAuthorityList().toString());
+
+//        System.out.println("controller:____"+user.toString());
         return "index";
     }
 
     @GetMapping("/")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String boot(){
         return "index";
 //        return "redirect:/index";
@@ -77,6 +82,7 @@ public class MainController {
     public String toRegister(){
         return "register";
     }
+
     /**
      * 注册用户
      * @param user

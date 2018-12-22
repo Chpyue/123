@@ -53,18 +53,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findByUsername(String username) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria= example.createCriteria();
-        criteria.andUsernameLike(username);
+        criteria.andUsernameEqualTo(username);
 
         List<User> userList = userMapper.selectByExample(example);
+
         System.out.println(userList.size());
         if(userList.size()!=0){
             User user = userList.get(0);
             //中间表
+
             UserAuthorityExample example1 = new UserAuthorityExample();
             UserAuthorityExample.Criteria criteria1 = example1.createCriteria();
-            criteria1.andUserIdLike(user.getUserId());
+            criteria1.andUserIdEqualTo(user.getUserId());
+
             List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example1);
             System.out.println(userAuthorityList.size());
+
+
             //提取权限ID
             List<Integer> authotityIdList = new ArrayList<>();
             for (UserAuthority userAuthority : userAuthorityList) {
@@ -72,6 +77,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
             //权限表
             List<Authority> authorities = new ArrayList<>();
+
             AuthorityExample example2 = new AuthorityExample();
             AuthorityExample.Criteria criteria2 = example2.createCriteria();
             criteria2.andAuthorityIdIn(authotityIdList);
@@ -90,8 +96,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findByUserId(String userId) {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameLike(userId);
+
+        criteria.andUserIdEqualTo(userId);
+
         List<User> userList = userMapper.selectByExample(example);
+
         if(userList.size()!=0){
             String username = userList.get(0).getUsername();
             return findByUsername(username);
@@ -102,7 +111,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUserList() {
         UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
+//        UserExample.Criteria criteria = example.createCriteria();
+
+//        criteria.andPhoneEqualTo("12345");
+
         List<User> userList = userMapper.selectByExample(example);
         return userList;
     }
@@ -137,6 +149,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User insertUser(User user) {
 //        UserExample userExample = new UserExample();
         userMapper.insertSelective(user);
+
+
+
         for (Authority authority : user.getAuthorityList()) {
             UserAuthority userAuthority = new UserAuthority();
             userAuthority.setUserId(user.getUserId());

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class User implements UserDetails, Serializable{
+
     private String userId;
 
     private Date birth;
@@ -78,6 +79,7 @@ public class User implements UserDetails, Serializable{
 //        return null;
 //    }
 
+    //前端取值
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //  需将 List<Authority> 转成 List<SimpleGrantedAuthority>，否则前端拿不到角色列表名称

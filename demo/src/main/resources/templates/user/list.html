@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <title th:text="title">用户列表</title>
+    <title th:text="${title}">用户列表</title>
 </head>
 <body>
     <table border="1">
@@ -15,11 +15,11 @@
             <td>用户名</td>
             <td>密码</td>
         </tr>
+
         <tr th:each="user:${userList}">
-            <td th:text="${user.username}">userName</td>
+            <td><a th:href="@{'/user/'+${user.userId}}" th:text="${user.username}">userName</a></td>
             <td th:text="${user.password}">password</td>
             <!--<td th:text="${user.phone}">phone</td>-->
-
         </tr>
     </table>
 </body>
