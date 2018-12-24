@@ -52,13 +52,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //主路径可随意访问
                 .antMatchers("/","/toRegister","/register").permitAll()
                 //其他请求需要经过验证
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and()
                 //注销可随意访问
                 .logout().permitAll()
                 .and()
                 //允许表单登录
-                .formLogin();
+                .formLogin().loginPage("/login");
         //关闭默认csrf认证
         http.csrf().disable();
                 //都可以访问
