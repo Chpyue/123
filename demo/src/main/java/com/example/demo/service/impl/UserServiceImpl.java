@@ -111,9 +111,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUserList() {
         UserExample example = new UserExample();
-//        UserExample.Criteria criteria = example.createCriteria();
-
-//        criteria.andPhoneEqualTo("12345");
+       // UserExample.Criteria criteria = example.createCriteria();
+      //  criteria.andPhoneEqualTo("12345");
 
         List<User> userList = userMapper.selectByExample(example);
         return userList;
@@ -147,7 +146,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      */
     @Override
     public User insertUser(User user) {
-//        UserExample userExample = new UserExample();
+        UserExample userExample = new UserExample();
         userMapper.insertSelective(user);
 
 

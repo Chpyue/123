@@ -17,7 +17,7 @@ public interface CategoryMapper {
 
     int insertSelective(Category record);
 
-    List<Category> selectByExample(CategoryExample example);
+     List<Category> selectByExample(CategoryExample example);
 
     Category selectByPrimaryKey(Integer categoryId);
 
@@ -28,4 +28,6 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+
 }
