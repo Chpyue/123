@@ -18,7 +18,7 @@ import java.util.List;
  * @Package: com.example.demo.controller
  * @ClassName: ${TYPE_NAME}
  * @Description: java类作用描述
- * @Author: yueChunPeng
+ * @Author: yuedashadiao
  * @CreateDate: 2018-12-19 13:33
  * @UpdateUser: Neil.Zhou
  * @UpdateDate: 2018-12-19 13:33
@@ -47,6 +47,11 @@ public class UserController {
         model.addAttribute("userList",userList);
         return new ModelAndView("user/list","userModel",model);
     }
+
+
+
+
+
 
     /**
      * 通过userId查找对应用户信息
