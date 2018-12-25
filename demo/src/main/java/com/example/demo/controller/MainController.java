@@ -44,7 +44,7 @@ public class MainController {
 
     @GetMapping("/hi")
     public String test(){
-        System.out.println("进入测试函数");
+        System.out.println("进入测试函数123456789");
         User user = userService.getUser();
         System.out.println(user.getAuthorityList().toString());
 
