@@ -5,21 +5,20 @@ package com.example.demo.controller;
 import com.example.demo.model.Category;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.jws.WebParam;
 import java.util.List;
 
 @Controller
 @RequestMapping("/Category")
 public class CategoryController {
 
-    @Qualifier("categoryService")
+
+    @Autowired
     private CategoryService categoryService;
 
     /**
@@ -29,9 +28,11 @@ public class CategoryController {
      */
     @RequestMapping("/list")
     public ModelAndView getCategoryList(Model model){
+        System.out.println("---");
         List<Category> categoryList=categoryService.getCategoryList();
-        model.addAttribute("categorylist",categoryList);
-        return new ModelAndView("Category/list");
+        System.out.println(categoryList.size());
+        model.addAttribute("categoryList",categoryList);
+        return new ModelAndView("category/Category");
 
     }
 
@@ -67,6 +68,13 @@ public class CategoryController {
         return mv;
     }
 
+    /**
+     * 修改种类信息
+     * @param flag
+     * @param mv
+     * @param category
+     * @return
+     */
     @RequestMapping("/modifiCategory")
     public ModelAndView modifiCategroy(String flag,ModelAndView mv,@ModelAttribute Category category){
         if (flag.equals("1")){

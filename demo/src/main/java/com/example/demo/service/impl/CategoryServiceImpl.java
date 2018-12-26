@@ -10,9 +10,10 @@ import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class CategoryServiceImpl  implements CategoryService{
     private final CategoryMapper categoryMapper;
     private final ProductMapper productMapper;
@@ -25,6 +26,7 @@ public class CategoryServiceImpl  implements CategoryService{
     /**
      * 获取整个商品种类信息
      * @return
+     * 好像没什么用这个
      */
     @Override
     public Category getCategory(){
@@ -40,8 +42,8 @@ public class CategoryServiceImpl  implements CategoryService{
     @Override
     public List<Category> getCategoryList() {
         CategoryExample example=new CategoryExample();
-        CategoryExample.Criteria criteria=example.createCriteria();
-        criteria.andCategoryIdIsNotNull();
+//        CategoryExample.Criteria criteria=example.createCriteria();
+//        criteria.andCategoryIdIsNotNull();
         List<Category> categoryList= categoryMapper.selectByExample(example);
         return categoryList;
     }
@@ -94,6 +96,7 @@ public class CategoryServiceImpl  implements CategoryService{
         if (productList.size()!=0){
             //带一句话到前端页面提示不可以删除
 
+
         }else{
             CategoryExample example1=new CategoryExample();
             ProductExample.Criteria criteria1=example.createCriteria();
@@ -116,9 +119,4 @@ public class CategoryServiceImpl  implements CategoryService{
 
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
 }

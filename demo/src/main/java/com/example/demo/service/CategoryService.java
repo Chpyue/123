@@ -2,17 +2,20 @@ package com.example.demo.service;
 
 
 import com.example.demo.model.Category;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  *
- * 商品种类接口类
+ *
  */
-public interface CategoryService extends UserDetailsService {
+@Component
+public interface CategoryService{
     /**
+     * 暂时没用就没写
      * 获取所有商品种类
+     *
      * @return
      */
     Category getCategory();
