@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- *
- *
+ * 商品种类的接口
  */
 @Component
 public interface CategoryService{

@@ -28,7 +28,7 @@ public class CategoryController {
      */
     @RequestMapping("/list")
     public ModelAndView getCategoryList(Model model){
-        System.out.println("---");
+//        System.out.println("---");
         List<Category> categoryList=categoryService.getCategoryList();
         System.out.println(categoryList.size());
         model.addAttribute("categoryList",categoryList);
@@ -63,7 +63,7 @@ public class CategoryController {
      */
     @RequestMapping("/deletecategory")
     public ModelAndView removeCategory(Integer categoryId,ModelAndView mv){
-        System.out.println(categoryId);
+//        System.out.println(categoryId);
         categoryService.removeCategoryById(categoryId);
         mv.setViewName("redirect:/category/list");
         return mv;
@@ -71,9 +71,9 @@ public class CategoryController {
 
     /**
      * 修改种类信息
-     * @param flag
+     * @param flag 1.跳转修改页面 2.执行修改操作
      * @param mv
-     * @param category
+     * @param category 修改的对象
      * @return
      */
     @RequestMapping("/modificategory")
