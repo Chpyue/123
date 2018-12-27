@@ -19,7 +19,7 @@
         <tr th:each="user:${userList}">
             <td><a th:href="@{'/user/'+${user.userId}}" th:text="${user.username}">userName</a></td>
             <td th:text="${user.password}">password</td>
-            <!--<td th:text="${user.phone}">phone</td>-->
+            <td th:text="${user.phone}">phone</td>
         </tr>
     </table>
 </body>

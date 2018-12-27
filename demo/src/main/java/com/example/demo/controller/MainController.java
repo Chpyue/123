@@ -8,6 +8,7 @@ import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,14 +64,27 @@ public class MainController {
         return "index";
     }
 
+    //登录跳转
     @GetMapping("/login")
     public String login(){
         return "login";
     }
 
+    /**
+     * 根据用户权限进行分发
+     * @param model
+     * @return
+     */
     @GetMapping("/login-allot")
-    public String loginAllot(){
-        return "loginAllot";
+    public ModelAndView loginAllot(Model model){
+        User user = userService.getUser();
+        model.addAttribute("user",user);
+        String authority = user.getAuthorityList().toString();
+        if (authority.contains(ROLE_ADMIN)){
+            return new ModelAndView("admin/index","userModel",model);
+        }
+        else  return new ModelAndView("index","userModel",model);
+
     }
 
 
