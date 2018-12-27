@@ -149,8 +149,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserExample userExample = new UserExample();
         userMapper.insertSelective(user);
 
-
-
         for (Authority authority : user.getAuthorityList()) {
             UserAuthority userAuthority = new UserAuthority();
             userAuthority.setUserId(user.getUserId());

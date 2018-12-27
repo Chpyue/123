@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Category")
+@RequestMapping("/category")
 public class CategoryController {
 
 
@@ -43,7 +43,7 @@ public class CategoryController {
      * @param category 要添加的对象
      * @return
      */
-    @RequestMapping("/addCategory")
+    @RequestMapping("/addcategory")
     public ModelAndView addCategory(String flag,ModelAndView mv, @ModelAttribute Category category){
 
         if (flag.equals("1")){
@@ -57,13 +57,14 @@ public class CategoryController {
 
     /**
      * 删除种类
-     * @param id 通过种类id删除
+     * @param categoryId 通过种类id删除
      * @param mv
      * @return
      */
-    @RequestMapping("/deleteCategory")
-    public ModelAndView removeCategory(Integer id,ModelAndView mv){
-        categoryService.removeCategoryById(id);
+    @RequestMapping("/deletecategory")
+    public ModelAndView removeCategory(Integer categoryId,ModelAndView mv){
+        System.out.println(categoryId);
+        categoryService.removeCategoryById(categoryId);
         mv.setViewName("redirect:/category/list");
         return mv;
     }
@@ -75,16 +76,16 @@ public class CategoryController {
      * @param category
      * @return
      */
-    @RequestMapping("/modifiCategory")
+    @RequestMapping("/modificategory")
     public ModelAndView modifiCategroy(String flag,ModelAndView mv,@ModelAttribute Category category){
         if (flag.equals("1")){
             //获取目标对象
             Category category1=categoryService.findByCategoryId(category.getCategoryId());
             mv.addObject("category",category1);
-            mv.setViewName("Category/showModifiCategory");
+            mv.setViewName("category/showModifiCategory");
         }else {
             categoryService.modifiCategory(category);
-            mv.setViewName("redirect:/Category/list");
+            mv.setViewName("redirect:/category/list");
         }
         return mv;
     }

@@ -8,8 +8,6 @@ import com.example.demo.model.Product;
 import com.example.demo.model.ProductExample;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -77,7 +75,6 @@ public class CategoryServiceImpl  implements CategoryService{
     public Category addCategory(Category category) {
         CategoryExample example=new CategoryExample();
         categoryMapper.insertSelective(category);
-
         return category;
     }
 
@@ -89,23 +86,16 @@ public class CategoryServiceImpl  implements CategoryService{
      */
     @Override
     public void removeCategoryById(Integer categoryId) {
-        ProductExample example=new ProductExample();
-        ProductExample.Criteria criteria=example.createCriteria();
-        criteria.andProductIdEqualTo(categoryId);
-        List<Product> productList=productMapper.selectByExample(example);
+        //获取该商品下的商品集合
+       List<Product> productList=getProductByCategoryId(categoryId);
         if (productList.size()!=0){
             //带一句话到前端页面提示不可以删除
-
+            //
 
         }else{
-            CategoryExample example1=new CategoryExample();
-            ProductExample.Criteria criteria1=example.createCriteria();
-            criteria1.andCategoryIdEqualTo(categoryId);
-            categoryMapper.deleteByExample(example1);
-
-        }
-
-
+            CategoryExample example=new CategoryExample();
+            categoryMapper.deleteByPrimaryKey(categoryId);
+       }
     }
 
     /**
@@ -115,8 +105,24 @@ public class CategoryServiceImpl  implements CategoryService{
     @Override
     public void modifiCategory(Category category) {
         CategoryExample example=new CategoryExample();
-        categoryMapper.updateByExampleSelective(category,example);
+      //  CategoryExample.Criteria criteria=example.createCriteria();
+        //criteria.andCategoryIdEqualTo(catgeoryId);
+        categoryMapper.updateByPrimaryKeySelective(category);
 
+    }
+
+    /**
+     * 获取该种类下的商品集合
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<Product> getProductByCategoryId(Integer categoryId) {
+        ProductExample example=new ProductExample();
+        ProductExample.Criteria criteria=example.createCriteria();
+        criteria.andCategoryIdEqualTo(categoryId);
+        List<Product> productList=productMapper.selectByExample(example);
+        return productList;
     }
 
 }

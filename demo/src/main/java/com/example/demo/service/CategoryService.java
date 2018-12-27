@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.model.Category;
+import com.example.demo.model.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -50,5 +51,12 @@ public interface CategoryService{
      * @param category
      */
     void modifiCategory(Category category);
+
+    /**
+     * 获取该种类下的所有商品信息
+     * @param categoryId
+     * @return
+     */
+    List<Product> getProductByCategoryId(Integer categoryId);
 
 }
