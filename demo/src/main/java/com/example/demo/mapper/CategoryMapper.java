@@ -3,9 +3,10 @@ package com.example.demo.mapper;
 import com.example.demo.model.Category;
 import com.example.demo.model.CategoryExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface CategoryMapper {
     int countByExample(CategoryExample example);
 

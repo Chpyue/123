@@ -3,9 +3,10 @@ package com.example.demo.mapper;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public interface ProductMapper {
     int countByExample(ProductExample example);
 

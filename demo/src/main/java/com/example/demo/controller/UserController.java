@@ -45,6 +45,7 @@ public class UserController {
         List<User> userList = userService.getUserList();
         model.addAttribute("title","啊哈哈");
         model.addAttribute("userList",userList);
+
         return new ModelAndView("user/list","userModel",model);
     }
 
