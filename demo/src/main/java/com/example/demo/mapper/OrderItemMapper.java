@@ -28,4 +28,7 @@ public interface OrderItemMapper {
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
+
+    //此方法用于根据orderId查找订单项目   查找订单时一并查找出来  更改了mapper.xml文件
+    List<OrderItem> selectByOrderId(String orderId);
 }

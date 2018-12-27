@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductExample;
+import com.example.demo.model.ProductOrderItem;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -29,4 +30,7 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    //根据商品号查订单中要显示的商品信息   连表查询   查询订单项目时查询出来
+    ProductOrderItem selectOrderProductByProductId(Integer productId);
 }
