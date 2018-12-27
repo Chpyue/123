@@ -13,6 +13,16 @@ public class OrderItem {
 
     private BigDecimal perPrice;
 
+    private ProductOrderItem productOrderItem;
+
+    public ProductOrderItem getProductOrderItem() {
+        return productOrderItem;
+    }
+
+    public void setProductOrderItem(ProductOrderItem productOrderItem) {
+        this.productOrderItem = productOrderItem;
+    }
+
     public String getItemId() {
         return itemId;
     }
