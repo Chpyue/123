@@ -65,7 +65,7 @@ public class UserController {
         model.addAttribute("user",userService.findByUserId(userId));
         model.addAttribute("title","个人信息");
         System.out.println(userService.findByUserId(userId).toString());
-        return new ModelAndView("user/view","userModel",model);
+        return new ModelAndView("admin/profile","userModel",model);
     }
 
  }

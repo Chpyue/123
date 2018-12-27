@@ -58,7 +58,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .and()
                 //允许表单登录
-                .formLogin().loginPage("/login");
+                .formLogin().loginPage("/login").defaultSuccessUrl("/login-allot")
+                //处理异常,拒绝访问就重定向到403页面
+                .and().exceptionHandling().accessDeniedPage("/403");
+
         //关闭默认csrf认证
         http.csrf().disable();
                 //都可以访问
