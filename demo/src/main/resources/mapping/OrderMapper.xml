@@ -13,6 +13,17 @@
     <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
     <result column="receive_remark" property="receiveRemark" jdbcType="VARCHAR" />
     <result column="return_reason" property="returnReason" jdbcType="VARCHAR" />
+    <collection property="orderItemList" javaType="ArrayList" column="order_id"
+                ofType="com.example.demo.model.OrderItem"
+                select="com.example.demo.mapper.OrderItemMapper.selectByOrderId"
+                fetchType="eager">
+      <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+      <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+      <result column="product_id" property="productId" jdbcType="VARCHAR" />
+      <result column="number" property="number" jdbcType="INTEGER" />
+      <result column="per_price" property="perPrice" jdbcType="DECIMAL" />
+    </collection>
+
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,7 +84,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, user_id, total_price, order_time, complete_time, status, receiver, receive_phone, 
+    order_id, user_id, total_price, order_time, complete_time, status, receiver, receive_phone,
     receive_address, receive_remark, return_reason
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.model.OrderExample" >
@@ -83,7 +94,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from order
+    from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,33 +103,33 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
-    from order
+    from orders
     where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from order
+    delete from orders
     where order_id = #{orderId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.example.demo.model.OrderExample" >
-    delete from order
+    delete from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.Order" >
-    insert into order (order_id, user_id, total_price, 
-      order_time, complete_time, status, 
-      receiver, receive_phone, receive_address, 
+    insert into orders (order_id, user_id, total_price,
+      order_time, complete_time, status,
+      receiver, receive_phone, receive_address,
       receive_remark, return_reason)
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{totalPrice,jdbcType=DECIMAL}, 
-      #{orderTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{receiver,jdbcType=VARCHAR}, #{receivePhone,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{totalPrice,jdbcType=DECIMAL},
+      #{orderTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
+      #{receiver,jdbcType=VARCHAR}, #{receivePhone,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR},
       #{receiveRemark,jdbcType=VARCHAR}, #{returnReason,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.model.Order" >
-    insert into order
+    insert into orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         order_id,
@@ -191,13 +202,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.example.demo.model.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from order
+    select count(*) from orders
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update order
+    update orders
     <set >
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=VARCHAR},
@@ -238,24 +249,24 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update order
+    update orders
     set order_id = #{record.orderId,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=VARCHAR},
-      total_price = #{record.totalPrice,jdbcType=DECIMAL},
-      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
-      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      receiver = #{record.receiver,jdbcType=VARCHAR},
-      receive_phone = #{record.receivePhone,jdbcType=VARCHAR},
-      receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
-      receive_remark = #{record.receiveRemark,jdbcType=VARCHAR},
-      return_reason = #{record.returnReason,jdbcType=VARCHAR}
+    user_id = #{record.userId,jdbcType=VARCHAR},
+    total_price = #{record.totalPrice,jdbcType=DECIMAL},
+    order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+    complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+    status = #{record.status,jdbcType=INTEGER},
+    receiver = #{record.receiver,jdbcType=VARCHAR},
+    receive_phone = #{record.receivePhone,jdbcType=VARCHAR},
+    receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+    receive_remark = #{record.receiveRemark,jdbcType=VARCHAR},
+    return_reason = #{record.returnReason,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Order" >
-    update order
+    update orders
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -291,7 +302,7 @@
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Order" >
-    update order
+    update orders
     set user_id = #{userId,jdbcType=VARCHAR},
       total_price = #{totalPrice,jdbcType=DECIMAL},
       order_time = #{orderTime,jdbcType=TIMESTAMP},

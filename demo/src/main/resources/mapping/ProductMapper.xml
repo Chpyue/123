@@ -15,6 +15,14 @@
     <result column="is_effective" property="isEffective" jdbcType="INTEGER" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="OrderProductMap" type="com.example.demo.model.ProductOrderItem" >
+    <id column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -74,7 +82,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    product_id, category_id, product_name, price, count, image, date, factory, sales, 
+    product_id, category_id, product_name, price, count, image, date, factory, sales,
     status, is_effective, remarks
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.model.ProductExample" >
@@ -93,7 +101,13 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <select id="selectOrderProductByProductId" resultMap="OrderProductMap" parameterType="java.lang.Integer" >
+    select
     <include refid="Base_Column_List" />
     from product
     where product_id = #{productId,jdbcType=INTEGER}
@@ -252,17 +266,17 @@
   <update id="updateByExample" parameterType="map" >
     update product
     set product_id = #{record.productId,jdbcType=INTEGER},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
-      product_name = #{record.productName,jdbcType=VARCHAR},
-      price = #{record.price,jdbcType=DOUBLE},
-      count = #{record.count,jdbcType=INTEGER},
-      image = #{record.image,jdbcType=VARCHAR},
-      date = #{record.date,jdbcType=TIMESTAMP},
-      factory = #{record.factory,jdbcType=VARCHAR},
-      sales = #{record.sales,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      is_effective = #{record.isEffective,jdbcType=INTEGER},
-      remarks = #{record.remarks,jdbcType=VARCHAR}
+    category_id = #{record.categoryId,jdbcType=INTEGER},
+    product_name = #{record.productName,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DOUBLE},
+    count = #{record.count,jdbcType=INTEGER},
+    image = #{record.image,jdbcType=VARCHAR},
+    date = #{record.date,jdbcType=TIMESTAMP},
+    factory = #{record.factory,jdbcType=VARCHAR},
+    sales = #{record.sales,jdbcType=INTEGER},
+    status = #{record.status,jdbcType=INTEGER},
+    is_effective = #{record.isEffective,jdbcType=INTEGER},
+    remarks = #{record.remarks,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
