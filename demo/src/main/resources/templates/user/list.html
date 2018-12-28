@@ -17,7 +17,7 @@
         </tr>
 
         <tr th:each="user:${userList}">
-            <td><a th:href="@{'/user/'+${user.userId}}" th:text="${user.username}">userName</a></td>
+            <td><a th:href="@{'/user/'+${user.userId}}" th:text="${user.username}">没有数据鸭</a></td>
             <td th:text="${user.password}">password</td>
             <td th:text="${user.phone}">phone</td>
         </tr>

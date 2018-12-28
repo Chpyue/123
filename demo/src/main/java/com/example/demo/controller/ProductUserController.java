@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.service.ProductUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -37,8 +36,9 @@ public class ProductUserController {
      * @return
      */
     @RequestMapping("/allProduct")//所有商品页面
-    public ModelAndView toList(Model model,String orderbyname) {
-        model.addAttribute("allProductList",productUserService.findAll(orderbyname));
+    public ModelAndView allProductList(Model model,String orderbyname,Integer kind) {
+        model.addAttribute("productList",productUserService.findByKind(kind,orderbyname));
+        model.addAttribute("isHidden",true);
         return new ModelAndView("product/productlist","productModel",model);
     }
 
@@ -46,12 +46,13 @@ public class ProductUserController {
      * 搜索框
      * @param model
      * @param name
-     * @param orderbyname
+     * @param
      * @return
      */
     @RequestMapping("/findProduct")//查找商品
-    public ModelAndView findProduct(Model model,String name, String orderbyname){
-        model.addAttribute("findProductList",productUserService.findByName(name, orderbyname));
+    public ModelAndView findProduct(Model model,String name){
+        model.addAttribute("productList",productUserService.findByName(name));
+        model.addAttribute("isHidden",false);
         return new ModelAndView("product/productlist","productModel",model);
     }
 
@@ -62,9 +63,11 @@ public class ProductUserController {
      * @param orderbyname
      * @return
      */
-    @RequestMapping("findKindProduct")//按种类显示商品
-    public ModelAndView findKindProduct(Model model,int kind, String orderbyname){
-        model.addAttribute("findKindProductList",productUserService.findByKind(kind, orderbyname));
+    @RequestMapping("/findKindProduct")//按种类显示商品
+    public ModelAndView findKindProduct(Model model,Integer kind, String orderbyname){
+        model.addAttribute("productList",productUserService.findByKind(kind, orderbyname));
+        model.addAttribute("isHidden",true);
+        model.addAttribute("kind",kind);
         return new ModelAndView("product/productlist","productModel",model);
     }
 
@@ -74,9 +77,10 @@ public class ProductUserController {
      * @param productId
      * @return
      */
-    @RequestMapping("productInfo")//单个商品
+    @RequestMapping("/productInfo")//单个商品
     public ModelAndView productInfo(Model model,int productId){
-        model.addAttribute("findKindProductList",productUserService.productInfo(productId));
+        model.addAttribute("findProductInfo",productUserService.productInfo(productId));
+
         return new ModelAndView("product/productinfo","productModel",model);
     }
 

@@ -45,11 +45,14 @@ public class ProductUserServiceImpl implements ProductUserService {
      * @return
      */
     @Override
-    public List<Product> findByKind(int kind, String orderbyname) {
+    public List<Product> findByKind(Integer kind, String orderbyname) {
         ProductExample productExample = new ProductExample();
         ProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andIsEffectiveEqualTo(1);                                                   //判断是否下架
-        criteria.andCategoryIdEqualTo(kind);                                                        //判断商品类别
+        if(kind !=null)
+        {
+            criteria.andCategoryIdEqualTo(kind);                                                    //判断商品类别
+        }
         productExample.setOrderByClause(orderbyname + " desc");                                     //按照对应字段查询
         List<Product> productList = productMapper.selectByExample(productExample);                  //输出全部商品
         return productList;
@@ -63,27 +66,12 @@ public class ProductUserServiceImpl implements ProductUserService {
      * @return
      */
     @Override
-    public List<Product> findByName(String name, String orderbyname) {
+    public List<Product> findByName(String name) {
         ProductExample productExample = new ProductExample();
         ProductExample.Criteria criteria = productExample.createCriteria();
         criteria.andIsEffectiveEqualTo(1);                                                   //判断商品是否下架
         criteria.andProductNameLike(name);                                                          //模糊查询
-        productExample.setOrderByClause(orderbyname + "desc");                                      //按照对应字段排序排序
         return productMapper.selectByExample(productExample);
-    }
-
-    /**
-     * 显示所有商品
-     * 并按照对应字段排序
-     * @return
-     */
-    @Override
-    public List<Product> findAll(String orderbyname) {
-        ProductExample productExample = new ProductExample();
-        ProductExample.Criteria criteria = productExample.createCriteria();
-        criteria.andIsEffectiveEqualTo(1);                                                      //判断是否下架
-        productExample.setOrderByClause(orderbyname + "desc");                                         //按照对应字段排序
-        return productMapper.selectByExample(productExample);                                          //输出商品
     }
 
     /**
