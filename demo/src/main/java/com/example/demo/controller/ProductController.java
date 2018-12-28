@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Category;
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductView;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -21,6 +23,7 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
+
     /**
      * 商品列表
      * @param model
@@ -28,15 +31,8 @@ public class ProductController {
      */
     @RequestMapping("/list")
     public ModelAndView getProductList(Model model){
-        List<Product> productList=productService.getProductList();
-//        System.out.println("这个商品的种类id是");
+        List<ProductView> productList=productService.getProductList();
         model.addAttribute("productList",productList);
-//        for (int i=0;i<productList.size();i++){
-//            Category category=categoryService.findByCategoryId(productList.get(i).getCategoryId());
-//
-//            model.addAttribute("category",category);
-//        }
-
         return new ModelAndView("product/Product");
     }
 
@@ -44,20 +40,22 @@ public class ProductController {
      * 添加商品
      * @param product
      * @param flag 1.跳转添加页面 2.执行添加操作
-     * @param mv
+     * @param
      * @return
      */
     @RequestMapping("/addproduct")
-    public ModelAndView addProduct(@ModelAttribute Product product,String flag,ModelAndView mv){
-        if(flag.equals("1")){
-            mv.setViewName("product/showAddProduct");
-        }else {
-            System.out.println("---------------");
-            productService.addProduct(product);
+    public ModelAndView addProduct(Product product,String flag,Model model){
 
-            mv.setViewName("redirect:product/list");
+        List<Category> categoryList=categoryService.getCategoryList();
+        model.addAttribute("categoryList",categoryList);
+        product.setDate(new Date());
+        if(flag.equals("1")){
+            return new ModelAndView("product/showAddProduct","productModel",model);
+        }else {
+            productService.addProduct(product);
+            return new ModelAndView("redirect:/product/list");
         }
-        return mv;
+
     }
 
     /**
@@ -68,16 +66,18 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/modifiproduct")
-    public ModelAndView modifiProduct(String flag,ModelAndView mv,@ModelAttribute Product product){
+    public ModelAndView modifiProduct(String flag, Product product ,Model model){
+        List<Category> categoryList=categoryService.getCategoryList();
+        model.addAttribute("categoryList",categoryList);
         if (flag.equals("1")){
-            Product product1=productService.findByProductId(product.getProductId());
-            mv.addObject("product",product1);
-            mv.setViewName("product/showModifiProduct");
+            ProductView productView=productService.findByProductId(product.getProductId());
+            model.addAttribute("productView",productView);
+            return new ModelAndView("product/showModifiProduct","productmodel",model);
         }else {
+            System.out.println(product.toString());
             productService.modifiProduct(product);
-            mv.setViewName("redirect:product/list");
+            return new ModelAndView("redirect:/product/list");
         }
-        return mv;
     }
 
     /**
@@ -89,7 +89,7 @@ public class ProductController {
     @RequestMapping("/deleteproduct")
     public ModelAndView removeProduct(Integer productId,ModelAndView mv){
         productService.removeProductById(productId);
-        mv.setViewName("redirect:product/list");
+        mv.setViewName("redirect:/product/list");
         return mv;
     }
 

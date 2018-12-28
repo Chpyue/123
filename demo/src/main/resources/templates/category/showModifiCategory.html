@@ -307,9 +307,12 @@
                                 <!-- 主体部分-->
                                 <tbody>
                                 <td th:text="${category.categoryId}"></td>
-                                <td><input name="name" type="text" th:placeholder="${category.name}" id="name"></td>
-                                <td><input name="remarks" type="text" th:placeholder="${category.remarks}" id="remarks"></td>
-                                <td><input type="submit" value="修改" id="updatebtn">&nbsp;&nbsp;<input type="reset" value="取消 "></td>
+                                <td><input name="name" type="text" th:value="${category.name}" id="name"></td>
+                                <td><input name="remarks" type="text" th:value="${category.remarks}" id="remarks"></td>
+                                <td>
+                                    <button type="submit" class="btn btn-success" id="updatebtn">修改</button>
+                                    <button type="reset"  class="btn btn-danger"><a href="/category/list">取消</a></button>
+                                </td>
                                 </tbody>
                                 <!--主体部分结束-->
                             </table>

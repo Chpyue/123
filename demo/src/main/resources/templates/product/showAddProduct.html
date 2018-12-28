@@ -295,18 +295,23 @@
                                     <th><i class="fa fa-bookmark"></i>图片</th>
                                     <th><i class=" fa fa-bookmark"></i> 单价</th>
                                     <th><i class="fa fa-bookmark"></i>库存量</th>
-                                    <th><i class="fa fa-bookmark"></i>上架时间</th>
+                                    <!--<th><i class="fa fa-bookmark"></i>上架时间</th>-->
                                     <th><i class="fa fa-bookmark"></i>生产厂家</th>
                                     <th><i class="fa fa-question-circle"></i>上下架状态</th>
                                     <th><i class="fa fa-bookmark"></i>备注</th>
-                                    <th><i class="fa fa-question-circle"></i>商品有效性</th>
                                 </tr>
                                 </thead>
                                 <!-- 主体部分-->
                                 <tbody>
                                 <td>
                                     <div class="form-group">
-                                       <input type="text" class="form-control" id="categoryId" name="categoryId">
+                                        <select name="categoryId" class="btn btn-secondary dropdown-toggle">
+                                            <option value="0">请选择商品类型</option>
+                                            <!--/*@thymesVar id="categoryList" type="templates"*/-->
+                                            <div th:each="category:${categoryList}">
+                                                <option th:value="${category.categoryId}" th:text="${category.name}"></option>
+                                            </div>
+                                        </select>
                                     </div>
                                 </td>
                                 <td>
@@ -329,11 +334,11 @@
                                         <input type="text" class="form-control" id="count" name="count" placeholder="库存量">
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="form-group">
-                                        <input type="date" class="form-control" id="date" name="date" placeholder="上架时间">
-                                    </div>
-                                </td>
+                                <!--<td>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<input type="datetime-local" class="form-control" id="date" name="date" placeholder="上架时间">-->
+                                    <!--</div>-->
+                                <!--</td>-->
                                 <td>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="factory" name="factory" placeholder="生产厂家">
@@ -342,8 +347,8 @@
                                 <td>
                                     <div class="form-group">
                                         <select name="status" class="btn btn-secondary dropdown-toggle" >
-                                            <option value="0">下架</option>
                                             <option value="1">上架</option>
+                                            <option value="0">下架</option>
                                         </select>
                                     </div>
                                 </td>
@@ -352,13 +357,6 @@
                                         <input type="text" class="form-control" id="remarks" name="remarks" placeholder="你想说点什么">
                                     </div>
                                 </td>
-                                <td>
-                                    <select name="isEffective" class="btn btn-secondary dropdown-toggle" >
-                                        <option value="0">无效</option>
-                                        <option value="1">有效</option>
-                                    </select>
-                                </td>
-
                                 <td>
                                     <button type="submit" class="btn btn-success" id="addbtn">提交</button>
                                     <button type="reset"  class="btn btn-danger" >取消</button>
@@ -399,25 +397,34 @@
 <script src="../admins/js/common-scripts.js"></script>
 
 <script type="text/javascript">
-    $(function(){
-        /** 添加的商品种类表单提交 */
-
-    });
-
-    $("#addbtn").click(function(){
-        $("#addproductForm").submit(function(){
+    $("#addbtn").click(function() {
+        $("#addproductForm").submit(function () {
             var productName = $("#productName");
-
             var price = $("#price");
             var count = $("#count");
-            var date = $("#date");
             var factory = $("#factory");
             var remarks = $("#remarks");
             var msg = "";
-            if (msg != ""){
+            if ($.trim(productName).val() == "") {
+                msg = "商品名称不能为空";
+                productName.focus();
+            } else if ($.trim(price).val() == "") {
+                msg = "单价不能为空";
+                price.focus();
+            } else if ($.trim(count).val() == "") {
+                msg = "库存量不能为空";
+                count.focus();
+            } else if ($.trim(factory).val() == "") {
+                msg = "生产厂家不能为空";
+                factory.focus();
+            } else if ($.trim(remarks).val() == "") {
+                msg = "备注为空";
+                remarks.focus();
+            }
+            if (msg != "") {
                 $.ligerDialog.error(msg);
                 return false;
-            }else{
+            } else {
                 return true;
             }
             $("#addproductForm").submit();

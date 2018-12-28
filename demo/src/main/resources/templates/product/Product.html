@@ -307,25 +307,25 @@
                             <!-- 主体部分-->
                             <tbody>
                             <!--/*@thymesVar id="productList" type=""*/-->
-                            <tr th:each="product:${productList}">
-                                <td th:text="${product.productId}"></td>
-                                <td th:text="${product.categoryId}"></td>
-                                <td th:text="${product.productName}"></td>
-                                <td th:src="${product.image}"></td>
-                                <td th:text="${product.price}"></td>
-                                <td th:text="${product.count}"></td>
-                                <td th:text="${product.date}"></td>
-                                <td th:text="${product.factory}"></td>
-                                <td th:text="${product.sales}"></td>
-                                <td th:text="${product.status}"></td>
-                                <td th:text="${product.isEffective}"></td>
-                                <td th:text="${product.remarks}"></td>
+                            <tr th:each="productview:${productList}">
+                                <td th:text="${productview.productId}"></td>
+                                <td th:text="${productview.categoryName}"></td>
+                                <td th:text="${productview.productName}"></td>
+                                <td th:src="${productview.image}"></td>
+                                <td th:text="${productview.price}"></td>
+                                <td th:text="${productview.count}"></td>
+                                <td th:text="${productview.date}"></td>
+                                <td th:text="${productview.factory}"></td>
+                                <td th:text="${productview.sales}"></td>
+                                <td th:text="${productview.status}"></td>
+                                <td th:text="${productview.isEffective}"></td>
+                                <td th:text="${productview.remarks}"></td>
                                 <td>
                                     <button class="btn btn-primary btn-xs">
-                                        <a th:href="'/product/modifiproduct?flag=1&productId='+${product.productId}"  class="fa fa-pencil" >
+                                        <a th:href="'/product/modifiproduct?flag=1&productId='+${productview.productId}"  class="fa fa-pencil" >
                                         </a>
                                     </button>
-                                    <button class="btn btn-danger btn-xs" th:onclick="'javascript:deletef('+${product.productId}+')'">
+                                    <button class="btn btn-danger btn-xs" th:onclick="'javascript:deletef('+${productview.productId}+')'">
                                         <i class="fa fa-trash-o " ></i>
                                     </button>
                                 </td>

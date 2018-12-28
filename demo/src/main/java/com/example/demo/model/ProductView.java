@@ -132,4 +132,23 @@ public class ProductView {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ProductView{" +
+                "categoryName='" + categoryName + '\'' +
+                ", productId=" + productId +
+                ", categoryId=" + categoryId +
+                ", productName='" + productName + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", image='" + image + '\'' +
+                ", date=" + date +
+                ", factory='" + factory + '\'' +
+                ", sales=" + sales +
+                ", status=" + status +
+                ", isEffective=" + isEffective +
+                ", remarks='" + remarks + '\'' +
+                '}';
+    }
 }

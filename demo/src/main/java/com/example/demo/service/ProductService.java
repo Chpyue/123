@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Product;
+import com.example.demo.model.ProductView;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,14 +16,14 @@ public interface ProductService {
      * 获取商品列表
      * @return
      */
-    List<Product> getProductList();
+    List<ProductView> getProductList();
 
     /**
      * 通过id查询商品
      * @param productId
      * @return
      */
-    Product findByProductId(Integer productId);
+    ProductView findByProductId(Integer productId);
 
     /**
      * 新增一个商品
