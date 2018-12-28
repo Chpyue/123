@@ -157,6 +157,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return user;
     }
+
+
+
     @Override
     public User getUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
@@ -166,38 +169,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return user;
     }
-//    @Autowired
-//    private UserMapper userMapper;
-//    @Autowired
-//    private UserAuthorityMapper userAuthorityMapper;
-//    @Autowired
-//    private AuthorityService authorityService;
-//
-//    @Override
-//    public List<User> getUserList() {
-//        UserExample example = new UserExample();
-//        UserExample.Criteria criteria= example.createCriteria();
-//        return userMapper.selectByExample(example);
-//    }
-//
-//    @Override
-//    public User saveUser(User user) {
-//
-//        for (GrantedAuthority authority : user.getAuthorities()) {
-//            String name = authority.getAuthority();
-//            Integer authorityId = authorityService.getAuthorityByName(name).getAuthorityId();
-//            userAuthorityMapper.insertSelective(new UserAuthority(user.getUserId(),authorityId));
-//        }
-//        userMapper.insertSelective(user);
-//        return null;
-//    }
+    @Override
+    public void updateUser(User user) {
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        UserExample example = new UserExample();
-//        UserExample.Criteria criteria= example.createCriteria();
-//        criteria.andUsernameEqualTo(username);
-//        return userMapper.selectByExample(example).get(0);
-//    }
 }

@@ -66,4 +66,9 @@ public interface UserService extends UserDetailsService {
     User insertUser(User user);
 
 
+    /**
+     * 更新一条用户信息
+     * @param user
+     */
+    void updateUser(User user);
 }
