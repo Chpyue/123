@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
         <meta name="author" content="order by dede58.com"/>
 		<title>小米6立即购买-小米商城</title>
-		<link rel="stylesheet" type="text/css" href="../../static.user/css/style.css">
+		<link rel="stylesheet" type="text/css" href="../../static/users/css/style.css">
 	</head>
 	<body>
 	<!-- start header -->
@@ -54,21 +56,21 @@
 
 <!-- start banner_x -->
 		<div class="banner_x center">
-			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
-			<a href=""><div class="ad_top fl"></div></a>
 			<div class="nav fl">
-				<ul>
-					<li><a href="">小米手机</a></li>
-					<li><a href="">红米</a></li>
-					<li><a href="">平板·笔记本</a></li>
-					<li><a href="">电视</a></li>
-					<li><a href="">盒子·影音</a></li>
-					<li><a href="">路由器</a></li>
-					<li><a href="">智能硬件</a></li>
-					<li><a href="">服务</a></li>
-					<li><a href="">社区</a></li>
+				<ul >
+					<li><a th:href="@{'/product/allProduct?orderbyname=price'}">全部商品</a></li>
 				</ul>
 			</div>
+			<div class="nav fl">
+				<ul >
+					<li th:each="category:${categoryList1}">
+						<a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderorderbyname=price'}" th:text="${category.name}">全部商品类型</a>
+					</li>
+				</ul>
+			</div>
+
+
+
 			<div class="search fr">
 				<form action="" method="post">
 					<div class="text fl">
@@ -84,7 +86,7 @@
 		</div>
 <!-- end banner_x -->
 
-	
+
 	<!-- xiangqing -->
 	<form action="post" method="">
 	<div class="xiangqing">
@@ -105,41 +107,40 @@
 				<div class="clear"></div>
 			</nav>
 			<div class="clear"></div>
-		</div>	
+		</div>
 	</div>
-	
-	<div class="jieshao mt20 w">
-		<div class="left fl"><img src="./image/liebiao_xiaomi6.jpg"></div>
+	<div class="jieshao mt20 w"th:each="product:${findProductInfo}">
+		<div class="left fl"><img th:src="${product.image}"></div>
 		<div class="right fr">
-			<div class="h3 ml20 mt20">小米6</div>
-			<div class="jianjie mr40 ml20 mt10">变焦双摄，4 轴防抖 / 骁龙835 旗舰处理器，6GB 大内存，最大可选128GB 闪存 / 5.15" 护眼屏 / 四曲面玻璃/陶瓷机身</div>
-			<div class="jiage ml20 mt10">2499.00元</div>
+			<div class="h3 ml20 mt20" th:text="${product.productName}">名称</div>
+			<div class="jianjie mr40 ml20 mt10" th:text="${product.remarks}">描述</div>
+			<div class="jiage ml20 mt10" th:text="${product.price}">价格</div>
 			<div class="ft20 ml20 mt20">选择版本</div>
-			<!--<div class="xzbb ml20 mt10">-->
-				<!--<div class="banben fl">-->
-					<!--<a>-->
-						<!--<span>全网通版 6GB+64GB </span>-->
-						<!--<span>2499元</span>-->
-					<!--</a>-->
-				<!--</div>-->
-				<!--<div class="banben fr">-->
-					<!--<a>-->
-						<!--<span>全网通版 6GB+128GB</span>-->
-						<!--<span>2899元</span>-->
-					<!--</a>-->
-				<!--</div>-->
-				<!--<div class="clear"></div>-->
-			<!--</div>-->
-			<!--<div class="ft20 ml20 mt20">选择颜色</div>-->
-			<!--<div class="xzbb ml20 mt10">-->
-				<!--<div class="banben">-->
-					<!--<a>-->
-						<!--<span class="yuandian"></span>-->
-						<!--<span class="yanse">亮黑色</span>-->
-					<!--</a>-->
-				<!--</div>-->
-				<!---->
-			<!--</div>-->
+			<div class="xzbb ml20 mt10">
+				<div class="banben fl">
+					<a>
+						<span>全网通版 6GB+64GB </span>
+						<span>2499元</span>
+					</a>
+				</div>
+				<div class="banben fr">
+					<a>
+						<span>全网通版 6GB+128GB</span>
+						<span>2899元</span>
+					</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="ft20 ml20 mt20">选择颜色</div>
+			<div class="xzbb ml20 mt10">
+				<div class="banben">
+					<a>
+						<span class="yuandian"></span>
+						<span class="yanse">亮黑色</span>
+					</a>
+				</div>
+
+			</div>
 			<div class="xqxq mt20 ml20">
 				<div class="top1 mt10">
 					<div class="left1 fl">小米6 全网通版 6GB内存 64GB 亮黑色</div>

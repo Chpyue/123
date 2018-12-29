@@ -51,9 +51,9 @@ public class ProductUserServiceImpl implements ProductUserService {
         criteria.andIsEffectiveEqualTo(1);                                                   //判断是否下架
         if(kind !=null)
         {
-            criteria.andCategoryIdEqualTo(kind);                                                    //判断商品类别
-        }
-        productExample.setOrderByClause(orderbyname + " desc");                                     //按照对应字段查询
+            criteria.andCategoryIdEqualTo(kind);                                                    //判断商品类别,如果有种类，则输出对应种类
+        }                                                                                           //没有则直接排序输出
+        productExample.setOrderByClause(orderbyname+" desc");// 按照对应字段查询
         List<Product> productList = productMapper.selectByExample(productExample);                  //输出全部商品
         return productList;
     }
@@ -61,7 +61,6 @@ public class ProductUserServiceImpl implements ProductUserService {
     /**
      * 根据名称模糊查询
      * 并按照对应字段排序排序
-     *
      * @param name
      * @return
      */
@@ -69,8 +68,8 @@ public class ProductUserServiceImpl implements ProductUserService {
     public List<Product> findByName(String name) {
         ProductExample productExample = new ProductExample();
         ProductExample.Criteria criteria = productExample.createCriteria();
-        criteria.andIsEffectiveEqualTo(1);                                                   //判断商品是否下架
-        criteria.andProductNameLike(name);                                                          //模糊查询
+        criteria.andIsEffectiveEqualTo(1);                                                     //判断商品是否下架
+        criteria.andProductNameLike("%"+name+"%");                                                        //模糊查询
         return productMapper.selectByExample(productExample);
     }
 

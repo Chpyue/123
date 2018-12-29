@@ -19,7 +19,7 @@ public interface ProductUserService {
     /**
      *按类型查找商品，并按照对应要求排序
      */
-    List<Product> findByKind(Integer kind,String orderbyname);
+    List<Product> findByKind(Integer kind, String orderbyname);
 
     /**
      * 按名称查找商品（模糊查询），并按照对应要求排序

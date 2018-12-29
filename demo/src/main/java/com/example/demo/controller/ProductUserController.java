@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -23,10 +24,15 @@ public class ProductUserController {
      * @param model
      * @return
      */
-    @RequestMapping("/categoryList")//商品种类列表
+    @RequestMapping("/categoryList")//list商品种类列表
     public ModelAndView categoryList(Model model){
         model.addAttribute("categoryList",productUserService.categoryList());
         return new ModelAndView("product/productlist","categoryModel",model);
+    }
+    @RequestMapping("/categoryList1")//info商品种类列表
+    public ModelAndView categoryList1(Model model){
+        model.addAttribute("categoryList1",productUserService.categoryList());
+        return new ModelAndView("product/productinfo","categoryModel",model);
     }
 
     /**
@@ -37,7 +43,14 @@ public class ProductUserController {
      */
     @RequestMapping("/allProduct")//所有商品页面
     public ModelAndView allProductList(Model model,String orderbyname,Integer kind) {
+        if(kind!=null) {
+            if (kind == -1) {
+                kind = null;
+            }
+        }
         model.addAttribute("productList",productUserService.findByKind(kind,orderbyname));
+        model.addAttribute("categoryList",productUserService.categoryList());
+        model.addAttribute("selectType",orderbyname);
         model.addAttribute("isHidden",true);
         return new ModelAndView("product/productlist","productModel",model);
     }
@@ -52,9 +65,11 @@ public class ProductUserController {
     @RequestMapping("/findProduct")//查找商品
     public ModelAndView findProduct(Model model,String name){
         model.addAttribute("productList",productUserService.findByName(name));
+        model.addAttribute("categoryList",productUserService.categoryList());
         model.addAttribute("isHidden",false);
         return new ModelAndView("product/productlist","productModel",model);
     }
+
 
     /**
      * 种类按钮
@@ -65,7 +80,14 @@ public class ProductUserController {
      */
     @RequestMapping("/findKindProduct")//按种类显示商品
     public ModelAndView findKindProduct(Model model,Integer kind, String orderbyname){
+        if(kind!=null) {
+            if (kind == -1) {
+                kind = null;
+            }
+        }
         model.addAttribute("productList",productUserService.findByKind(kind, orderbyname));
+        model.addAttribute("selectType",orderbyname);
+        model.addAttribute("categoryList",productUserService.categoryList());
         model.addAttribute("isHidden",true);
         model.addAttribute("kind",kind);
         return new ModelAndView("product/productlist","productModel",model);
@@ -80,8 +102,6 @@ public class ProductUserController {
     @RequestMapping("/productInfo")//单个商品
     public ModelAndView productInfo(Model model,int productId){
         model.addAttribute("findProductInfo",productUserService.productInfo(productId));
-
         return new ModelAndView("product/productinfo","productModel",model);
     }
-
 }
