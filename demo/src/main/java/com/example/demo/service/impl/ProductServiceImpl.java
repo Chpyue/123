@@ -1,15 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.mapper.CategoryMapper;
 import com.example.demo.mapper.ProductMapper;
-import com.example.demo.model.Category;
-import com.example.demo.model.CategoryExample;
-import com.example.demo.model.Product;
-import com.example.demo.model.ProductExample;
+import com.example.demo.mapper.ProductViewMapper;
+import com.example.demo.model.*;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -19,10 +15,12 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private final ProductViewMapper ProductViewMapper;
     private final ProductMapper productMapper;
     @Autowired
-    public ProductServiceImpl( ProductMapper productMapper) {
+    public ProductServiceImpl(ProductViewMapper ProductViewMapper, ProductMapper productMapper) {
 
+        this.ProductViewMapper = ProductViewMapper;
         this.productMapper = productMapper;
     }
 
@@ -31,9 +29,9 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     @Autowired
-    public List<Product> getProductList(){
-        ProductExample example=new ProductExample();
-        List<Product> productList=productMapper.selectByExample(example);
+    public List<ProductView> getProductList(){
+        ProductViewExample example=new ProductViewExample();
+        List<ProductView> productList=ProductViewMapper.selectByExample(example);
         return productList;
 
     }
@@ -44,18 +42,19 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     @Override
-    public Product findByProductId(Integer productId) {
-        ProductExample example=new ProductExample();
-        ProductExample.Criteria criteria=example.createCriteria();
+    public ProductView findByProductId(Integer productId) {
+        ProductViewExample example=new ProductViewExample();
+        ProductViewExample.Criteria criteria=example.createCriteria();
         criteria.andProductIdEqualTo(productId);
-        List<Product> productList=productMapper.selectByExample(example);
+        List<ProductView> productList=ProductViewMapper.selectByExample(example);
         if(productList.size()!=0){
-            Product product=productList.get(0);
-            return product;
+            ProductView productView=productList.get(0);
+            return productView;
         }else {
             return null;
         }
     }
+
 
     /**
      * 添加商品
@@ -75,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public void removeProductById(Integer productId) {
-        ProductExample example=new ProductExample();
-//        ProductExample.Criteria criteria=example.createCriteria();
+        ProductViewExample example=new ProductViewExample();
+//        ProductViewExample.Criteria criteria=example.createCriteria();
 //        criteria.andProductIdEqualTo(productId);
         productMapper.deleteByPrimaryKey(productId);
     }
