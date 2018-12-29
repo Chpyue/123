@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +40,7 @@
         <i class="icon-404"></i>
         <h1>404</h1>
         <h2>page not found</h2>
-        <p class="page-404">Something went wrong or that page doesn’t exist yet. <a href="../index.html">Return Home</a></p>
+        <p class="page-404">Something went wrong or that page doesn’t exist yet. <a th:href="@{/}">Return Home</a></p>
     </section>
 
 </div>

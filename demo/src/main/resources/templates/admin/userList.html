@@ -498,16 +498,20 @@
                             </thead>
                             <tbody>
                             <tr th:each="users:${userList}">
-                                <td><a th:text="${users.username}" href="#">Vector Ltd</a></td>
+                                <td><a th:href="@{'/user/'+${users.userId}}" th:text="${users.username}" href="#">Vector Ltd</a></td>
                                 <td th:text="${users.name}" class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                <td th:text="${users.sex}">12120.00$ </td>
+                                <td th:switch="${users.sex}">
+                                    <a th:case="1" th:text="男">男</a>
+                                    <a th:case="2" th:text="女">女</a>
+                                    <a th:case="3" th:text="保密">保密</a>
+                                </td>
                                 <td><span th:text="${users.registerTime.toLocaleString()}" class="label label-warning label-mini">Due</span></td>
                                 <td th:switch="${users.isEffective}">
                                     <a th:case="1" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=0'}" class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
                                     <a th:case="0" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=1'}" class="btn btn-danger btn-xs"><i class="fa fa-times "></i></a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
+                                    <a th:href="@{'/user/'+${users.userId}}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
                                 </td>
                             </tr>
                             </tbody>

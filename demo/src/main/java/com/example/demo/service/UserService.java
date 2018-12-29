@@ -50,6 +50,13 @@ public interface UserService extends UserDetailsService {
      * @return
      */
     List<User> getUserList();
+
+    /**
+     * 获取超级管理员列表
+     * @return
+     */
+    List<User> getAdminList();
+
     /**
      * 禁止调用
      * @param username
@@ -71,4 +78,6 @@ public interface UserService extends UserDetailsService {
      * @param user
      */
     void updateUser(User user);
+
+
 }

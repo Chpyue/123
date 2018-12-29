@@ -38,7 +38,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body th:onload="'javascript:loadCountUp('+${userCount}+')'">
 
 <section id="container" >
     <!--header start-->
@@ -47,7 +47,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo">Flat<span>lab</span></a>
+        <a th:href="@{/login-allot}" class="logo">CDIO<span>NO.1</span></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
@@ -274,7 +274,7 @@
                         <li><a th:href="@{'/user/'+${user.userId}}" href="#"><i class=" fa fa-suitcase"></i>个人资料</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                         <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                        <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="fa fa-key"></i> 注销</a></li>
                     </ul>
                 </li>
                 <li class="sb-toggle-right">
@@ -294,7 +294,7 @@
                 <li>
                     <a class="active" href="index.html">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span>仪表盘</span>
                     </a>
                 </li>
 
@@ -311,7 +311,7 @@
                     </a>
                     <ul class="sub">
                         <li><a th:href="@{user/list}">普通用户</a></li>
-                        <li><a  href="buttons.html">管理员列表</a></li>
+                        <li><a th:href="@{user/adminlist}" >管理员列表</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -489,7 +489,7 @@
                             <h1 class="count">
                                 0
                             </h1>
-                            <p>New Users</p>
+                            <p><a th:href="@{user/list}">用户人数</a></p>
                         </div>
                     </section>
                 </div>

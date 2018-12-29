@@ -40,7 +40,7 @@
             <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo" >Flat<span>lab</span></a>
+        <a th:href="@{/login-allot}" class="logo">CDIO<span>NO.1</span></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
@@ -480,13 +480,16 @@
                             <a href="#">
                                 <img src="../admins/img/profile-avatar.jpg" alt="">
                             </a>
-                            <h1 th:text="${user.name}">Jonathan Smith</h1>
-                            <p th:text="${user.email}">jsmith@flatlab.com</p>
+                            <h1 th:text="${users.name}">Jonathan Smith</h1>
+                            <p th:text="${users.email}">jsmith@flatlab.com</p>
                         </div>
 
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a th:href="@{'/user/'+${user.userId}}"> <i class="fa fa-user"></i> 个人资料</a></li>
-                            <li><a th:href="@{'/user/toUserEdit?userId='+${user.userId}}" href="profile-edit.html"> <i class="fa fa-edit"></i> 修改个人资料</a></li>
+                            <li class="active"><a th:href="@{'/user/'+${users.userId}}"> <i class="fa fa-user"></i> 个人资料</a></li>
+
+                            <li th:if="${user.userId} eq ${users.userId}">
+                                <a th:href="@{'/user/toUserEdit?userId='+${users.userId}}" href="profile-edit.html"> <i class="fa fa-edit"></i> 修改个人资料</a>
+                            </li>
                         </ul>
 
                     </section>
@@ -519,34 +522,41 @@
                             Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
                         </div>
                         <div class="panel-body bio-graph-info">
-                            <h1>Bio Graph</h1>
+                            <h1>资料详情</h1>
                             <div class="row">
                                 <div class="bio-row">
-                                    <p><span>用户名 </span><a th:text="':'+${user.username}">: Jonathan</a></p>
+                                    <p><span>用户名 </span><a th:text="':'+${users.username}">: Jonathan</a></p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>姓名 </span><a th:text="':'+${user.name}">: Smith</a> </p>
+                                    <p><span>姓名 </span><a th:text="':'+${users.name}">: Smith</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>生日 </span><a th:text="':'+${user.birth.toLocaleString()}">1998-3-12</a> </p>
+                                    <p><span>生日 </span><a th:text="':'+${users.birth.toLocaleString()}">1998-3-12</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>邮箱</span><a th:text="':'+${user.email}">chpyue@foxmail.com</a></p>
+                                    <p><span>邮箱</span><a th:text="':'+${users.email}">chpyue@foxmail.com</a></p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>手机号 </span><a th:text="':'+${user.phone}">: Smith</a> </p>
+                                    <p><span>手机号 </span><a th:text="':'+${users.phone}">: Smith</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>性别 </span><a th:text="':'+${user.sex}">: Smith</a> </p>
+                                    <p>
+                                        <span>性别 </span>
+                                        <span th:switch="${users.sex}">
+                                            <a th:case="1" th:text="':'+男">男</a>
+                                            <a th:case="2" th:text="':'+女">女</a>
+                                            <a th:case="3" th:text="':'+保密">保密</a>
+                                        </span>
+                                    </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>地址 </span><a th:text="':'+${user.address}">: Smith</a> </p>
+                                    <p><span>地址 </span><a th:text="':'+${users.address}">: Smith</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>邮编 </span><a th:text="':'+${user.postcode}">: Smith</a> </p>
+                                    <p><span>邮编 </span><a th:text="':'+${users.postcode}">: Smith</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>注册时间 </span><a th:text="':'+${user.registerTime.toLocaleString()}">: Smith</a> </p>
+                                    <p><span>注册时间 </span><a th:text="':'+${users.registerTime.toLocaleString()}">: Smith</a> </p>
                                 </div>
                             </div>
                         </div>

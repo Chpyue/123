@@ -4,11 +4,13 @@ import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,8 +53,26 @@ public class UserController {
         List<User> userList = userService.getUserList();
         model.addAttribute("title","用户列表");
         model.addAttribute("userList",userList);
+        //获取当前用户信息
+        model.addAttribute("user",userService.getUser());
 
         return new ModelAndView("admin/userList","userModel",model);
+    }
+
+    /**
+     * 获取管理员列表
+     * @param model
+     * @return
+     */
+    @GetMapping("/adminlist")
+    public ModelAndView getAdminList(Model model){
+        List<User> adminList = userService.getAdminList();
+        model.addAttribute("title","用户列表");
+        model.addAttribute("adminList",adminList);
+        //获取当前用户信息
+        model.addAttribute("user",userService.getUser());
+
+        return new ModelAndView("admin/adminList","userModel",model);
     }
 
 
@@ -65,9 +85,10 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public ModelAndView getUserInfo(@PathVariable("userId") String userId, Model model){
 
-        model.addAttribute("user",userService.findByUserId(userId));
-        model.addAttribute("title","个人信息");
-//        System.out.println(userService.findByUserId(userId).toString());
+        //所查询用户信息
+        model.addAttribute("users",userService.findByUserId(userId));
+        //获取当前用户信息
+        model.addAttribute("user",userService.getUser());
         return new ModelAndView("admin/profile","userModel",model);
     }
 
@@ -79,7 +100,10 @@ public class UserController {
      */
     @GetMapping("/toUserEdit")
     public ModelAndView toUserEdit(String userId,Model model){
-        model.addAttribute("user",userService.findByUserId(userId));
+        //所查询用户信息
+        model.addAttribute("users",userService.findByUserId(userId));
+        //获取当前用户信息
+        model.addAttribute("user",userService.getUser());
         return new ModelAndView("admin/profileEdit","userModel",model);
     }
 

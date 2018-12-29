@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.rmi.MarshalledObject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,25 +45,18 @@ public class MainController {
     @Autowired
     private AuthorityService authorityService;
 
-    @GetMapping("/hi")
-    public String test(){
-        System.out.println("进入测试函数");
-        User user = userService.getUser();
-        System.out.println(user.getAuthorityList().toString());
 
-//        System.out.println("controller:____"+user.toString());
-        return "index";
-    }
 
     @GetMapping("/")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String boot(){
         return "index";
-//        return "redirect:/index";
     }
     @GetMapping("/index")
-    public String index(){
-        return "index";
+    public ModelAndView index(Model model){
+        User user = userService.getUser();
+        model.addAttribute("user",user);
+        return new ModelAndView("index","userModel",model);
     }
 
     //登录跳转
@@ -81,9 +76,22 @@ public class MainController {
         model.addAttribute("user",user);
         String authority = user.getAuthorityList().toString();
         if (authority.contains(ROLE_ADMIN)){
-            return new ModelAndView("admin/index","userModel",model);
+            return new ModelAndView("redirect:/adminIndex");
         }
-        else  return new ModelAndView("index","userModel",model);
+        else  return new ModelAndView("redirect:/index");
+
+    }
+    /*
+     * 跳转至管理员首页
+     * @param model
+     * @return
+             */
+    @GetMapping("/adminIndex")
+    public ModelAndView adminIndex(Model model){
+        User user = userService.getUser();
+        model.addAttribute("user",user);
+        model.addAttribute("userCount",userService.getUserList().size());
+        return new ModelAndView("admin/index","userModel",model);
 
     }
 
@@ -104,13 +112,13 @@ public class MainController {
      */
     @PostMapping("/register")
     public String register(User user){
-        System.out.println("进入注册方法");
-        System.out.println(user.getUsername()+user.getPassword());
         //创建权限列表
         List<Authority> authorities = new ArrayList<>();
         authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
         //查重避免userId重复
         user.setUserId(UUIDUtil.getUUID());
+        user.setName("chpyue");
+        user.setRegisterTime(new Date());
 //        while (userService.isRepeat(user.getUserId())){
 //            user.setUserId(UUIDUtil.getUUID());
 //        }

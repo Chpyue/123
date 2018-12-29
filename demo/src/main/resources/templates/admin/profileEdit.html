@@ -481,13 +481,13 @@
                             <a href="#">
                                 <img src="../admins/img/profile-avatar.jpg" alt="">
                             </a>
-                            <h1 th:text="${user.name}">Jonathan Smith</h1>
-                            <p th:text="${user.email}">jsmith@flatlab.com</p>
+                            <h1 th:text="${users.name}">Jonathan Smith</h1>
+                            <p th:text="${users.email}">jsmith@flatlab.com</p>
                         </div>
 
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a th:href="@{'/user/'+${user.userId}}"> <i class="fa fa-user"></i> 个人资料</a></li>
-                            <li class="active"><a th:href="@{'/user/toUserEdit?userId='+${user.userId}}" href="profile-edit.html"> <i class="fa fa-edit"></i> 修改个人资料</a></li>
+                            <li><a th:href="@{'/user/'+${users.userId}}"> <i class="fa fa-user"></i> 个人资料</a></li>
+                            <li class="active"><a th:href="@{'/user/toUserEdit?userId='+${users.userId}}" href="profile-edit.html"> <i class="fa fa-edit"></i> 修改个人资料</a></li>
                         </ul>
 
                     </section>
@@ -500,60 +500,60 @@
                         <div class="panel-body bio-graph-info">
                             <h1> 个人资料</h1>
                             <form th:action="@{/user/updateUser}" th:method="post" class="form-horizontal" role="form">
-                                <input type="hidden" name="userId" th:value="${user.userId}">
+                                <input type="hidden" name="userId" th:value="${users.userId}">
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">用户名</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="username" th:value="${user.username}" class="form-control" placeholder=" ">
+                                        <input type="text" name="username" th:value="${users.username}" class="form-control" placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">姓名</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="name" th:value="${user.name}" class="form-control"  placeholder=" ">
+                                        <input type="text" name="name" th:value="${users.name}" class="form-control"  placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">生日</label>
                                     <div class="col-lg-6">
                                         <!--<input type="text" name="birth" th:value="${user.birth}" class="form-control"  placeholder=" ">-->
-                                        <a th:text="':'+${user.birth.toLocaleString()}">1998-3-12</a>
+                                        <a th:text="':'+${users.birth.toLocaleString()}">1998-3-12</a>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">邮箱</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="email" th:value="${user.email}" class="form-control" placeholder=" ">
+                                        <input type="text" name="email" th:value="${users.email}" class="form-control" placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">手机号</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="phone" th:value="${user.phone}" class="form-control" placeholder=" ">
+                                        <input type="text" name="phone" th:value="${users.phone}" class="form-control" placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">性别</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="sex" th:value="${user.sex}" class="form-control" placeholder=" ">
+                                        <input type="text" name="sex" th:value="${users.sex}" class="form-control" placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">地址</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="address" th:value="${user.address}" class="form-control" placeholder=" ">
+                                        <input type="text" name="address" th:value="${users.address}" class="form-control" placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">邮编</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="postcode" th:value="${user.postcode}" class="form-control" placeholder="">
+                                        <input type="text" name="postcode" th:value="${users.postcode}" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label  class="col-lg-2 control-label">注册时间</label>
                                     <div class="col-lg-6">
-                                        <a th:text="':'+${user.registerTime.toLocaleString()}">1998-03-12</a>
+                                        <a th:text="':'+${users.registerTime.toLocaleString()}">1998-03-12</a>
                                     </div>
                                 </div>
 
@@ -571,7 +571,7 @@
                             <div class="panel-heading"> 设置新密码</div>
                             <div class="panel-body">
                                 <form th:action="@{/user/changePassword}" th:method="post" class="form-horizontal" role="form">
-                                    <input type="hidden" name="userId" th:value="${user.userId}">
+                                    <input type="hidden" name="userId" th:value="${users.userId}">
                                     <div class="form-group">
                                         <label  class="col-lg-2 control-label">请输入原密码</label>
                                         <div class="col-lg-6">
