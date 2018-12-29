@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -54,8 +53,13 @@ public class UserController {
         List<User> userList = userService.getUserList();
         model.addAttribute("title","用户列表");
         model.addAttribute("userList",userList);
+        try {
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            return new ModelAndView("500");
+        }
 
-        return new ModelAndView("user/list","userModel",model);
+        return new ModelAndView("admin/userList","userModel",model);
     }
 
 
@@ -70,7 +74,7 @@ public class UserController {
 
         model.addAttribute("user",userService.findByUserId(userId));
         model.addAttribute("title","个人信息");
-        System.out.println(userService.findByUserId(userId).toString());
+//        System.out.println(userService.findByUserId(userId).toString());
         return new ModelAndView("admin/profile","userModel",model);
     }
 
@@ -80,7 +84,7 @@ public class UserController {
      * @param model
      * @return
      */
-    @GetMapping("toUserEdit")
+    @GetMapping("/toUserEdit")
     public ModelAndView toUserEdit(String userId,Model model){
         model.addAttribute("user",userService.findByUserId(userId));
         return new ModelAndView("admin/profileEdit","userModel",model);
@@ -91,14 +95,18 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("updateUser")
+    @RequestMapping("/updateUser")
     public String updateUser(User user){
-        System.out.println("用户信息="+user);
+        System.out.println("用户信息="+user.toString());
         userService.updateUser(user);
+        if(user.getUsername() == null){
+            return "redirect:/user/list";
+        }
         return "redirect:/user/"+user.getUserId();
     }
 
-    @PostMapping("changePassword")
+
+    @PostMapping("/changePassword")
     public String changePassword(User user,HttpServletRequest request){
         String newPassword = request.getParameter("newPassword");
         String reNewPassword = request.getParameter("reNewPassword");
@@ -119,4 +127,5 @@ public class UserController {
         }
         return "redirect:/user/toUserEdit?userId="+user.getUserId();
     }
+
  }

@@ -31,6 +31,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private static final Integer ROLE_ADMIN_AUTHORITY_ID = 1;
+    private static final Integer ROLE_USER_AUTHORITY_ID = 2;
 //    @Autowired
     private final UserMapper userMapper;
     private final UserAuthorityMapper userAuthorityMapper;
@@ -110,11 +112,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<User> getUserList() {
-        UserExample example = new UserExample();
-       // UserExample.Criteria criteria = example.createCriteria();
-      //  criteria.andPhoneEqualTo("12345");
-
-        List<User> userList = userMapper.selectByExample(example);
+//        获取userIdList
+        UserAuthorityExample example = new UserAuthorityExample();
+        UserAuthorityExample.Criteria criteria = example.createCriteria();
+        criteria.andAuthorityIdEqualTo(ROLE_USER_AUTHORITY_ID);
+        List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example);
+        List<String> userIdList = new ArrayList<>();
+        for (UserAuthority userAuthority : userAuthorityList) {
+            userIdList.add(userAuthority.getUserId());
+        }
+//        获取普通用户列表
+        UserExample example1 = new UserExample();
+        UserExample.Criteria criteria1 = example1.createCriteria();
+        criteria.andUserIdIn(userIdList);
+        List<User> userList = userMapper.selectByExample(example1);
         return userList;
     }
 
