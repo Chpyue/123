@@ -21,6 +21,7 @@
     <link href="../admins/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../admins/css/owl.carousel.css" type="text/css">
 
+    <link rel="stylesheet" href="../admins/assets/data-tables/DT_bootstrap.css" />
     <!--right slidebar-->
     <link href="../admins/css/slidebars.css" rel="stylesheet">
 
@@ -477,48 +478,54 @@
     <!--sidebar end-->
     <!--main content start-->
     <section id="main-content">
-        <section class="wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <section class="panel">
-                        <header class="panel-heading">
-                            普通用户列表
-                        </header>
-                        <table class="table table-striped table-advance table-hover">
-                            <thead>
-                            <tr>
-                                <th><i class="fa fa-user"></i> 用户名</th>
-                                <th class="hidden-phone"><i class="fa fa-question-circle"></i> 姓名</th>
-                                <th><i class="fa fa-bookmark"></i> 性别</th>
-                                <th><i class=" fa fa-edit"></i> 注册时间</th>
-                                <th><i class="fa fa-shopping-cart"> 购物权限</i> </th>
-                                <th><i class="fa fa-search"> 查看</i> </th>
+        <section class="wrapper site-min-height">
+            <!-- page start-->
+            <section class="panel">
+                <header class="panel-heading">
+                    普通用户列表
+                </header>
+                <div class="panel-body">
+                    <div class="adv-table editable-table ">
+                        <div class="space15"></div>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="users:${userList}">
-                                <td><a th:href="@{'/user/'+${users.userId}}" th:text="${users.username}" href="#">Vector Ltd</a></td>
-                                <td th:text="${users.name}" class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                <td th:switch="${users.sex}">
-                                    <a th:case="1" th:text="男">男</a>
-                                    <a th:case="2" th:text="女">女</a>
-                                    <a th:case="3" th:text="保密">保密</a>
-                                </td>
-                                <td><span th:text="${users.registerTime.toLocaleString()}" class="label label-warning label-mini">Due</span></td>
-                                <td th:switch="${users.isEffective}">
-                                    <a th:case="1" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=0'}" class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
-                                    <a th:case="0" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=1'}" class="btn btn-danger btn-xs"><i class="fa fa-times "></i></a>
-                                </td>
-                                <td>
-                                    <a th:href="@{'/user/'+${users.userId}}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </section>
+                        <div class="table-responsive">
+
+                            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                <thead>
+                                <tr>
+                                    <th><i class="fa fa-user"></i> 用户名</th>
+                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> 姓名</th>
+                                    <th><i class="fa fa-bookmark"></i> 性别</th>
+                                    <th><i class=" fa fa-edit"></i> 注册时间</th>
+                                    <th><i class="fa fa-shopping-cart"> 购物权限</i> </th>
+                                    <th><i class="fa fa-search"> 查看</i> </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="users:${userList}">
+                                    <td><a th:href="@{'/user/'+${users.userId}}" th:text="${users.username}" href="#">Vector Ltd</a></td>
+                                    <td th:text="${users.name}" class="hidden-phone">Lorem Ipsum dorolo imit</td>
+                                    <td th:switch="${users.sex}">
+                                        <a th:case="1" th:text="男">男</a>
+                                        <a th:case="2" th:text="女">女</a>
+                                        <a th:case="3" th:text="保密">保密</a>
+                                    </td>
+                                    <td><span th:text="${users.registerTime.toLocaleString()}" class="label label-warning label-mini">Due</span></td>
+                                    <td th:switch="${users.isEffective}">
+                                        <a th:case="1" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=0'}" class="btn btn-success btn-xs"><i class="fa fa-check"></i></a>
+                                        <a th:case="0" th:href="@{'/user/updateUser?userId='+${users.userId}+'&isEffective=1'}" class="btn btn-danger btn-xs"><i class="fa fa-times "></i></a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/user/'+${users.userId}}" class="btn btn-primary btn-xs"><i class="fa fa-search"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </section>
     </section>
     <!--main content end-->
@@ -692,6 +699,10 @@
 <script src="../admins/js/jquery.customSelect.min.js" ></script>
 <script src="../admins/js/respond.min.js" ></script>
 
+<script src="../admins/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="../admins/js/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="../admins/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="../admins/assets/data-tables/DT_bootstrap.js"></script>
 <!--right slidebar-->
 <script src="../admins/js/slidebars.min.js"></script>
 
@@ -702,10 +713,15 @@
 <script src="../admins/js/sparkline-chart.js"></script>
 <script src="../admins/js/easy-pie-chart.js"></script>
 <script src="../admins/js/count.js"></script>
+<!--script for this page only-->
+<script src="../admins/js/editable-table.js"></script>
 
 <script>
+    jQuery(document).ready(function() {
+        EditableTable.init();
 
-    //owl carousel
+    });
+
 
     $(document).ready(function() {
         $("#owl-demo").owlCarousel({
