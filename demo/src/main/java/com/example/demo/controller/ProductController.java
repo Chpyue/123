@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.model.Category;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductView;
+import com.example.demo.model.User;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
 
     /**
@@ -33,6 +37,7 @@ public class ProductController {
     public ModelAndView getProductList(Model model){
         List<ProductView> productList=productService.getProductList();
         model.addAttribute("productList",productList);
+        model.addAttribute("user",userService.getUser());
         return new ModelAndView("product/Product");
     }
 
@@ -47,6 +52,7 @@ public class ProductController {
     public ModelAndView addProduct(Product product,String flag,Model model){
 
         List<Category> categoryList=categoryService.getCategoryList();
+        model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
         product.setDate(new Date());
         if(flag.equals("1")){
@@ -68,6 +74,7 @@ public class ProductController {
     @RequestMapping("/modifiproduct")
     public ModelAndView modifiProduct(String flag, Product product ,Model model){
         List<Category> categoryList=categoryService.getCategoryList();
+        model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
         if (flag.equals("1")){
             ProductView productView=productService.findByProductId(product.getProductId());

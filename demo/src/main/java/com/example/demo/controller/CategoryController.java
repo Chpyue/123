@@ -43,20 +43,19 @@ public class CategoryController {
     /**
      * 添加新的种类
      * @param flag 1.跳转添加页面 2.执行添加操作
-     * @param mv
+     * @param model
      * @param category 要添加的对象
      * @return
      */
     @RequestMapping("/addcategory")
-    public ModelAndView addCategory(String flag,ModelAndView mv, @ModelAttribute Category category){
-
+    public ModelAndView addCategory(String flag,Model model, Category category){
+        model.addAttribute("user",userService.getUser());
         if (flag.equals("1")){
-            mv.setViewName("category/showAddCategory");
+            return new ModelAndView("category/showAddCategory");
         }else {
             categoryService.addCategory(category);
-            mv.setViewName("redirect:/category/list");
+            return new ModelAndView("redirect:/category/list");
         }
-        return mv;
     }
 
     /**
@@ -76,21 +75,21 @@ public class CategoryController {
     /**
      * 修改种类信息
      * @param flag 1.跳转修改页面 2.执行修改操作
-     * @param mv
+     * @param model
      * @param category 修改的对象
      * @return
      */
     @RequestMapping("/modificategory")
-    public ModelAndView modifiCategroy(String flag,ModelAndView mv,@ModelAttribute Category category){
+    public ModelAndView modifiCategroy(String flag,Model model, Category category){
+        model.addAttribute("user",userService.getUser());
         if (flag.equals("1")){
             //获取目标对象
             Category category1=categoryService.findByCategoryId(category.getCategoryId());
-            mv.addObject("category",category1);
-            mv.setViewName("category/showModifiCategory");
+            model.addAttribute("category",category1);
+            return new ModelAndView("category/showModifiCategory");
         }else {
             categoryService.modifiCategory(category);
-            mv.setViewName("redirect:/category/list");
+            return new ModelAndView("redirect:/category/list");
         }
-        return mv;
     }
 }
