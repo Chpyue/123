@@ -83,10 +83,11 @@ function countUp4(count)
     }, int_speed);
 }
 
-function loadCountUp(count) {
-    countUp(count);
-    countUp2(count);
-    countUp3(count);
-    countUp4(count);
+function loadCountUp(userCount,categoryCount,productCount,XXXXXX) {
+    console.log(userCount+categoryCount+productCount+XXXXXX);
+    countUp(userCount);
+    countUp2(categoryCount);
+    countUp3(productCount);
+    countUp4(XXXXXX);
 
 }

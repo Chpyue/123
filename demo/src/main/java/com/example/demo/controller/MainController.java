@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.model.Authority;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
+import com.example.demo.service.CategoryService;
+import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,10 @@ public class MainController {
     private UserService userService;
     @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
 
 
 
@@ -91,6 +97,9 @@ public class MainController {
         User user = userService.getUser();
         model.addAttribute("user",user);
         model.addAttribute("userCount",userService.getUserList().size());
+        model.addAttribute("categoryCount",categoryService.getCategoryList().size());
+        model.addAttribute("productCount",productService.getProductList().size());
+
         return new ModelAndView("admin/index","userModel",model);
 
     }

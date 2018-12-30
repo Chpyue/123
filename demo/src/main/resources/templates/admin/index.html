@@ -38,7 +38,7 @@
     <![endif]-->
 </head>
 
-<body th:onload="'javascript:loadCountUp('+${userCount}+')'">
+<body th:onload="'javascript:loadCountUp('+${userCount}+','+${categoryCount}+','+${productCount}+','+${userCount}+')'">
 
 <section id="container" >
     <!--header start-->
@@ -493,7 +493,7 @@
                             <h1 class=" count2">
                                 0
                             </h1>
-                            <p>Sales</p>
+                            <p><a href="/category/list">商品种类数量</a></p>
                         </div>
                     </section>
                 </div>
@@ -506,7 +506,7 @@
                             <h1 class=" count3">
                                 0
                             </h1>
-                            <p>New Order</p>
+                            <p><a href="/product/list">商品数量</a></p>
                         </div>
                     </section>
                 </div>
@@ -519,7 +519,7 @@
                             <h1 class=" count4">
                                 0
                             </h1>
-                            <p>Total Profit</p>
+                            <p>待接单数量</p>
                         </div>
                     </section>
                 </div>
