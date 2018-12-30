@@ -7,6 +7,7 @@
         <meta name="author" content="order by dede58.com"/>
 		<title>小米手机列表</title>
 		<link rel="stylesheet" type="text/css" href="../users/css/style.css">
+
 	</head>
 	<body>
 		<header>
@@ -30,13 +31,13 @@
 		<div class="banner_x center">
 			<div class="nav fl">
 				<ul >
-				<li><a th:href="@{'/product/allProduct?orderbyname=price'}">全部商品</a></li>
+				<li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
 				</ul>
 			</div>
 			<div class="nav fl">
 				<ul >
 					<li th:each="category:${categoryList}">
-						<a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderbyname=price'}" th:text="${category.name}">全部商品类型</a>
+						<a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderbyname=sales'}" th:text="${category.name}">全部商品类型</a>
 					</li>
 				</ul>
 			</div>
@@ -65,9 +66,10 @@
 
 			<div class="biaoti center" th:if="${isHidden}">
 				<input id="selectType" type="hidden" th:value="${selectType}" value="">
+				<input id="kind" type="hidden" th:value="${kind}" value="">
+				<!--全部分类时：kind=null；-->
 					<div th:if="${kind} eq null">
                     <select id="selectId1" onchange="window.location.href='/product/findKindProduct?kind=-1&orderbyname='+this.value">
-
                         <option  value="sales">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按销量排序
                         </option>
@@ -80,7 +82,7 @@
                     </select>
                 </div>
                 <div th:if="${kind} ne null">
-                    <input id="kind" type="hidden" th:value="${kind}" value="">
+					<input type="hidden" th:value="${kind}" value="">
 					<select id="selectId2" onchange="paixu(this.value)">
                         <option value="sales">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按销量排序
@@ -93,25 +95,26 @@
                         </option>
                     </select>
                 </div>
+
 			</div>
 
 
 <!--商品列表-->
-			<div class="main center">
+			<div class="main center" th:if="${productList.size()} ne 0">
 				<div class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'" th:each="product:${productList}">
 				<!--排序-->
-					<div class="sub_mingxing"><a th:href="@{'/product/productInfo?=productId'+${product.productId}}"><img th:src="${product.image}"></a></div>
+					<div class="sub_mingxing" ><a th:href="@{'/product/productInfo?productId='+${product.productId}}"><img th:src="${product.image}"></a></div>
 					<div class="pinpai">
-						<a th:href="@{'/product/productInfo'+${product.productId}}" th:text="${product.productName}">商品名称</a>
+						<a th:href="@{'/product/productInfo?productId='+${product.productId}}" th:text="${product.productName}">商品名称</a>
 					</div>
 					<div class="youhui"><a th:text="${product.factory}">生产厂家</a></div>
 					<div class="jiage"><a th:text="${product.price}">单价</a></div>
 				</div>
 				<div class="clear"></div>
 			</div>
-
-
-
+			<div class="main center" th:if="${productList.size()} eq 0">
+				没有相关商品
+			</div>
 
 		</div>
 
@@ -130,33 +133,21 @@
             var kind = document.getElementById("kind").value;
             location.href="/product/findKindProduct?kind="+kind+"&orderbyname="+name+"";
         }
-
-
-
-
         window.onload=function () {
 			var selectType = document.getElementById("selectType").value;
-			if(selectType == "sales"){
-                document.getElementById("selectId1")[0].selected=true;
-			}
-            if(selectType == "price"){
-                document.getElementById("selectId1")[1].selected=true;
-            }
-            if(selectType == "date"){
-                document.getElementById("selectId1")[2].selected=true;
-            }
-        }
-        window.onload=function () {
-            var selectType = document.getElementById("selectType").value;
-            if(selectType == "sales"){
-                document.getElementById("selectId2")[0].selected=true;
-            }
-            if(selectType == "price"){
-                document.getElementById("selectId2")[1].selected=true;
-            }
-            if(selectType == "date"){
-                document.getElementById("selectId2")[2].selected=true;
-            }
+            var kind = document.getElementById("kind").value;
+				if(selectType == "sales"){
+                    if (kind == ""|| kind == "-1"){document.getElementById("selectId1")[0].selected=true;}
+                    else document.getElementById("selectId2")[0].selected=true;
+				}
+				if(selectType == "price"){
+					if (kind == ""|| kind == "-1"){document.getElementById("selectId1")[1].selected=true;}
+                    else document.getElementById("selectId2")[1].selected=true;
+				}
+				if(selectType == "date"){
+                    if (kind == ""|| kind == "-1"){document.getElementById("selectId1")[2].selected=true;}
+                    else document.getElementById("selectId2")[2].selected=true;
+				}
         }
     </script>
 	</body>

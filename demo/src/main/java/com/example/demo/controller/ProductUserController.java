@@ -29,11 +29,6 @@ public class ProductUserController {
         model.addAttribute("categoryList",productUserService.categoryList());
         return new ModelAndView("product/productlist","categoryModel",model);
     }
-    @RequestMapping("/categoryList1")//info商品种类列表
-    public ModelAndView categoryList1(Model model){
-        model.addAttribute("categoryList1",productUserService.categoryList());
-        return new ModelAndView("product/productinfo","categoryModel",model);
-    }
 
     /**
      * 全部商品按钮
@@ -102,6 +97,8 @@ public class ProductUserController {
     @RequestMapping("/productInfo")//单个商品
     public ModelAndView productInfo(Model model,int productId){
         model.addAttribute("findProductInfo",productUserService.productInfo(productId));
+        model.addAttribute("categoryList",productUserService.categoryList());
+        System.out.println("商品ID="+productId);
         return new ModelAndView("product/productinfo","productModel",model);
     }
 }
