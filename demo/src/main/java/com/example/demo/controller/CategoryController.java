@@ -4,6 +4,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Category;
 import com.example.demo.service.CategoryService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 查询商品种类信息
@@ -32,6 +35,7 @@ public class CategoryController {
         List<Category> categoryList=categoryService.getCategoryList();
         System.out.println(categoryList.size());
         model.addAttribute("categoryList",categoryList);
+        model.addAttribute("user",userService.getUser());
         return new ModelAndView("category/Category");
 
     }
