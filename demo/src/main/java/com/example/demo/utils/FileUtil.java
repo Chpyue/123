@@ -19,11 +19,12 @@ import java.io.*;
  * @UpdateRemark: The modified content
  * @Version: 1.0
  */
+
 public class FileUtil {
 
     //绝对根路径，从yml文件里获取
-    @Value("${filePath}")
-    private static String base;
+//    @Value("${filePath}")
+    private static final String base = "/User/chpyue";
     //相对路径
     private static final String portrait = "/portrait/";
     private static final String product = "/product/";
