@@ -13,6 +13,16 @@
     <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
     <result column="receive_remark" property="receiveRemark" jdbcType="VARCHAR" />
     <result column="return_reason" property="returnReason" jdbcType="VARCHAR" />
+    <collection property="orderItemList" javaType="ArrayList" column="order_id"
+                ofType="com.example.demo.model.OrderItem"
+                select="com.example.demo.mapper.OrderItemMapper.selectByOrderId"
+                fetchType="eager">
+      <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+      <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+      <result column="product_id" property="productId" jdbcType="VARCHAR" />
+      <result column="number" property="number" jdbcType="INTEGER" />
+      <result column="per_price" property="perPrice" jdbcType="DECIMAL" />
+    </collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
