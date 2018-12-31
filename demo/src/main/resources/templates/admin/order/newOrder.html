@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="../admins/img/favicon.png">
+
+    <title>订单管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../admins/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../admins/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="../admins/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!--right slidebar-->
+    <link href="../admins/css/slidebars.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../admins/css/style.css" rel="stylesheet">
+    <link href="../admins/css/style-responsive.css" rel="stylesheet" />
+    <link href="../admins/css/invoice-print.css" rel="stylesheet" media="print">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../admins/js/html5shiv.js"></script>
+    <script src="../admins/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<section id="container" class="">
+    <!--header start-->
+    <header class="header white-bg">
+        <div class="sidebar-toggle-box">
+            <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
+        </div>
+        <!--logo start-->
+        <a href="index.html" class="logo" >Flat<span>lab</span></a>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+            <!--  notification start -->
+            <ul class="nav top-menu">
+                <!-- settings start -->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="fa fa-tasks"></i>
+                        <span class="badge bg-success">6</span>
+                    </a>
+                    <ul class="dropdown-menu extended tasks-bar">
+                        <div class="notify-arrow notify-arrow-green"></div>
+                        <li>
+                            <p class="green">You have 6 pending tasks</p>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="task-info">
+                                    <div class="desc">Dashboard v1.3</div>
+                                    <div class="percent">40%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="task-info">
+                                    <div class="desc">Database Update</div>
+                                    <div class="percent">60%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60% Complete (warning)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="task-info">
+                                    <div class="desc">Iphone Development</div>
+                                    <div class="percent">87%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
+                                        <span class="sr-only">87% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="task-info">
+                                    <div class="desc">Mobile App</div>
+                                    <div class="percent">33%</div>
+                                </div>
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 33%">
+                                        <span class="sr-only">33% Complete (danger)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="task-info">
+                                    <div class="desc">Dashboard v1.3</div>
+                                    <div class="percent">45%</div>
+                                </div>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                        <span class="sr-only">45% Complete</span>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </li>
+                        <li class="external">
+                            <a href="#">See All Tasks</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- settings end -->
+                <!-- inbox dropdown start-->
+                <li id="header_inbox_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-important">5</span>
+                    </a>
+                    <ul class="dropdown-menu extended inbox">
+                        <div class="notify-arrow notify-arrow-red"></div>
+                        <li>
+                            <p class="red">You have 5 new messages</p>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="photo"><img alt="avatar" src="../../../static/admins/img/avatar-mini.jpg"></span>
+                                <span class="subject">
+                                    <span class="from">Jonathan Smith</span>
+                                    <span class="time">Just now</span>
+                                    </span>
+                                <span class="message">
+                                        Hello, this is an example msg.
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="photo"><img alt="avatar" src="../../../static/admins/img/avatar-mini2.jpg"></span>
+                                <span class="subject">
+                                    <span class="from">Jhon Doe</span>
+                                    <span class="time">10 mins</span>
+                                    </span>
+                                <span class="message">
+                                     Hi, Jhon Doe Bhai how are you ?
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="photo"><img alt="avatar" src="../../../static/admins/img/avatar-mini3.jpg"></span>
+                                <span class="subject">
+                                    <span class="from">Jason Stathum</span>
+                                    <span class="time">3 hrs</span>
+                                    </span>
+                                <span class="message">
+                                        This is awesome dashboard.
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="photo"><img alt="avatar" src="../../../static/admins/img/avatar-mini4.jpg"></span>
+                                <span class="subject">
+                                    <span class="from">Jondi Rose</span>
+                                    <span class="time">Just now</span>
+                                    </span>
+                                <span class="message">
+                                        Hello, this is metrolab
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">See all messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- inbox dropdown end -->
+                <!-- notification dropdown start-->
+                <li id="header_notification_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                        <i class="fa fa-bell-o"></i>
+                        <span class="badge bg-warning">7</span>
+                    </a>
+                    <ul class="dropdown-menu extended notification">
+                        <div class="notify-arrow notify-arrow-yellow"></div>
+                        <li>
+                            <p class="yellow">You have 7 new notifications</p>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                Server #3 overloaded.
+                                <span class="small italic">34 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-warning"><i class="fa fa-bell"></i></span>
+                                Server #10 not respoding.
+                                <span class="small italic">1 Hours</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                Database overloaded 24%.
+                                <span class="small italic">4 hrs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-success"><i class="fa fa-plus"></i></span>
+                                New user registered.
+                                <span class="small italic">Just now</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-info"><i class="fa fa-bullhorn"></i></span>
+                                Application error.
+                                <span class="small italic">10 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">See all notifications</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- notification dropdown end -->
+            </ul>
+        </div>
+        <div class="top-nav ">
+            <ul class="nav pull-right top-menu">
+                <li>
+                    <input type="text" class="form-control search" placeholder="Search">
+                </li>
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt="" src="../../../static/admins/img/avatar1_small.jpg">
+                        <span class="username">Jhon Doue</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                        <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+                <li class="sb-toggle-right">
+                    <i class="fa  fa-align-right"></i>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-laptop"></i>
+                        <span>Layouts</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="boxed_page.html">Boxed Page</a></li>
+                        <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
+                        <li><a  href="header-color.html">Different Color Top bar</a></li>
+                        <li><a  href="mega_menu.html">Mega Menu</a></li>
+                        <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
+                        <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>UI Elements</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="general.html">General</a></li>
+                        <li><a  href="buttons.html">Buttons</a></li>
+                        <li><a  href="modal.html">Modal</a></li>
+                        <li><a  href="toastr.html">Toastr Notifications</a></li>
+                        <li><a  href="widget.html">Widget</a></li>
+                        <li><a  href="slider.html">Slider</a></li>
+                        <li><a  href="nestable.html">Nestable</a></li>
+                        <li><a  href="tree.html">Tree View</a></li>
+                        <li><a  href="font_awesome.html">Font Awesome</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span>Components</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="grids.html">Grids</a></li>
+                        <li><a  href="calendar.html">Calendar</a></li>
+                        <li><a  href="gallery.html">Gallery</a></li>
+                        <li><a  href="todo_list.html">Todo List</a></li>
+                        <li><a  href="draggable_portlet.html">Draggable Portlet</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-tasks"></i>
+                        <span>订单管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="/adminOrder/newOrder">待发货</a></li>
+                        <li><a href="/adminOrder/shippedOrder">已发货</a></li>
+                        <li><a href="/adminOrder/completeOrder">确认收货</a></li>
+                        <li><a href="/adminOrder/askReturnOrder">请求退货</a></li>
+                        <li><a href="/adminOrder/returnedOrder">已退货</a></li>
+                        <li><a href="/adminOrder/seekOrder">查找订单</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-th"></i>
+                        <span>Data Tables</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="basic_table.html">Basic Table</a></li>
+                        <li><a  href="responsive_table.html">Responsive Table</a></li>
+                        <li><a  href="dynamic_table.html">Dynamic Table</a></li>
+                        <li><a  href="editable_table.html">Editable Table</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class=" fa fa-envelope"></i>
+                        <span>Mail</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="inbox.html">Inbox</a></li>
+                        <li><a  href="inbox_details.html">Inbox Details</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>Charts</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="morris.html">Morris</a></li>
+                        <li><a  href="chartjs.html">Chartjs</a></li>
+                        <li><a  href="flot_chart.html">Flot Charts</a></li>
+                        <li><a  href="xchart.html">xChart</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Shop</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="product_list.html">List View</a></li>
+                        <li><a  href="product_details.html">Details View</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="google_maps.html" >
+                        <i class="fa fa-map-marker"></i>
+                        <span>Google Maps </span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-comments-o"></i>
+                        <span>Chat Room</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="lobby.html">Lobby</a></li>
+                        <li><a  href="chat_room.html"> Chat Room</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" class="active" >
+                        <i class="fa fa-glass"></i>
+                        <span>Extra</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="blank.html">Blank Page</a></li>
+                        <li><a  href="sidebar_closed.html">Sidebar Closed</a></li>
+                        <li><a  href="people_directory.html">People Directory</a></li>
+                        <li><a  href="coming_soon.html">Coming Soon</a></li>
+                        <li><a  href="lock_screen.html">Lock Screen</a></li>
+                        <li><a  href="profile.html">Profile</a></li>
+                        <li class="active"><a  href="seekOrder.html">Invoice</a></li>
+                        <li><a  href="project_list.html">Project List</a></li>
+                        <li><a  href="project_details.html">Project Details</a></li>
+                        <li><a  href="search_result.html">Search Result</a></li>
+                        <li><a  href="pricing_table.html">Pricing Table</a></li>
+                        <li><a  href="faq.html">FAQ</a></li>
+                        <li><a  href="fb_wall.html">FB Wall</a></li>
+                        <li><a  href="404.html">404 Error</a></li>
+                        <li><a  href="500.html">500 Error</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a  href="login.html">
+                        <i class="fa fa-user"></i>
+                        <span>Login Page</span>
+                    </a>
+                </li>
+
+                <!--multi level menu start-->
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-sitemap"></i>
+                        <span>Multi level Menu</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="javascript:;">Menu Item 1</a></li>
+                        <li class="sub-menu">
+                            <a  href="boxed_page.html">Menu Item 2</a>
+                            <ul class="sub">
+                                <li><a  href="javascript:;">Menu Item 2.1</a></li>
+                                <li class="sub-menu">
+                                    <a  href="javascript:;">Menu Item 3</a>
+                                    <ul class="sub">
+                                        <li><a  href="javascript:;">Menu Item 3.1</a></li>
+                                        <li><a  href="javascript:;">Menu Item 3.2</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <!--multi level menu end-->
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!--所在位置-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--breadcrumbs start -->
+                    <ul class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="#">订单管理</a></li>
+                        <li class="active">待发货</li>
+                    </ul>
+                    <!--breadcrumbs end -->
+                </div>
+            </div>
+            <!-- invoice start-->
+
+            <!--订单列表-->
+            <!--一条订单-->
+            
+            <table>
+                <tbody>
+                <tr>
+                    <td width="40"></td>
+                    <td width="100">图片</td>
+                    <td width="250">商品名</td>
+                    <td width="100">总额</td>
+                    <td width="50">数量</td>
+                    <td width="100">售后</td>
+                    <td width="100">买家</td>
+                    <td width="100">交易状况</td>
+                    <td width="100">实收款</td>
+                    <td width="50">操作</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="orders">
+
+                <table>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6" id="page_info_area">
+
+                </div>
+
+                <div class="col-md-6" id="page_info_nav">
+
+                </div>
+            </div>
+            <!-- invoice end-->
+        </section>
+    </section>
+    <!--main content end-->
+    <!-- Right Slidebar start -->
+
+    <!-- Right Slidebar end -->
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            2013 &copy; FlatLab by VectorLab.
+            <a href="#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="../admins/js/jquery.js"></script>
+<script src="../admins/js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="../admins/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="../admins/js/jquery.scrollTo.min.js"></script>
+<script src="../admins/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="../admins/js/respond.min.js" ></script>
+
+<!--right slidebar-->
+<script src="../admins/js/slidebars.min.js"></script>
+
+<!--common script for all pages-->
+<script src="../admins/js/common-scripts.js"></script>
+
+<script>
+
+    //owl carousel
+    var currentPage;
+    //加载
+    $(function () {
+        toPage(1);
+    });
+
+    function toPage(pn) {
+
+        var selectType=$("#page_info_area").attr("select_Type");
+        //类型为模糊查询
+        if(selectType==1){
+            var queryContent=$("#queryContent").val();
+            $.ajax({
+                url:"${APP_PATH}/empsFuzzy"+"?date="+new Date().getTime(),
+                type:"GET",
+                data:"content="+queryContent+"&pn="+pn,
+                success:function (result) {
+                    console.log(result);
+
+                    build_emps_table(result);
+                    //建立分页信息
+                    build_page_info_area(result);
+                    //建立分页导航
+                    build_page_info_nav(result);
+                    //1为模糊查询
+                    $("#page_info_area").attr("select_Type","1");
+                }
+            });
+
+        }else {
+            $.ajax({
+                url: "/adminGetOrders/1",
+                type: "GET",
+                data: "pn=" + pn,
+                success: function (result) {
+                    console.log(result);
+                    build_orders_table(result);
+                    build_page_info_area(result);
+                    //建立分页导航
+                    build_page_info_nav(result);
+                }
+            });
+        }
+    }
+
+    function build_orders_table(result) {
+        $("#orders").empty();
+        var orders=result.extend.pageInfo.list;
+        $.each(orders,function (index,item) {
+            //table1
+            var tableOrder1=$("<table></table>").addClass("table");
+            var tbodyOrder1=$("<tbody></tbody>").appendTo(tableOrder1);
+            var trOrder1=$("<tr></tr>").appendTo(tbodyOrder1);
+            var tdOrderId1=$("<td bgcolor='silver' width='700'></td>").append("订单号："+item.orderId).appendTo(trOrder1);
+            var tdOrderTime1=$("<td bgcolor='silver'></td>").append("创建时间："+getMyDate(item.orderTime)).appendTo(trOrder1);
+            $("#orders").append(tableOrder1);
+
+            //table2
+            var tableOrder2=$("<table></table>");
+            var tbodyOrder2=$("<tbody></tbody>").appendTo(tableOrder2);
+            var trOrder2=$("<tr> <td width=\"40\"></td>" +
+                "<td width=\"100\"></td>" +
+                "<td width=\"250\"></td>" +
+                "<td width=\"100\"></td>" +
+                "<td width=\"50\"></td>" +
+                "<td width=\"100\"></td></tr>>").appendTo(tbodyOrder2);
+            var tdOrderUser=$("<td width='100'></td>").append(item.userId).appendTo(trOrder2);
+            if(item.status==1) {
+                var tdOrderStatus = $("<td width='100'></td>").append("待发货").appendTo(trOrder2);
+            }
+            var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(item.totalPrice).appendTo(trOrder2);
+            $("#orders").append(tableOrder2);
+            var tdBtn=$("<td width='50'><a href='#' orderId='"+item.orderId+"' class='do-btn'>发货</a></td>").appendTo(trOrder2);
+
+
+            $("#orders").append(tableOrder2);
+
+            //table3
+            $.each(item.orderItemList,function (index,item) {
+                var tableOrder3=$("<table></table>");
+                var tbodyOrder3=$("<tbody></tbody>").appendTo(tableOrder3);
+                var trOrder3=$("<tr><td width=\"40\"></td></tr>").appendTo(tbodyOrder3);
+                var tdPhoto=$("<td width=\"100\">图片</td>").append(item.productOrderItem.image).appendTo(trOrder3);
+                var tdProductName=$("<td width=\"250\"></td>").append(item.productOrderItem.productName).appendTo(trOrder3);
+                var tdPerPrice=$("<td width=\"100\">￥</td>").append(item.perPrice).appendTo(trOrder3);
+                var tdNum=$("<td width=\"50\"></td>").append(item.number).appendTo(trOrder3);
+                $("#orders").append(tableOrder3).append("</br></br></br>");
+
+            });
+        });
+    }
+    function build_page_info_area(result){
+        //先清空防止数据叠加显示
+        $("#page_info_area").empty();
+        $("#page_info_area").append("当前第 "+result.extend.pageInfo.pageNum+" 页， 共 "+result.extend.pageInfo.pages+" 页，共 "+result.extend.pageInfo.total+" 条信息");
+        currentPage=result.extend.pageInfo.pageNum;
+    }
+
+    function build_page_info_nav(result){
+        //先清空防止数据叠加显示
+        $("#page_info_nav").empty();
+        var ul=$("<ul></ul>").addClass("pagination");
+        var firstPageLi=$("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
+
+        var prePageLi = $("<li></li>").append($("<a></a>").append("上一页").attr("href", "#"));
+
+
+        var nextPageLi=$("<li></li>").append($("<a></a>").append("下一页").attr("href","#"));
+        var lastPageLi=$("<li></li>").append($("<a></a>").append("尾页").attr("href","#"));
+
+        firstPageLi.click(function () {
+            toPage(1);
+        });
+        lastPageLi.click(function () {
+            toPage(999);
+        });
+        prePageLi.click(function () {
+            toPage(currentPage-1);
+        });
+        nextPageLi.click(function () {
+            toPage(currentPage+1);
+        });
+        ul.append(firstPageLi);
+        if(currentPage!=1){
+            ul.append(prePageLi);
+        }
+
+        $.each(result.extend.pageInfo.navigatepageNums,function (index,item) {
+            var numLi=$("<li></li>").append($("<a></a>").append(item).attr("href","#"));
+            if(result.extend.pageInfo.pageNum==item) {
+                numLi.addClass("active");
+            }
+            ul.append(numLi);
+            numLi.click(function () {
+                toPage(item);
+            });
+        });
+
+        if(currentPage!=result.extend.pageInfo.pages){
+            ul.append(nextPageLi);
+        }
+        ul.append(lastPageLi);
+        var nav=$("<nav></nav>").append(ul);
+        nav.appendTo("#page_info_nav");
+    }
+
+    function getMyDate(str){
+        var oDate = new Date(str),
+            oYear = oDate.getFullYear(),
+            oMonth = oDate.getMonth()+1,
+            oDay = oDate.getDate(),
+            oHour = oDate.getHours(),
+            oMin = oDate.getMinutes(),
+            oSen = oDate.getSeconds(),
+            oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间
+        return oTime;
+    };
+    //补0操作
+    function getzf(num){
+        if(parseInt(num) < 10){
+            num = '0'+num;
+        }
+        return num;
+    }
+    //点击发货
+    $(document).on("click",".do-btn",function () {
+        if(confirm("确认发货吗？")) {
+            //发货
+            var orderId=$(this).attr("orderid");
+            $.ajax({
+                url: "/adminOrderShip",
+                type: "POST",
+                data: "orderId="+orderId+"&status="+2,
+                success: function (result) {
+                    if(result.code==1){
+                        alert("发货成功");
+                    }else {
+                        alert("系统错误");
+                    }
+                    toPage(currentPage);
+
+                }
+
+            });
+        }
+
+    });
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
