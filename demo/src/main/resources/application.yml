@@ -1,6 +1,8 @@
 
 server:
   port: 8080
+#文件上传路径配置，根据自己的环境自行更改
+filePath: /User/chpyue
 
 spring:
   datasource:
