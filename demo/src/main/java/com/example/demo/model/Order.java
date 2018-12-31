@@ -28,8 +28,7 @@ public class Order {
     private String returnReason;
 
     private List<OrderItem> orderItemList;
-
-    private String userName;
+    
 
     public List<OrderItem> getOrderItemList() {
         return orderItemList;
