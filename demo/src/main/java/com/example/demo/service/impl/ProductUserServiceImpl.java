@@ -79,10 +79,8 @@ public class ProductUserServiceImpl implements ProductUserService {
      * @return
      */
     @Override
-    public List<Product> productInfo(int productId){
-        ProductExample productExample = new ProductExample();
-        ProductExample.Criteria criteria = productExample.createCriteria();
-        criteria.andProductIdEqualTo(productId);
-        return productMapper.selectByExample(productExample);
+    public Product productInfo(int productId){
+
+        return productMapper.selectByPrimaryKey(productId);
     }
 }

@@ -32,6 +32,6 @@ public interface ProductUserService {
      * @param productId
      * @return
      */
-    List<Product> productInfo(int productId);
+    Product productInfo(int productId);
 
 }

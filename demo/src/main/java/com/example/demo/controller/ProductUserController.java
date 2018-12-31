@@ -96,7 +96,7 @@ public class ProductUserController {
      */
     @RequestMapping("/productInfo")//单个商品
     public ModelAndView productInfo(Model model,int productId){
-        model.addAttribute("findProductInfo",productUserService.productInfo(productId));
+        model.addAttribute("productInfo",productUserService.productInfo(productId));
         model.addAttribute("categoryList",productUserService.categoryList());
         System.out.println("商品ID="+productId);
         return new ModelAndView("product/productinfo","productModel",model);

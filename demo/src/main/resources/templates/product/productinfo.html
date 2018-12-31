@@ -57,27 +57,30 @@
 	</div>
 <!-- 顶部页面结束-->
 
-
+	<input id="danjia" type="hidden" th:value="${productInfo.price}">
+	<input id="id" type="hidden" th:value="${productInfo.productId}"/>
 	<!-- xiangqing -->
 	<form action="post" method="">
-		<div class="jieshao mt20 w"th:each="product:${findProductInfo}">
-			<div class="left fl"><img th:src="${product.image}"></div>
+		<div class="jieshao mt20 w">
+			<div class="left fl"><img th:src="${productInfo.image}"></div>
 			<div class="right fr">
-				<div class="h3 ml20 mt20" th:text="${product.productName}">名称</div>
-				<div class="ft10 ml20 mt20" th:text="${product.remarks}">描述</div>
-				<div class="ft20 ml20 mt20 ftbc" th:text="${product.price}">单价</div>
+				<div class="h3 ml20 mt20" th:text="${productInfo.productName}">名称</div>
+				<div class="ft10 ml20 mt20" th:text="${productInfo.remarks}">描述</div>
+				<div class="ft20 ml20 mt20 ftbc" th:text="${productInfo.price}">单价</div>
 				<div class="xqxq ml20 mt21">
 					<div class="top1 mt10">
 						<div class="left1 fl">
 							<ul>
-								<li class="left1 fl"><input type="text" id="v1" value="-" style="width: 10px;height: 30px;" onclick="document.all.num.value=document.all.num.value-1"/></li>
+								<li class="left1 fl"><input type="text" id="vl" value="-" style="width: 10px;height: 30px;" onclick="numberdown()"/></li>
 								<li class="left1 fl"><input type="text" style="width: 40px;height: 30px;" id="num" value="1" readonly="readonly"/></li>
-								<li class="left1 fl"><input type="text" id="" value="+" style="width: 10px;height: 30px;" readonly="readonly" onclick="document.all.num.value=parseInt(document.all.num.value)+1"/></li>
+								<li class="left1 fl"><input type="text" id="" value="+" style="width: 10px;height: 30px;" readonly="readonly" onclick="numberup()"/></li>
 							</ul>
 						</div>
 						<div class="clear"></div>
 					</div>
-					<div class="bot mt20 ft20 ftbc">总计</div>
+					<div class="bot mt20 ft20 ftbc">总计:
+						<input id="zongji" disabled type="text" th:value="${productInfo.price}" style="border-style:none;font-size:25px;color: #ff6700;background-color:transparent" />
+					</div>
 				</div>
 				<div class="xiadan ml20 mt20">
 					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购" />
@@ -95,6 +98,38 @@
 		<div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
 		<div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
 	</footer>
+
+
+
+
+	<script>
+		function numberdown() {
+			var num = document.getElementById("num");
+            var danjia = document.getElementById("danjia");	//获取商品单价
+			if(num.value > 1){
+			    num.value = num.value*1-1;
+			}
+			else {
+			    alert("数量为0");
+			}
+            zongji.value= (num.value*1)*(danjia.value*1);
+        }
+        function numberup() {
+			var num = document.getElementById("num");
+            var danjia = document.getElementById("danjia");	//获取商品单价
+			num.value=num.value*1+1;
+            zongji.value= (num.value*1)*(danjia.value*1);
+
+        }
+		//
+        // function huoqu() {																	// 获取商品数量
+		// 	var num = document.getElementById("num");		// 获取商品数量
+		// 	var danjia = document.getElementById("danjia");	//获取商品单价
+		// 	var id = document.getElementById("id");			//获取商品ID
+		// 	var zongji = document.getElementById("zongji");
+        // }
+	</script>
+
 
 	</body>
 </html>
