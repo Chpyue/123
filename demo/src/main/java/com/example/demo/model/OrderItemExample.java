@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -385,52 +384,52 @@ public class OrderItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceEqualTo(BigDecimal value) {
+        public Criteria andPerPriceEqualTo(Double value) {
             addCriterion("per_price =", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceNotEqualTo(BigDecimal value) {
+        public Criteria andPerPriceNotEqualTo(Double value) {
             addCriterion("per_price <>", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceGreaterThan(BigDecimal value) {
+        public Criteria andPerPriceGreaterThan(Double value) {
             addCriterion("per_price >", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andPerPriceGreaterThanOrEqualTo(Double value) {
             addCriterion("per_price >=", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceLessThan(BigDecimal value) {
+        public Criteria andPerPriceLessThan(Double value) {
             addCriterion("per_price <", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andPerPriceLessThanOrEqualTo(Double value) {
             addCriterion("per_price <=", value, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceIn(List<BigDecimal> values) {
+        public Criteria andPerPriceIn(List<Double> values) {
             addCriterion("per_price in", values, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceNotIn(List<BigDecimal> values) {
+        public Criteria andPerPriceNotIn(List<Double> values) {
             addCriterion("per_price not in", values, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andPerPriceBetween(Double value1, Double value2) {
             addCriterion("per_price between", value1, value2, "perPrice");
             return (Criteria) this;
         }
 
-        public Criteria andPerPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andPerPriceNotBetween(Double value1, Double value2) {
             addCriterion("per_price not between", value1, value2, "perPrice");
             return (Criteria) this;
         }

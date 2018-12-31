@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import java.math.BigDecimal;
-
 public class OrderItem {
     private String itemId;
 
@@ -11,17 +9,7 @@ public class OrderItem {
 
     private Integer number;
 
-    private BigDecimal perPrice;
-
-    private ProductOrderItem productOrderItem;
-
-    public ProductOrderItem getProductOrderItem() {
-        return productOrderItem;
-    }
-
-    public void setProductOrderItem(ProductOrderItem productOrderItem) {
-        this.productOrderItem = productOrderItem;
-    }
+    private Double perPrice;
 
     public String getItemId() {
         return itemId;
@@ -55,11 +43,11 @@ public class OrderItem {
         this.number = number;
     }
 
-    public BigDecimal getPerPrice() {
+    public Double getPerPrice() {
         return perPrice;
     }
 
-    public void setPerPrice(BigDecimal perPrice) {
+    public void setPerPrice(Double perPrice) {
         this.perPrice = perPrice;
     }
 }

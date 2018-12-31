@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 public class Order {
     private String orderId;
@@ -26,16 +25,6 @@ public class Order {
     private String receiveRemark;
 
     private String returnReason;
-
-    private List<OrderItem> orderItemList;
-
-    public List<OrderItem> getOrderItemList() {
-        return orderItemList;
-    }
-
-    public void setOrderItemList(List<OrderItem> orderItemList) {
-        this.orderItemList = orderItemList;
-    }
 
     public String getOrderId() {
         return orderId;
