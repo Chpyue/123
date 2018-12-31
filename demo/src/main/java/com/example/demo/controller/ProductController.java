@@ -7,13 +7,16 @@ import com.example.demo.model.User;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -49,8 +52,7 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/addproduct")
-    public ModelAndView addProduct(Product product,String flag,Model model){
-
+    public ModelAndView addProduct(MultipartFile file,Product product, String flag, Model model) throws IOException {
         List<Category> categoryList=categoryService.getCategoryList();
         model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
@@ -58,6 +60,7 @@ public class ProductController {
         if(flag.equals("1")){
             return new ModelAndView("product/showAddProduct","productModel",model);
         }else {
+            product.setImage(FileUtil.saveFile(file,"product"));
             productService.addProduct(product);
             return new ModelAndView("redirect:/product/list");
         }

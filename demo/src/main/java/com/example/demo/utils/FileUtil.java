@@ -20,9 +20,10 @@ import java.io.*;
  * @Version: 1.0
  */
 public class FileUtil {
+
     //绝对根路径，从yml文件里获取
     @Value("${filePath}")
-    private String base;
+    private static String base;
     //相对路径
     private static final String portrait = "/portrait/";
     private static final String product = "/product/";
@@ -41,7 +42,7 @@ public class FileUtil {
 
         System.out.println("生成的文件名"+saveFileName);
 
-        String filePath = "/Users/chpyue";
+        String filePath = base;
         switch (type){
             case "portrait":
                 filePath += portrait;
@@ -112,5 +113,14 @@ public class FileUtil {
             } catch (IOException ignored) {
             }
         }
+    }
+
+    private static String getPortraitPath(){
+        String filePath = base;
+        return filePath + portrait;
+    }
+    private static String getProductPath(){
+        String filePath = base;
+        return filePath + product;
     }
 }
