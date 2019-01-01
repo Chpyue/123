@@ -44,5 +44,11 @@ public interface ProductService {
      */
     void modifiProduct(Product product);
 
+    /**
+     * 获取商品信息
+     * @param productId
+     * @return
+     */
+    ProductView getProudctView(Integer productId);
 
 }

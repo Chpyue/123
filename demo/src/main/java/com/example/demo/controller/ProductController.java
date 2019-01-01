@@ -45,6 +45,21 @@ public class ProductController {
     }
 
     /**
+     * 商品详情
+     * @param model
+     * @param productId
+     * @return
+     */
+    @RequestMapping("/detailpage")
+    public ModelAndView findDetailByProductId(Model model,Integer productId){
+        model.addAttribute("productview",productService.findByProductId(productId));
+        model.addAttribute("user",userService.getUser());
+        return new ModelAndView("product/ProductDetails");
+    }
+
+
+
+    /**
      * 添加商品
      * @param product
      * @param flag 1.跳转添加页面 2.执行添加操作

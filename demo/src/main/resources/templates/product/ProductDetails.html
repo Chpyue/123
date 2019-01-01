@@ -493,26 +493,57 @@
                             <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                 <!--表头-->
                                 <thead>
+                                <p><a href="/product/list">返回上一页</a></p>
                                 <tr>
                                     <th><i class="fa fa-bullhorn"></i>ID</th>
-                                    <th><i class="fa fa-question-circle"></i> 商品种类</th>
-                                    <th><i class="fa fa-bookmark"></i> 商品名称</th>
-                                    <th><i class=" fa fa-bookmark"></i> 单价</th>
-                                    <th><i class="fa fa-bookmark"></i>库存量</th>
-                                    <th><i class="fa fa-bookmark"></i>上架时间</th>
-                                    <th><i class="fa fa-question-circle"></i>操作</th>
-                                </tr>
-                                </thead>
-                                <!-- 主体部分-->
-                                <tbody>
-                                <!--/*@thymesVar id="productList" type=""*/-->
-                                <tr th:each="productview:${productList}">
                                     <td th:text="${productview.productId}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-question-circle"></i> 商品种类</th>
                                     <td th:text="${productview.categoryName}"></td>
-                                    <td><a th:href="@{'/product/detailpage?productId='+${productview.productId}}" th:text="${productview.productName}"></a></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i> 商品名称</th>
+                                    <td th:text="${productview.productName}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>图片</th>
+                                    <td th:src="${productview.image}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class=" fa fa-bookmark"></i> 单价</th>
                                     <td th:text="${productview.price}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>库存量</th>
                                     <td th:text="${productview.count}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>上架时间</th>
                                     <td th:text="${productview.date}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>生产厂家</th>
+                                    <td th:text="${productview.factory}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>销量</th>
+                                    <td th:text="${productview.sales}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>上下架状态</th>
+                                    <td th:text="${productview.status}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>商品有效性</th>
+                                    <td th:text="${productview.isEffective}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-bookmark"></i>备注</th>
+                                    <td th:text="${productview.remarks}"></td>
+                                </tr>
+                                <tr>
+                                    <th><i class="fa fa-question-circle"></i>操作</th>
                                     <td>
                                         <button class="btn btn-primary btn-xs">
                                             <a th:href="'/product/modifiproduct?flag=1&productId='+${productview.productId}"  class="fa fa-pencil" >
@@ -523,8 +554,8 @@
                                         </button>
                                     </td>
                                 </tr>
-                                </tbody>
-                                <!--主体部分结束-->
+                                </thead>
+                                <!-- 主体部分-->
                                 <li>备注：上下架状态/有效性</li>
                                 <li>1.为上架/有效 2.为下架/无效</li>
                             </table>
@@ -723,33 +754,6 @@
 <script src="../admins/js/editable-table.js"></script>
 
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        EditableTable.init();
-
-    });
-
-
-    $(document).ready(function() {
-        $("#owl-demo").owlCarousel({
-            navigation : true,
-            slideSpeed : 300,
-            paginationSpeed : 400,
-            singleItem : true,
-            autoPlay:true
-
-        });
-    });
-
-    //custom select box
-
-    $(function(){
-        $('select.styled').customSelect();
-    });
-
-    $(window).on("resize",function(){
-        var owl = $("#owl-demo").data("owlCarousel");
-        owl.reinit();
-    });
     function deletef(id) {
         if (confirm("确实要删除吗?")) {
             location.href = "deleteproduct?productId="+id;

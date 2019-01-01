@@ -1,8 +1,6 @@
 package com.example.demo.utils;
 
-import com.sun.tools.internal.ws.wsdl.document.soap.SOAPUse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -22,8 +20,8 @@ import java.io.*;
 public class FileUtil {
 
     //绝对根路径，从yml文件里获取
-    @Value("${filePath}")
-    private static String base;
+    //@Value("${filePath}")
+    private static final String base="D://";
     //相对路径
     private static final String portrait = "/portrait/";
     private static final String product = "/product/";

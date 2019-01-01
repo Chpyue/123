@@ -17,6 +17,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductViewMapper ProductViewMapper;
     private final ProductMapper productMapper;
+
     @Autowired
     public ProductServiceImpl(ProductViewMapper ProductViewMapper, ProductMapper productMapper) {
 
@@ -91,6 +92,14 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public ProductView getProudctView(Integer productId) {
+        ProductViewExample example=new ProductViewExample();
+        ProductViewExample.Criteria criteria=example.createCriteria();
+        criteria.andProductIdEqualTo(productId);
+        ProductViewMapper.selectByExample(example);
+        return null;
+    }
 
 
 }
