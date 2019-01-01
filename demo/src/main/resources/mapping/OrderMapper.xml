@@ -23,7 +23,6 @@
       <result column="number" property="number" jdbcType="INTEGER" />
       <result column="per_price" property="perPrice" jdbcType="DECIMAL" />
     </collection>
-
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -84,7 +83,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, user_id, total_price, order_time, complete_time, status, receiver, receive_phone,
+    order_id, user_id, total_price, order_time, complete_time, status, receiver, receive_phone, 
     receive_address, receive_remark, return_reason
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.demo.model.OrderExample" >
@@ -103,7 +102,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
+    select 
     <include refid="Base_Column_List" />
     from orders
     where order_id = #{orderId,jdbcType=VARCHAR}
@@ -119,13 +118,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.Order" >
-    insert into orders (order_id, user_id, total_price,
-      order_time, complete_time, status,
-      receiver, receive_phone, receive_address,
+    insert into orders (order_id, user_id, total_price, 
+      order_time, complete_time, status, 
+      receiver, receive_phone, receive_address, 
       receive_remark, return_reason)
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{totalPrice,jdbcType=DECIMAL},
-      #{orderTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
-      #{receiver,jdbcType=VARCHAR}, #{receivePhone,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR},
+    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{totalPrice,jdbcType=DECIMAL}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{receiver,jdbcType=VARCHAR}, #{receivePhone,jdbcType=VARCHAR}, #{receiveAddress,jdbcType=VARCHAR}, 
       #{receiveRemark,jdbcType=VARCHAR}, #{returnReason,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.demo.model.Order" >
@@ -251,16 +250,16 @@
   <update id="updateByExample" parameterType="map" >
     update orders
     set order_id = #{record.orderId,jdbcType=VARCHAR},
-    user_id = #{record.userId,jdbcType=VARCHAR},
-    total_price = #{record.totalPrice,jdbcType=DECIMAL},
-    order_time = #{record.orderTime,jdbcType=TIMESTAMP},
-    complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
-    status = #{record.status,jdbcType=INTEGER},
-    receiver = #{record.receiver,jdbcType=VARCHAR},
-    receive_phone = #{record.receivePhone,jdbcType=VARCHAR},
-    receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
-    receive_remark = #{record.receiveRemark,jdbcType=VARCHAR},
-    return_reason = #{record.returnReason,jdbcType=VARCHAR}
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      total_price = #{record.totalPrice,jdbcType=DECIMAL},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      receiver = #{record.receiver,jdbcType=VARCHAR},
+      receive_phone = #{record.receivePhone,jdbcType=VARCHAR},
+      receive_address = #{record.receiveAddress,jdbcType=VARCHAR},
+      receive_remark = #{record.receiveRemark,jdbcType=VARCHAR},
+      return_reason = #{record.returnReason,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -46,8 +46,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         criteria.andStatusEqualTo(status);
         orderExample.setOrderByClause("order_time desc");
         orderList=orderMapper.selectByExample(orderExample);
-        System.out.println("orderId"+orderList.get(0).getOrderItemList().size());
-        System.out.println("商品价格："+orderList.get(0).getOrderItemList().get(0).getProductOrderItem().getPrice());
+//        System.out.println("orderId"+orderList.get(0).getOrderItemList().size());
+//        System.out.println("商品价格："+orderList.get(0).getOrderItemList().get(0).getProductOrderItem().getPrice());
         return orderList;
     }
 

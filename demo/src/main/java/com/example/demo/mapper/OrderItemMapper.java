@@ -19,6 +19,13 @@ public interface OrderItemMapper {
 
     List<OrderItem> selectByExample(OrderItemExample example);
 
+    /**
+     * 此方法用于改 OrderMappper.xml文件   关联映射查订单项目用
+     * @param orderId
+     * @return
+     */
+    List<OrderItem> selectByOrderId(String orderId);
+
     OrderItem selectByPrimaryKey(String itemId);
 
     int updateByExampleSelective(@Param("record") OrderItem record, @Param("example") OrderItemExample example);
@@ -28,7 +35,4 @@ public interface OrderItemMapper {
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
-
-    //此方法用于根据orderId查找订单项目   查找订单时一并查找出来  更改了mapper.xml文件
-    List<OrderItem> selectByOrderId(String orderId);
 }
