@@ -51,4 +51,12 @@ public interface ProductService {
      */
     ProductView getProudctView(Integer productId);
 
+
+
+    /**
+     * 根据id找商品
+     * @param productId
+     * @return
+     */
+    Product findProductById(Integer productId);
 }

@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
+<head>
+    <title>我的购物车</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <link th:href="@{/users/css/cart.css}" href="../static/users/css/cart.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+<!--top-->
+<div class="top">
+    <!--<a href="./index.html" target="_blank"><div class="logo fl"></div></a>-->
+   
+    <div class="wdgwc fl ml40">我的购物车</div>
+    <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+</div>
+
+<div class="xiantiao"></div>
+
+
+
+
+<!--table-start-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped" id="emps_table" >
+                <thead >
+                <tr >
+                    <th>
+                        <input type="checkbox" id="allcheck" name="allcheck" onclick="allcheck();"/>全选
+                    </th>
+                   <!-- <td>商品图片</td>-->
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>购买数量</th>
+                    <th >操作</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="cartCustom:${cartCustomList}" class="quantity-form">
+                    <td><input type="checkbox" name="ck" th:value="*{cartCustom.cartId}"/></td>
+                    <!--<td th:text="${cartCustom.cartId}">id</td>-->
+                    <td th:text="${cartCustom.productName}">name</td>
+                    <td th:text="${cartCustom.productPrice}">price</td>
+                    <td>
+                        <a href="javascript:void(0);" class="decrement"  id="decrement" >-</a>
+                        <input type="text" class="quantity-text"
+                               th:content="${userId}"
+                               th:name="${cartCustom.cartId}"
+                               th:value="*{cartCustom.productCount }"
+
+                               onchange="change()" >
+                       <a href="javascript:void(0);" class="increment"  id="increment">+</a>
+                    </td>
+                    <!--<td th:text="${cartCustom.productCount}">count</td>-->
+                    <td >
+                        <a th:href="@{'/cart/delete/'+${cartCustom.cartId}}">删除</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    //全选
+   /* function allcheck(){
+        // 先得到所有的checkbox
+        var ck=document.getElementsByName("ck");// 得到一组checkbox 相当于数组
+        // 循环这一组checkbox让每一个checkbox选中
+        for(var i=0;i<ck.length;i++){
+            var c=ck[i];
+        // 得到一个checkbox
+            c.checked=true;//true代表选中
+        }
+    }*/
+
+    //点击全选按钮
+    $("#allcheck").click(function () {
+        $("#emps_table input[type='checkbox']").prop("checked", $(this).prop("checked"));
+    });
+    //点击单选按钮   单选按钮全部选中后  全选按钮自动选中
+    $(document).on("click","#emps_table input[name='ck']",function () {
+        var flag = $("#emps_table input[name='ck']:checked").length==$("#emps_table input[name='ck']").length;
+        $("#allcheck").prop("checked",flag);
+    });
+
+    //批量删除
+    function alldel(){ var f=false;
+        //得到要删除的主键id
+        var arr="";
+        //用于存要删除的选中的id值
+        var ck=document.getElementsByName("ck");//得到一组checkbox 相当于数组
+        // 循环这一组checkbox让每一个checkbox选中
+        for(var i=0;i<ck.length;i++){
+            if(ck[i].checked==true){
+                arr=arr+ck[i].value+",";
+                f=true;
+            }
+        }
+        if(f==true){
+            if(confirm("您确认要删除吗？"))
+                location.href="/cart/removeCarts?ids="+arr;
+            }else{
+                alert("请至少选中一条进行批量删除");
+            }
+    }
+
+    //提交订单
+    function allcommit(){
+        var f=false;
+        var arr="";
+        //用于存要删除的选中的id值
+        var ck=document.getElementsByName("ck");//得到一组checkbox 相当于数组
+        // 循环这一组checkbox让每一个checkbox选中
+        for(var i=0;i<ck.length;i++){
+            if(ck[i].checked==true){
+                arr=arr+ck[i].value+",";
+                f=true;
+            } }
+        //alert(arr);
+        if(f==true){
+            if(confirm("您确认要删除吗？"))
+                location.href="/order/insertOrder?ids="+arr;
+        }else{
+            alert("请至少选中一条进行批量删除");
+        }
+
+    }
+
+
+    //修改数量
+    $(".increment").click(function(){
+        var _thisInput = $(this).siblings("input");
+
+        _thisInput.val(eval(_thisInput.val()) + 1.0);
+        $.ajax({
+            url:"/cart/update/count",
+            data:{
+                cartId:_thisInput.attr("name"),
+                productCount: _thisInput.val(),
+                userId: _thisInput.attr("content")
+            },
+            type:"post",
+            dataType:"json",
+            success:function (res) {
+                $("#lalala").html(res);
+                console.log(res)
+            },
+            error:function () {
+
+            }
+        })
+    })
+    $(".decrement").click(function(){
+        var _thisInput = $(this).siblings("input");
+
+
+        if(_thisInput.val()==1.0){
+            return;
+        }
+        _thisInput.val(eval(_thisInput.val()) - 1.0);
+
+        $.ajax({
+            url:"/cart/update/count",
+            data:{
+                cartId:_thisInput.attr("name"),
+                productCount: _thisInput.val(),
+                userId: _thisInput.attr("content")
+            },
+            type:"post",
+            dataType:"json",
+            success:function (res) {
+                $("#lalala").html(res);
+            },
+            error:function () {
+
+            }
+        })
+    })
+
+
+
+    //$(".quantity-from .quantity-text").rnumber(1);
+    $(".quantity-form .quantity-text").change(function () {
+        var _thisInput = $(this);
+       //alert(_thisInput.val());
+        $.ajax({
+            url:"/cart/update/count",
+            data:{
+                cartId:_thisInput.attr("name"),
+                productCount: _thisInput.val(),
+                userId: _thisInput.attr("content")
+            },
+            type:"post",
+            dataType:"json",
+            success:function (res) {
+                $("#lalala").html(res);
+            },
+            error:function () {
+
+            }
+        })
+    })
+
+    //计算总价
+    /*refreshTotalPrice : function () {
+        var total=0;
+        $(".quantity-from .quantity-text").each(function(i,e){
+            var _this=$(e);
+            total +=(eval(_this.attr("content"))*10000*eval(_this.val())) / 10000;
+        })
+    }*/
+</script>
+
+
+
+<div  class="commit">
+    <a href="javascript:void(0);" onclick="alldel();" class="btn btn-danger" id="dl">删除选中</a>
+    <!--  <a href=""  class="btn btn-success">继续购物</a>-->
+    <div class="jiesuanjiage fl" >合计（不含运费）：<span id="lalala" class="money" th:text="${summary}">2499.00元</span>元</div>
+    <a href="javascript:void(0);" onclick="allcommit();" class="btn btn-warning" id="sub">提交订单</a>
+</div>
+
+
+<div>
+    <div class="xiantiao mt20"></div>
+</div>
+
+
+
+<!--foot-->
+<footer class="mt20 center">
+    <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
+    <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
+    <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
+</footer>
+
+
+</body>
+</html>
+

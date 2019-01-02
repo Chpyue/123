@@ -101,5 +101,14 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    /**
+     * 根据id找商品
+     * @param productId
+     * @return
+     */
+    @Override
+    public Product findProductById(Integer productId) {
 
+        return productMapper.selectByPrimaryKey(productId);
+    }
 }
