@@ -15,13 +15,13 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductViewMapper ProductViewMapper;
+    private final ProductViewMapper productViewMapper;
     private final ProductMapper productMapper;
 
     @Autowired
-    public ProductServiceImpl(ProductViewMapper ProductViewMapper, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductViewMapper productViewMapper, ProductMapper productMapper) {
 
-        this.ProductViewMapper = ProductViewMapper;
+        this.productViewMapper = productViewMapper;
         this.productMapper = productMapper;
     }
 
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     public List<ProductView> getProductList(){
         ProductViewExample example=new ProductViewExample();
-        List<ProductView> productList=ProductViewMapper.selectByExample(example);
+        List<ProductView> productList=productViewMapper.selectByExample(example);
         return productList;
 
     }
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
         ProductViewExample example=new ProductViewExample();
         ProductViewExample.Criteria criteria=example.createCriteria();
         criteria.andProductIdEqualTo(productId);
-        List<ProductView> productList=ProductViewMapper.selectByExample(example);
+        List<ProductView> productList=productViewMapper.selectByExample(example);
         if(productList.size()!=0){
             ProductView productView=productList.get(0);
             return productView;
@@ -97,7 +97,7 @@ public class ProductServiceImpl implements ProductService {
         ProductViewExample example=new ProductViewExample();
         ProductViewExample.Criteria criteria=example.createCriteria();
         criteria.andProductIdEqualTo(productId);
-        ProductViewMapper.selectByExample(example);
+        productViewMapper.selectByExample(example);
         return null;
     }
 
