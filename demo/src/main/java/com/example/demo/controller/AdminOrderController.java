@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Order;
+import com.example.demo.model.ProductView;
 import com.example.demo.service.AdminOrderService;
+import com.example.demo.service.ProductService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -17,6 +20,10 @@ public class AdminOrderController {
 
     @Autowired
     private AdminOrderService orderService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 获得订单list
@@ -68,6 +75,34 @@ public class AdminOrderController {
     public String toPath(@PathVariable String path) {
         return "admin/order/"+path;
     }
+
+
+    /**
+     * 获得productName productImage
+     * @param productId
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/adminGetProductInfo")
+    public Msg getProductInfo(@RequestParam("productId")Integer productId) {
+        ProductView productView=productService.findByProductId(productId);
+        System.out.println("后台订单获取商品信息");
+        return Msg.success().add("productName",productView.getProductName())
+                .add("productImage",productView.getImage());
+    }
+
+    /**
+     * 获得userName
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/adminGetUserInfo")
+    public Msg getProductInfo(@RequestParam("userId")String userId) {
+        String userName=userService.findByUserId(userId).getName();
+        return Msg.success().add("userName",userName);
+    }
+
 
 
 }
