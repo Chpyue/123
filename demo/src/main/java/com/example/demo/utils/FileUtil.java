@@ -1,6 +1,5 @@
 package com.example.demo.utils;
 
-import com.sun.tools.internal.ws.wsdl.document.soap.SOAPUse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

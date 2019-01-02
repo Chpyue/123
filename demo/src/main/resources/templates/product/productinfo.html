@@ -57,7 +57,7 @@
 	</div>
 <!-- 顶部页面结束-->
 
-	<input id="danjia" type="hidden" th:value="${productInfo.price}">
+	<input id="danjia" type="hidden" th:value="${productInfo.price}"/>
 	<input id="id" type="hidden" th:value="${productInfo.productId}"/>
 	<!-- xiangqing -->
 	<form action="post" method="">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				<div class="xiadan ml20 mt20">
-					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购" />
+					<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
 					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
 				</div>
 			</div>
@@ -104,30 +104,29 @@
 
 	<script>
 		function numberdown() {
-			var num = document.getElementById("num");
+			var num = document.getElementById("num");		//获取商品数量
             var danjia = document.getElementById("danjia");	//获取商品单价
 			if(num.value > 1){
 			    num.value = num.value*1-1;
 			}
 			else {
-			    alert("数量为0");
+			    alert("数量不能为0");
 			}
             zongji.value= (num.value*1)*(danjia.value*1);
         }
         function numberup() {
-			var num = document.getElementById("num");
+			var num = document.getElementById("num");		//获取商品数量
             var danjia = document.getElementById("danjia");	//获取商品单价
 			num.value=num.value*1+1;
             zongji.value= (num.value*1)*(danjia.value*1);
 
         }
-		//
-        // function huoqu() {																	// 获取商品数量
-		// 	var num = document.getElementById("num");		// 获取商品数量
-		// 	var danjia = document.getElementById("danjia");	//获取商品单价
-		// 	var id = document.getElementById("id");			//获取商品ID
-		// 	var zongji = document.getElementById("zongji");
-        // }
+        function zhijiegoumai() {
+			var ID = document.getElementById("id");						//商品ID
+			var price = document.getElementById("danjia");				//商品单价
+			var num = document.getElementById("num");					//商品数量
+			//location.href="{'        ?  =ID'+'&   =price'+'&   =num'}"
+        }
 	</script>
 
 

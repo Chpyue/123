@@ -68,7 +68,7 @@ public class ProductController {
      */
     @RequestMapping("/addproduct")
     public ModelAndView addProduct(MultipartFile file,Product product, String flag, Model model) throws IOException {
-        System.out.println("ahhhahahah");
+//        System.out.println("ahhhahahah");
         List<Category> categoryList=categoryService.getCategoryList();
         model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
