@@ -623,7 +623,12 @@
                 "<td width=\"100\"></td>" +
                 "<td width=\"50\"></td>" +
                 "<td width=\"100\"></td></tr>>").appendTo(tbodyOrder2);
-            var tdOrderUser=$("<td width='100'></td>").append(item.userId).appendTo(trOrder2);
+
+            var tdOrderUser=$("<td width='100'></td>").attr("id","a"+item.userId+index).appendTo(trOrder2);
+            // alert("a"+item.userId+index);
+            adminGetUserInfo(item.userId,index);
+            var i=index;
+
             if(item.status==1) {
                 var tdOrderStatus = $("<td width='100'></td>").append("待发货").appendTo(trOrder2);
             }
@@ -639,8 +644,9 @@
                 var tableOrder3=$("<table></table>");
                 var tbodyOrder3=$("<tbody></tbody>").appendTo(tableOrder3);
                 var trOrder3=$("<tr><td width=\"40\"></td></tr>").appendTo(tbodyOrder3);
-                var tdPhoto=$("<td width=\"100\">图片</td>").append(item.productOrderItem.image).appendTo(trOrder3);
-                var tdProductName=$("<td width=\"250\"></td>").append(item.productOrderItem.productName).appendTo(trOrder3);
+                var tdPhoto=$("<td width=\"100\"></td>").attr("id","photo"+item.productId+index+i).appendTo(trOrder3);
+                var tdProductName=$("<td width=\"250\"></td>").attr("id","name"+item.productId+index+i).appendTo(trOrder3);
+                adminGetProductInfo(item.productId,index,i);
                 var tdPerPrice=$("<td width=\"100\">￥</td>").append(item.perPrice).appendTo(trOrder3);
                 var tdNum=$("<td width=\"50\"></td>").append(item.number).appendTo(trOrder3);
                 $("#orders").append(tableOrder3).append("</br></br></br>");
@@ -745,6 +751,35 @@
 
     });
 
+    function adminGetProductInfo(productId,index,i) {
+        $.ajax({
+            url: "/adminGetProductInfo",
+            type: "GET",
+            data: "productId="+productId,
+            success: function (result) {
+                console.log(result);
+                $("#name"+productId+index+i).append(result.extend.productName);
+                $("#photo"+productId+index+i).append(result.extend.productImage);
+            }
+
+        });
+    }
+
+
+    function adminGetUserInfo(userId,index) {
+        var userName;
+        $.ajax({
+            url: "/adminGetUserInfo",
+            type: "GET",
+            data: "userId="+userId,
+            success: function (result) {
+                console.log(result);
+                $("#a"+userId+index).append(result.extend.userName);
+            }
+
+        });
+
+    }
 
 
 
