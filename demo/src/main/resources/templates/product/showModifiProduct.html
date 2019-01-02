@@ -490,7 +490,7 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped table-advance table-hover ">
-                                <form action="/product/modifiproduct" method="post" id="modproductForm" class="form-inline">
+                                <form action="/product/modifiproduct" method="post" id="addproductForm" class="form-inline" enctype="multipart/form-data">
                                     <input type="hidden" name="flag" value="2">
                                     <input type="hidden" name="productId" th:value="${productView.productId}">
                                     <thead>
@@ -529,8 +529,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" class="form-control"  name="image"
-                                                   th:value="${productView.image}">
+                                            <input type="file" class="form-control" id="file" name="file">
                                         </div>
                                     </td>
                                     <td>

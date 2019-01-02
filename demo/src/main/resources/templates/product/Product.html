@@ -497,15 +497,9 @@
                                     <th><i class="fa fa-bullhorn"></i>ID</th>
                                     <th><i class="fa fa-question-circle"></i> 商品种类</th>
                                     <th><i class="fa fa-bookmark"></i> 商品名称</th>
-                                    <th><i class="fa fa-bookmark"></i>图片</th>
                                     <th><i class=" fa fa-bookmark"></i> 单价</th>
                                     <th><i class="fa fa-bookmark"></i>库存量</th>
                                     <th><i class="fa fa-bookmark"></i>上架时间</th>
-                                    <th><i class="fa fa-bookmark"></i>生产厂家</th>
-                                    <th><i class="fa fa-bookmark"></i>销量</th>
-                                    <th><i class="fa fa-bookmark"></i>上下架状态</th>
-                                    <th><i class="fa fa-bookmark"></i>商品有效性</th>
-                                    <th><i class="fa fa-bookmark"></i>备注</th>
                                     <th><i class="fa fa-question-circle"></i>操作</th>
                                 </tr>
                                 </thead>
@@ -515,16 +509,10 @@
                                 <tr th:each="productview:${productList}">
                                     <td th:text="${productview.productId}"></td>
                                     <td th:text="${productview.categoryName}"></td>
-                                    <td th:text="${productview.productName}"></td>
-                                    <td th:src="${productview.image}"></td>
+                                    <td><a th:href="@{'/product/detailpage?productId='+${productview.productId}}" th:text="${productview.productName}"></a></td>
                                     <td th:text="${productview.price}"></td>
                                     <td th:text="${productview.count}"></td>
                                     <td th:text="${productview.date}"></td>
-                                    <td th:text="${productview.factory}"></td>
-                                    <td th:text="${productview.sales}"></td>
-                                    <td th:text="${productview.status}"></td>
-                                    <td th:text="${productview.isEffective}"></td>
-                                    <td th:text="${productview.remarks}"></td>
                                     <td>
                                         <button class="btn btn-primary btn-xs">
                                             <a th:href="'/product/modifiproduct?flag=1&productId='+${productview.productId}"  class="fa fa-pencil" >

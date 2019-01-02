@@ -45,6 +45,21 @@ public class ProductController {
     }
 
     /**
+     * 商品详情
+     * @param model
+     * @param productId
+     * @return
+     */
+    @RequestMapping("/detailpage")
+    public ModelAndView findDetailByProductId(Model model,Integer productId){
+        model.addAttribute("productview",productService.findByProductId(productId));
+        model.addAttribute("user",userService.getUser());
+        return new ModelAndView("product/ProductDetails");
+    }
+
+
+
+    /**
      * 添加商品
      * @param product
      * @param flag 1.跳转添加页面 2.执行添加操作
@@ -53,6 +68,7 @@ public class ProductController {
      */
     @RequestMapping("/addproduct")
     public ModelAndView addProduct(MultipartFile file,Product product, String flag, Model model) throws IOException {
+//        System.out.println("ahhhahahah");
         List<Category> categoryList=categoryService.getCategoryList();
         model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
@@ -75,7 +91,7 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/modifiproduct")
-    public ModelAndView modifiProduct(String flag, Product product ,Model model){
+    public ModelAndView modifiProduct(MultipartFile file,String flag, Product product ,Model model)throws IOException{
         List<Category> categoryList=categoryService.getCategoryList();
         model.addAttribute("user",userService.getUser());
         model.addAttribute("categoryList",categoryList);
@@ -84,7 +100,7 @@ public class ProductController {
             model.addAttribute("productView",productView);
             return new ModelAndView("product/showModifiProduct","productmodel",model);
         }else {
-            System.out.println(product.toString());
+            product.setImage(FileUtil.saveFile(file,"product"));
             productService.modifiProduct(product);
             return new ModelAndView("redirect:/product/list");
         }

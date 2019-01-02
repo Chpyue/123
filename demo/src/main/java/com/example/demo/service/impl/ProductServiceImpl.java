@@ -15,12 +15,13 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductViewMapper ProductViewMapper;
+    private final ProductViewMapper productViewMapper;
     private final ProductMapper productMapper;
-    @Autowired
-    public ProductServiceImpl(ProductViewMapper ProductViewMapper, ProductMapper productMapper) {
 
-        this.ProductViewMapper = ProductViewMapper;
+    @Autowired
+    public ProductServiceImpl(ProductViewMapper productViewMapper, ProductMapper productMapper) {
+
+        this.productViewMapper = productViewMapper;
         this.productMapper = productMapper;
     }
 
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     public List<ProductView> getProductList(){
         ProductViewExample example=new ProductViewExample();
-        List<ProductView> productList=ProductViewMapper.selectByExample(example);
+        List<ProductView> productList=productViewMapper.selectByExample(example);
         return productList;
 
     }
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
         ProductViewExample example=new ProductViewExample();
         ProductViewExample.Criteria criteria=example.createCriteria();
         criteria.andProductIdEqualTo(productId);
-        List<ProductView> productList=ProductViewMapper.selectByExample(example);
+        List<ProductView> productList=productViewMapper.selectByExample(example);
         if(productList.size()!=0){
             ProductView productView=productList.get(0);
             return productView;
@@ -91,6 +92,23 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public ProductView getProudctView(Integer productId) {
+        ProductViewExample example=new ProductViewExample();
+        ProductViewExample.Criteria criteria=example.createCriteria();
+        criteria.andProductIdEqualTo(productId);
+        productViewMapper.selectByExample(example);
+        return null;
+    }
 
+    /**
+     * 根据id找商品
+     * @param productId
+     * @return
+     */
+    @Override
+    public Product findProductById(Integer productId) {
 
+        return productMapper.selectByPrimaryKey(productId);
+    }
 }

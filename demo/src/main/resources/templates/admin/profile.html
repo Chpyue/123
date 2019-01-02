@@ -478,10 +478,15 @@
                     <section class="panel">
                         <div class="user-heading round">
                             <a href="#">
-                                <img src="../admins/img/profile-avatar.jpg" alt="">
+                                <img th:src="@{'../update/portrait/'+${users.portraitUrl}}" alt="">
                             </a>
                             <h1 th:text="${users.name}">Jonathan Smith</h1>
                             <p th:text="${users.email}">jsmith@flatlab.com</p>
+                            <form action="/user/updateImage" method="post"  enctype="multipart/form-data">
+                                <input type="file" name="file" value="更换图片">
+                                <input type="submit" value="提交">
+                            </form>
+
                         </div>
 
                         <ul class="nav nav-pills nav-stacked">

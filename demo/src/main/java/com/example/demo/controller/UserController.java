@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -105,6 +109,20 @@ public class UserController {
         //获取当前用户信息
         model.addAttribute("user",userService.getUser());
         return new ModelAndView("admin/profileEdit","userModel",model);
+    }
+
+    /**
+     * 修改个人头像
+     * （仅允许修改本人）
+     * @param file
+     * @return
+     */
+    @PostMapping("/updateImage")
+    public String updateImage(MultipartFile file) throws IOException {
+        User user = userService.getUser();
+        user.setPortraitUrl(FileUtil.saveFile(file,"portrait"));
+        userService.updateUser(user);
+        return "redirect:/user/"+user.getUserId();
     }
 
     /**

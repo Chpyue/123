@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         List<User> userList = userMapper.selectByExample(example);
 
-        System.out.println(userList.size());
         if(userList.size()!=0){
             User user = userList.get(0);
             //中间表
@@ -69,8 +68,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             criteria1.andUserIdEqualTo(user.getUserId());
 
             List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example1);
-            System.out.println(userAuthorityList.size());
-
 
             //提取权限ID
             List<Integer> authotityIdList = new ArrayList<>();
@@ -86,7 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             authorities = authorityMapper.selectByExample(example2);
 
             user.setAuthorities(authorities);
-            System.out.println(user.getUsername());
+
             return user;
         }
         else {
@@ -162,7 +159,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Authority authority : user.getAuthorityList()) {
             authorities.add(new SimpleGrantedAuthority(authority.getName()));
-            System.out.println(authority.getName());
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
 
