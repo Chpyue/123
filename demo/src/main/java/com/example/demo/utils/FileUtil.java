@@ -24,7 +24,8 @@ public class FileUtil {
 
     //绝对根路径，从yml文件里获取
 //    @Value("${filePath}")
-    private static final String base = "./src/main/resources/static/update";
+    private static final String base = "./target/classes/static/update";
+    private static final String base0 = "./src/main/resources/static/update";
     //相对路径
     private static final String portrait = "/portrait/";
     private static final String product = "/product/";
@@ -51,6 +52,7 @@ public class FileUtil {
             case "product":
                 filePath += product;
                 break;
+                default:break;
         }
         System.out.println("filePath"+filePath);
         System.out.println("开始创建文件夹");
@@ -63,7 +65,10 @@ public class FileUtil {
         }
         //将路径与文件名拼装
         filePath+=saveFileName;
-        write(file.getInputStream(), new FileOutputStream(filePath));  //将文件写入到磁盘中
+        String filepath = base0+saveFileName;
+
+        write(file.getInputStream(), new FileOutputStream(filePath));  //将文件写入到磁盘中z
+        write(file.getInputStream(), new FileOutputStream(filepath));  //将文件写入到磁盘中z
         return saveFileName;
     }
 
