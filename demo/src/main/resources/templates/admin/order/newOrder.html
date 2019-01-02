@@ -649,9 +649,17 @@
                 adminGetProductInfo(item.productId,index,i);
                 var tdPerPrice=$("<td width=\"100\">￥</td>").append(item.perPrice).appendTo(trOrder3);
                 var tdNum=$("<td width=\"50\"></td>").append(item.number).appendTo(trOrder3);
-                $("#orders").append(tableOrder3).append("</br></br></br>");
+                $("#orders").append(tableOrder3).append("</br>");
 
             });
+
+            var tableOrder4=$("<table></table>").addClass("table");
+            var tbodyOrder4=$("<tbody></tbody>").appendTo(tableOrder4);
+            var trOrder4=$("<tr></tr>").appendTo(tbodyOrder4);
+            var tdOrderReceiver=$("<td bgcolor='silver'></td>").append("收货人："+item.receiver).appendTo(trOrder4);
+            var tdOrderReceivePhone=$("<td bgcolor='silver'></td>").append("手机号："+item.receivePhone).appendTo(trOrder4);
+            var tdOrderreceiveAddress=$("<td bgcolor='silver'></td>").append("收货地址："+item.receiveAddress).appendTo(trOrder4);
+            $("#orders").append(tableOrder4).append("</br></br>");
         });
     }
     function build_page_info_area(result){

@@ -620,7 +620,10 @@
                 "<td width=\"100\"></td>" +
                 "<td width=\"50\"></td>" +
                 "<td width=\"100\"></td></tr>>").appendTo(tbodyOrder2);
-            var tdOrderUser=$("<td width='100'></td>").append(item.userId).appendTo(trOrder2);
+            var tdOrderUser=$("<td width='100'></td>").attr("id","a"+item.userId+index).appendTo(trOrder2);
+            // alert("a"+item.userId+index);
+            adminGetUserInfo(item.userId,index);
+            var i=index;
             if(item.status==5) {
                 var tdOrderStatus = $("<td width='100'></td>").append("已退货").appendTo(trOrder2);
             }
@@ -631,13 +634,22 @@
                 var tableOrder3=$("<table></table>");
                 var tbodyOrder3=$("<tbody></tbody>").appendTo(tableOrder3);
                 var trOrder3=$("<tr><td width=\"40\"></td></tr>").appendTo(tbodyOrder3);
-                var tdPhoto=$("<td width=\"100\">图片</td>").append(item.productOrderItem.image).appendTo(trOrder3);
-                var tdProductName=$("<td width=\"300\"></td>").append(item.productOrderItem.productName).appendTo(trOrder3);
+                var tdPhoto=$("<td width=\"100\"></td>").attr("id","photo"+item.productId+index+i).appendTo(trOrder3);
+                var tdProductName=$("<td width=\"250\"></td>").attr("id","name"+item.productId+index+i).appendTo(trOrder3);
+                adminGetProductInfo(item.productId,index,i);
                 var tdPerPrice=$("<td width=\"100\">￥</td>").append(item.perPrice).appendTo(trOrder3);
                 var tdNum=$("<td width=\"50\"></td>").append(item.number).appendTo(trOrder3);
                 $("#orders").append(tableOrder3).append("</br></br></br>");
 
             });
+
+            var tableOrder4=$("<table></table>").addClass("table");
+            var tbodyOrder4=$("<tbody></tbody>").appendTo(tableOrder4);
+            var trOrder4=$("<tr></tr>").appendTo(tbodyOrder4);
+            var tdOrderReceiver=$("<td bgcolor='silver'></td>").append("收货人："+item.receiver).appendTo(trOrder4);
+            var tdOrderReceivePhone=$("<td bgcolor='silver'></td>").append("手机号："+item.receivePhone).appendTo(trOrder4);
+            var tdOrderreceiveAddress=$("<td bgcolor='silver'></td>").append("收货地址："+item.receiveAddress).appendTo(trOrder4);
+            $("#orders").append(tableOrder4).append("</br></br>");
         });
     }
     function build_page_info_area(result){
@@ -712,6 +724,36 @@
             num = '0'+num;
         }
         return num;
+    }
+    //获得商品信息
+    function adminGetProductInfo(productId,index,i) {
+        $.ajax({
+            url: "/adminGetProductInfo",
+            type: "GET",
+            data: "productId="+productId,
+            success: function (result) {
+                console.log(result);
+                $("#name"+productId+index+i).append(result.extend.productName);
+                $("#photo"+productId+index+i).append(result.extend.productImage);
+            }
+
+        });
+    }
+
+    //获得买家信息
+    function adminGetUserInfo(userId,index) {
+        var userName;
+        $.ajax({
+            url: "/adminGetUserInfo",
+            type: "GET",
+            data: "userId="+userId,
+            success: function (result) {
+                console.log(result);
+                $("#a"+userId+index).append(result.extend.userName);
+            }
+
+        });
+
     }
 
 

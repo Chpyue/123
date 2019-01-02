@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Order;
+import com.example.demo.model.OrderItem;
 import com.example.demo.model.ProductView;
 import com.example.demo.service.AdminOrderService;
 import com.example.demo.service.ProductService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -103,6 +105,19 @@ public class AdminOrderController {
         return Msg.success().add("userName",userName);
     }
 
+    @ResponseBody
+    @GetMapping("/adminGetOrderInfo")
+    public Msg getOrderInfoDesc(@RequestParam("orderId")String orderId) {
+        Order order=orderService.getOrderInfo(orderId);
+        return Msg.success().add("order",order);
+    }
+    @GetMapping("/toOrderInfo")
+    public String toOrderInfo(String orderId,Model model) {
+            model.addAttribute("orderId",orderId);
+
+            System.out.println(orderId);
+            return "admin/order/orderInfo";
+    }
 
 
 }

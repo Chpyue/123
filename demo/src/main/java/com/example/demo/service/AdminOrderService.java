@@ -45,4 +45,9 @@ public interface AdminOrderService {
      * @return
      */
     Integer countsReturnedOrder();
+
+    /**
+     * 获得订单详细信息
+     */
+    Order getOrderInfo(String orderId);
 }

@@ -480,7 +480,7 @@
                     <ul class="breadcrumb">
                         <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                         <li><a href="#">订单管理</a></li>
-                        <li class="active">已发货</li>
+                        <li class="active">订单详情</li>
                     </ul>
                     <!--breadcrumbs end -->
                 </div>
@@ -489,19 +489,20 @@
 
             <!--订单列表-->
             <!--一条订单-->
-
+            <a th:text="${orderId}" id="orderid"></a>
             <table>
                 <tbody>
                 <tr>
                     <td width="40"></td>
                     <td width="100">图片</td>
-                    <td width="300">商品名</td>
+                    <td width="250">商品名</td>
                     <td width="100">总额</td>
                     <td width="50">数量</td>
                     <td width="100">售后</td>
                     <td width="100">买家</td>
                     <td width="100">交易状况</td>
                     <td width="100">实收款</td>
+                    <td width="50">操作</td>
                 </tr>
                 </tbody>
             </table>
@@ -563,81 +564,80 @@
     });
 
     function toPage(pn) {
+        var orderId=$("#orderid").text();
+        $.ajax({
+            url: "/adminGetOrderInfo",
+            type: "GET",
+            data: "orderId=" + orderId,
+            success: function (result) {
+                console.log(result);
+                build_orders_table(result);
+            }
+        });
 
-        var selectType=$("#page_info_area").attr("select_Type");
-        //类型为模糊查询
-        if(selectType==1){
-            var queryContent=$("#queryContent").val();
-            $.ajax({
-                url:"${APP_PATH}/empsFuzzy"+"?date="+new Date().getTime(),
-                type:"GET",
-                data:"content="+queryContent+"&pn="+pn,
-                success:function (result) {
-                    console.log(result);
-
-                    build_emps_table(result);
-                    //建立分页信息
-                    build_page_info_area(result);
-                    //建立分页导航
-                    build_page_info_nav(result);
-                    //1为模糊查询
-                    $("#page_info_area").attr("select_Type","1");
-                }
-            });
-
-        }else {
-            $.ajax({
-                url: "/adminGetOrders/2",
-                type: "GET",
-                data: "pn=" + pn,
-                success: function (result) {
-                    console.log(result);
-                    build_orders_table(result);
-                    build_page_info_area(result);
-                    //建立分页导航
-                    build_page_info_nav(result);
-                }
-            });
-        }
     }
 
     function build_orders_table(result) {
         $("#orders").empty();
-        var orders=result.extend.pageInfo.list;
-        $.each(orders,function (index,item) {
+        var order=result.extend.order;
+
+            //table1
             var tableOrder1=$("<table></table>").addClass("table");
             var tbodyOrder1=$("<tbody></tbody>").appendTo(tableOrder1);
             var trOrder1=$("<tr></tr>").appendTo(tbodyOrder1);
-            var tdOrderId1=$("<td bgcolor='silver' width='700'></td>").append("订单号："+item.orderId).appendTo(trOrder1);
-            var tdOrderTime1=$("<td bgcolor='silver'></td>").append("创建时间："+getMyDate(item.orderTime)).appendTo(trOrder1);
+            var tdOrderId1=$("<td bgcolor='silver' width='700'></td>").append("订单号："+order.orderId).appendTo(trOrder1);
+            var tdOrderTime1=$("<td bgcolor='silver'></td>").append("创建时间："+getMyDate(order.orderTime)).appendTo(trOrder1);
             $("#orders").append(tableOrder1);
 
+            //table2
             var tableOrder2=$("<table></table>");
             var tbodyOrder2=$("<tbody></tbody>").appendTo(tableOrder2);
             var trOrder2=$("<tr> <td width=\"40\"></td>" +
                 "<td width=\"100\"></td>" +
-                "<td width=\"300\"></td>" +
+                "<td width=\"250\"></td>" +
                 "<td width=\"100\"></td>" +
                 "<td width=\"50\"></td>" +
                 "<td width=\"100\"></td></tr>>").appendTo(tbodyOrder2);
-            var tdOrderUser=$("<td width='100'></td>").attr("id","a"+item.userId+index).appendTo(trOrder2);
-            // alert("a"+item.userId+index);
-            adminGetUserInfo(item.userId,index);
-            var i=index;
 
-            if(item.status==2) {
+            var tdOrderUser=$("<td width='100'></td>").attr("id","a"+order.userId).appendTo(trOrder2);
+            // alert("a"+item.userId+index);
+            adminGetUserInfo(order.userId);
+
+
+            if(order.status==1) {
+                var tdOrderStatus = $("<td width='100'></td>").append("待发货").appendTo(trOrder2);
+            }
+            if(order.status==2) {
                 var tdOrderStatus = $("<td width='100'></td>").append("已发货").appendTo(trOrder2);
             }
-            var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(item.totalPrice).appendTo(trOrder2);
+            if(order.status==3) {
+                var tdOrderStatus = $("<td width='100'></td>").append("订单完成").appendTo(trOrder2);
+            }
+            if(order.status==4) {
+                var tdOrderStatus = $("<td width='100'></td>").append("请求退货").appendTo(trOrder2);
+            }
+            if(order.status==5) {
+                var tdOrderStatus = $("<td width='100'></td>").append("退货成功").appendTo(trOrder2);
+            }
+            var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(order.totalPrice).appendTo(trOrder2);
+            if(order.status==1) {
+                var tdBtn = $("<td width='50'><a href='#' orderId='" + order.orderId + "' class='do-btn'>发货</a></td>").appendTo(trOrder2);
+            }
+            if(order.status==4) {
+                var tdBtn1=$("<td width='30'><a href='#' orderId='"+order.orderId+"' class='do-btn'>同意</a></td>").appendTo(trOrder2);
+                var tdBtn2=$("<td width='30'><a href='#' orderId='"+order.orderId+"' class='do-btn'>拒绝</a></td>").appendTo(trOrder2);
+            }
             $("#orders").append(tableOrder2);
 
-            $.each(item.orderItemList,function (index,item) {
+
+            //table3
+            $.each(order.orderItemList,function (index,item) {
                 var tableOrder3=$("<table></table>");
                 var tbodyOrder3=$("<tbody></tbody>").appendTo(tableOrder3);
                 var trOrder3=$("<tr><td width=\"40\"></td></tr>").appendTo(tbodyOrder3);
-                var tdPhoto=$("<td width=\"100\"></td>").attr("id","photo"+item.productId+index+i).appendTo(trOrder3);
-                var tdProductName=$("<td width=\"250\"></td>").attr("id","name"+item.productId+index+i).appendTo(trOrder3);
-                adminGetProductInfo(item.productId,index,i);
+                var tdPhoto=$("<td width=\"100\"></td>").attr("id","photo"+item.productId+index).appendTo(trOrder3);
+                var tdProductName=$("<td width=\"250\"></td>").attr("id","name"+item.productId+index).appendTo(trOrder3);
+                adminGetProductInfo(item.productId,index);
                 var tdPerPrice=$("<td width=\"100\">￥</td>").append(item.perPrice).appendTo(trOrder3);
                 var tdNum=$("<td width=\"50\"></td>").append(item.number).appendTo(trOrder3);
                 $("#orders").append(tableOrder3).append("</br></br></br>");
@@ -647,11 +647,11 @@
             var tableOrder4=$("<table></table>").addClass("table");
             var tbodyOrder4=$("<tbody></tbody>").appendTo(tableOrder4);
             var trOrder4=$("<tr></tr>").appendTo(tbodyOrder4);
-            var tdOrderReceiver=$("<td bgcolor='silver'></td>").append("收货人："+item.receiver).appendTo(trOrder4);
-            var tdOrderReceivePhone=$("<td bgcolor='silver'></td>").append("手机号："+item.receivePhone).appendTo(trOrder4);
-            var tdOrderreceiveAddress=$("<td bgcolor='silver'></td>").append("收货地址："+item.receiveAddress).appendTo(trOrder4);
+            var tdOrderReceiver=$("<td bgcolor='silver'></td>").append("收货人："+order.receiver).appendTo(trOrder4);
+            var tdOrderReceivePhone=$("<td bgcolor='silver'></td>").append("手机号："+order.receivePhone).appendTo(trOrder4);
+            var tdOrderreceiveAddress=$("<td bgcolor='silver'></td>").append("收货地址："+order.receiveAddress).appendTo(trOrder4);
             $("#orders").append(tableOrder4).append("</br></br>");
-        });
+
     }
     function build_page_info_area(result){
         //先清空防止数据叠加显示
@@ -726,23 +726,59 @@
         }
         return num;
     }
-    //获得商品信息
-    function adminGetProductInfo(productId,index,i) {
+    //点击发货
+    $(document).on("click",".do-btn",function () {
+        var dotype=$(this).text();
+        if(confirm("确认"+dotype+"吗？")) {
+            //发货
+            var status;
+            //同意则变为退货完成状态
+            if(dotype==("同意")) {
+                status=5;
+            }
+            //拒绝则变为已发货状态
+            if(dotype==("拒绝")) {
+                status=2;
+            }
+            if(dotype==("发货")) {
+                status=2;
+            }
+            var orderId=$(this).attr("orderid");
+            $.ajax({
+                url: "/adminOrderShip",
+                type: "POST",
+                data: "orderId="+orderId+"&status="+2,
+                success: function (result) {
+                    if(result.code==1){
+                        alert("操作成功");
+                    }else {
+                        alert("系统错误");
+                    }
+                    toPage(currentPage);
+
+                }
+
+            });
+        }
+
+    });
+
+    function adminGetProductInfo(productId,index) {
         $.ajax({
             url: "/adminGetProductInfo",
             type: "GET",
             data: "productId="+productId,
             success: function (result) {
                 console.log(result);
-                $("#name"+productId+index+i).append(result.extend.productName);
-                $("#photo"+productId+index+i).append(result.extend.productImage);
+                $("#name"+productId+index).append(result.extend.productName);
+                $("#photo"+productId+index).append(result.extend.productImage);
             }
 
         });
     }
 
-    //获得买家信息
-    function adminGetUserInfo(userId,index) {
+
+    function adminGetUserInfo(userId) {
         var userName;
         $.ajax({
             url: "/adminGetUserInfo",
@@ -750,12 +786,15 @@
             data: "userId="+userId,
             success: function (result) {
                 console.log(result);
-                $("#a"+userId+index).append(result.extend.userName);
+                $("#a"+userId).append(result.extend.userName);
             }
 
         });
 
     }
+
+
+
 
 
 </script>

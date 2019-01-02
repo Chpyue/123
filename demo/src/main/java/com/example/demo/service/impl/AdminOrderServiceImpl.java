@@ -69,6 +69,9 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         }else if(seekType==2){
             List<String> orderIds=new ArrayList<>();
             List<OrderItem> orderItems=getOrderIdByProductId(seekContent);
+            if (orderItems.size()==0){
+                return null;
+            }
             for (OrderItem orderItem:orderItems) {
                 orderIds.add(orderItem.getOrderId());
                 System.out.println(orderIds.size());
@@ -107,6 +110,22 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         OrderExample.Criteria criteria=orderExample.createCriteria();
         criteria.andStatusEqualTo(5);
         return orderMapper.countByExample(orderExample);
+    }
+
+    /**
+     * 获得订单详细信息
+     * @param orderId
+     */
+    @Override
+    public Order getOrderInfo(String orderId) {
+        List<Order> orderList=new ArrayList<Order>();
+        OrderExample orderExample=new OrderExample();
+        OrderExample.Criteria criteria=orderExample.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        orderList=orderMapper.selectByExample(orderExample);
+//        System.out.println("orderId"+orderList.get(0).getOrderItemList().size());
+//        System.out.println("商品价格："+orderList.get(0).getOrderItemList().get(0).getProductOrderItem().getPrice());
+        return orderList.get(0);
     }
 
     /**
