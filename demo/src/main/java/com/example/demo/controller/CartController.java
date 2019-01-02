@@ -104,7 +104,7 @@ public class CartController {
         model.addAttribute("cartCustomList",cartCustomList);
         model.addAttribute("summary",sum);
         model.addAttribute("userId",userId);
-        return  new ModelAndView("ct","cartModel",model);
+        return  new ModelAndView("cart/ct","cartModel",model);
 
     }
 
