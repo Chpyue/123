@@ -4,6 +4,7 @@ import com.example.demo.model.Category;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductView;
 import com.example.demo.model.User;
+import com.example.demo.service.AdminOrderService;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
@@ -29,6 +30,8 @@ public class ProductController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AdminOrderService adminOrderService;
 
 
     /**
@@ -52,6 +55,12 @@ public class ProductController {
      */
     @RequestMapping("/detailpage")
     public ModelAndView findDetailByProductId(Model model,Integer productId){
+        Integer count1=adminOrderService.countsOrderProductByStatus(2,productId);
+        Integer count2=adminOrderService.countsOrderProductByStatus(3,productId);
+        Integer count3=adminOrderService.countsOrderProductByStatus(4,productId);
+        Integer count4=adminOrderService.countsOrderProductByStatus(5,productId);
+        Integer count=count1+count2+count3-count4;
+        model.addAttribute("count",count);
         model.addAttribute("productview",productService.findByProductId(productId));
         model.addAttribute("user",userService.getUser());
         return new ModelAndView("product/ProductDetails");

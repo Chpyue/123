@@ -138,6 +138,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         for (OrderItem orderItem:orderItems) {
             counts+=orderItem.getNumber();
         }
+//        System.out.println(counts);
         return counts;
     }
 
