@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.ProductUserService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class ProductUserController {
 
     @Autowired
     private ProductUserService productUserService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 商品种类表
@@ -45,6 +48,11 @@ public class ProductUserController {
         }
         model.addAttribute("productList",productUserService.findByKind(kind,orderbyname));
         model.addAttribute("categoryList",productUserService.categoryList());
+        try{
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            System.out.println("暂未无用户登录");
+        }
         model.addAttribute("selectType",orderbyname);
         model.addAttribute("isHidden",true);
         return new ModelAndView("product/productlist","productModel",model);
@@ -98,6 +106,11 @@ public class ProductUserController {
     public ModelAndView productInfo(Model model,int productId){
         model.addAttribute("productInfo",productUserService.productInfo(productId));
         model.addAttribute("categoryList",productUserService.categoryList());
+        try{
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            System.out.println("暂未无用户登录");
+        }
         System.out.println("商品ID="+productId);
         return new ModelAndView("product/productinfo","productModel",model);
     }
