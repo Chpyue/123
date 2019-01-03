@@ -2,8 +2,7 @@
 <html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
->
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>我的购物车</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,8 +15,6 @@
 
 <!--top-->
 <div class="top">
-    <!--<a href="./index.html" target="_blank"><div class="logo fl"></div></a>-->
-   
     <div class="wdgwc fl ml40">我的购物车</div>
     <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
 </div>
@@ -37,7 +34,7 @@
                     <th>
                         <input type="checkbox" id="allcheck" name="allcheck" onclick="allcheck();"/>全选
                     </th>
-                   <!-- <td>商品图片</td>-->
+                    <!-- <td>商品图片</td>-->
                     <th>商品名称</th>
                     <th>商品单价</th>
                     <th>购买数量</th>
@@ -47,20 +44,18 @@
                 <tbody >
                 <tr th:each="cartCustom:${cartCustomList}" class="quantity-form">
                     <td><input type="checkbox" name="ck" th:value="*{cartCustom.cartId}"/></td>
-                    <!--<td th:text="${cartCustom.cartId}">id</td>-->
                     <td th:text="${cartCustom.productName}">name</td>
                     <td th:text="${cartCustom.productPrice}">price</td>
                     <td>
                         <a href="javascript:void(0);" class="decrement"  id="decrement" >-</a>
                         <input type="text" class="quantity-text"
-                               th:content="${userId}"
+
                                th:name="${cartCustom.cartId}"
                                th:value="*{cartCustom.productCount }"
 
                                onchange="change()" >
-                       <a href="javascript:void(0);" class="increment"  id="increment">+</a>
+                        <a href="javascript:void(0);" class="increment"  id="increment">+</a>
                     </td>
-                    <!--<td th:text="${cartCustom.productCount}">count</td>-->
                     <td >
                         <a th:href="@{'/cart/delete/'+${cartCustom.cartId}}">删除</a>
                     </td>
@@ -76,16 +71,16 @@
 
 <script type="text/javascript">
     //全选
-   /* function allcheck(){
-        // 先得到所有的checkbox
-        var ck=document.getElementsByName("ck");// 得到一组checkbox 相当于数组
-        // 循环这一组checkbox让每一个checkbox选中
-        for(var i=0;i<ck.length;i++){
-            var c=ck[i];
-        // 得到一个checkbox
-            c.checked=true;//true代表选中
-        }
-    }*/
+    /* function allcheck(){
+         // 先得到所有的checkbox
+         var ck=document.getElementsByName("ck");// 得到一组checkbox 相当于数组
+         // 循环这一组checkbox让每一个checkbox选中
+         for(var i=0;i<ck.length;i++){
+             var c=ck[i];
+         // 得到一个checkbox
+             c.checked=true;//true代表选中
+         }
+     }*/
 
     //点击全选按钮
     $("#allcheck").click(function () {
@@ -113,16 +108,16 @@
         if(f==true){
             if(confirm("您确认要删除吗？"))
                 location.href="/cart/removeCarts?ids="+arr;
-            }else{
-                alert("请至少选中一条进行批量删除");
-            }
+        }else{
+            alert("请至少选中一条进行批量删除");
+        }
     }
 
     //提交订单
     function allcommit(){
         var f=false;
         var arr="";
-        //用于存要删除的选中的id值
+        //用于存要提交的选中的id值
         var ck=document.getElementsByName("ck");//得到一组checkbox 相当于数组
         // 循环这一组checkbox让每一个checkbox选中
         for(var i=0;i<ck.length;i++){
@@ -132,10 +127,10 @@
             } }
         //alert(arr);
         if(f==true){
-            if(confirm("您确认要删除吗？"))
+            if(confirm("您确认要提交吗？"))
                 location.href="/order/insertOrder?ids="+arr;
         }else{
-            alert("请至少选中一条进行批量删除");
+            alert("请至少选中一条进行提交");
         }
 
     }
@@ -151,7 +146,6 @@
             data:{
                 cartId:_thisInput.attr("name"),
                 productCount: _thisInput.val(),
-                userId: _thisInput.attr("content")
             },
             type:"post",
             dataType:"json",
@@ -178,7 +172,7 @@
             data:{
                 cartId:_thisInput.attr("name"),
                 productCount: _thisInput.val(),
-                userId: _thisInput.attr("content")
+                //userId: _thisInput.attr("content")
             },
             type:"post",
             dataType:"json",
@@ -193,16 +187,15 @@
 
 
 
-    //$(".quantity-from .quantity-text").rnumber(1);
     $(".quantity-form .quantity-text").change(function () {
         var _thisInput = $(this);
-       //alert(_thisInput.val());
+        //alert(_thisInput.val());
         $.ajax({
             url:"/cart/update/count",
             data:{
                 cartId:_thisInput.attr("name"),
                 productCount: _thisInput.val(),
-                userId: _thisInput.attr("content")
+                //userId: _thisInput.attr("content")
             },
             type:"post",
             dataType:"json",
@@ -215,14 +208,6 @@
         })
     })
 
-    //计算总价
-    /*refreshTotalPrice : function () {
-        var total=0;
-        $(".quantity-from .quantity-text").each(function(i,e){
-            var _this=$(e);
-            total +=(eval(_this.attr("content"))*10000*eval(_this.val())) / 10000;
-        })
-    }*/
 </script>
 
 

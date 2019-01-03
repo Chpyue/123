@@ -10,6 +10,7 @@ import com.example.demo.model.custom.CartCustom;
 import com.example.demo.service.CartService;
 
 import com.example.demo.service.ProductService;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,19 +43,21 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    private UserService userService;
 
     /**
      * 插入单个商品购物车
-     * @param cart
+     * @param productId
      */
     @GetMapping("/insert")
-    public void insert(Cart cart){
-        List<Cart> list=cartService.getAllCarts(cart.getUserId());
+    public void insert(String productId){
+        List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
         //遍历集合
         for( int i=0;i<=list.size();i++){
             //遍历完集合没有符合商品，执行添加新的购物车条目
             if (i>=list.size()){
+                Cart cart=new Cart();
                 cart.setCount(1.0);
                 cart.setCartId(UUIDUtil.getUUID());
                 cartService.insert(cart);
@@ -62,9 +65,9 @@ public class CartController {
             }
             //判断该用户所拥有的购物车是否已有该商品，若有即更新数量
             Cart c=list.get(i);
-            if (cart.getProductId()==c.getProductId()){
-                cart.setCount(c.getCount()+1.0);
-                cartService.updateCart(cart);
+            if (Integer.parseInt(productId)==c.getProductId()){
+                c.setCount(c.getCount()+1.0);
+                cartService.updateCart(c);
                 break;
             }
 
@@ -75,16 +78,14 @@ public class CartController {
 
     /**
      * 显示我的购物车
-     * @param userId
      * @param model
      * @return
      */
-    @GetMapping(value = "/list/{userId}")
-    public ModelAndView getCartList(@PathVariable("userId")String userId, Model model){
+    @GetMapping(value = "/list")
+    public ModelAndView getCartList( Model model){
         Double sum=0.0;
-        System.out.println("userId======="+userId);
-        List<Cart> list=cartService.getAllCarts(userId);
-       System.out.println("正在打印购物车表"+list);
+        List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
+        System.out.println("正在打印购物车表"+list);
         ArrayList<CartCustom> cartCustomList=new ArrayList<>();
         //遍历购物车，根据商品id获取商品对象
         for (Cart cart:list) {
@@ -95,17 +96,13 @@ public class CartController {
             cartCustom.setProductCount(cart.getCount());
             sum=sum+(product.getPrice())*(cart.getCount());
             cartCustom.setCartId(cart.getCartId());
-            //System.out.println("cartCustom对象=="+cartCustom);
             cartCustomList.add(cartCustom);
-            //System.out.println("cartCustomList集合========"+cartCustomList);
         }
         System.out.println("sum================="+sum);
         System.out.println("数据已装车"+cartCustomList);
         model.addAttribute("cartCustomList",cartCustomList);
         model.addAttribute("summary",sum);
-        model.addAttribute("userId",userId);
         return  new ModelAndView("cart/ct","cartModel",model);
-
     }
 
 
@@ -117,14 +114,10 @@ public class CartController {
      */
     @GetMapping(value = "/delete/{cartId}")
    public ModelAndView deleteSingleCart(@PathVariable("cartId")String cartId,ModelAndView mv){
-       //System.out.println("cartId==========================="+cartId);
-         Cart cart= cartService.getSingleCart(cartId);
-      // System.out.println("cart==========================="+cart);
-         String userId=cart.getUserId();
-      // System.out.println("userId==========================="+userId);
         cartService.deleteCart(cartId);
+        String userId=userService.getUser().getUserId();
         mv.addObject("userId",userId);
-        mv.setViewName("redirect:/cart/list/{userId}");
+        mv.setViewName("redirect:/cart/list");
         return mv;
     }
 
@@ -139,14 +132,13 @@ public class CartController {
     public ModelAndView deleteAllCarts(String ids,ModelAndView mv){
         System.out.println("ids============="+ids);
         String[] arr=ids.split(",");
-        Cart cart= cartService.getSingleCart(arr[0]);
-        String userId=cart.getUserId();
         for (String id:arr
-             ) {
+        ) {
             cartService.deleteCart(id);
         }
+        String userId=userService.getUser().getUserId();
         mv.addObject("userId",userId);
-        mv.setViewName("redirect:/cart/list/{userId}");
+        mv.setViewName("redirect:/cart/list");
         return mv;
    }
 
@@ -161,16 +153,14 @@ public class CartController {
    @PostMapping(value = "/update/count")
    @ResponseBody
    public Double updateCount(String productCount,String cartId,String userId){
-        //System.out.println(productCount);
-        //System.out.println(cartId);
-        Double s2=0.0;
-        Double num= Double.parseDouble(productCount);
-        Cart cart=cartService.getSingleCart(cartId);
-        cart.setCount(num);
-        cartService.updateCart(cart);
-        List<Cart> list=cartService.getAllCarts(userId);
+       Double s2=0.0;
+       Double num= Double.parseDouble(productCount);
+       Cart cart=cartService.getSingleCart(cartId);
+       cart.setCount(num);
+       cartService.updateCart(cart);
+       List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
        for (Cart c:list
-            ) {
+       ) {
            Product product= productService.findProductById(c.getProductId());
            s2=s2+(c.getCount())*(product.getPrice());
        }
