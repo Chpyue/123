@@ -35,16 +35,14 @@ public interface AdminOrderService {
     void orderShip(Order order);
 
     /**
-     * 确认收货的订单数量
+     * 根据productId获得不同状态订单下产品的数量
+     * @param status    订单状态 1下单（未发货）， 2发了货的 ，3完成的 ， 4请求退货的 ， 5退货完成的
+     * @param productId
      * @return
      */
-    Integer countsCompleteOrder();
+    Integer countsOrderProductByStatus(Integer status,Integer productId);
 
-    /**
-     * 确认收货的订单数量 完成退货的订单数
-     * @return
-     */
-    Integer countsReturnedOrder();
+
 
     /**
      * 获得订单详细信息

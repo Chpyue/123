@@ -96,21 +96,52 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         orderMapper.updateByPrimaryKeySelective(order);
     }
 
+    /**
+     * 根据productId获得不同状态订单下产品的数量
+     * @param status    订单状态 1下单（未发货）， 2发了货的 ，3完成的 ， 4请求退货的 ， 5退货完成的
+     * @param productId
+     * @return
+     */
     @Override
-    public Integer countsCompleteOrder() {
+    public Integer countsOrderProductByStatus(Integer status,Integer productId) {
+        //获得orders
+        List<Order> orders=new ArrayList<>();
         OrderExample orderExample=new OrderExample();
-        OrderExample.Criteria criteria=orderExample.createCriteria();
-        criteria.andStatusEqualTo(3);
-        return orderMapper.countByExample(orderExample);
+        OrderExample.Criteria orderExampleCriteria =orderExample.createCriteria();
+        if(status==1){
+            orderExampleCriteria.andStatusEqualTo(1);
+        } else if(status==2){
+            orderExampleCriteria.andStatusEqualTo(2);
+        } else if(status==3){
+            orderExampleCriteria.andStatusEqualTo(3);
+        } else if(status==4){
+            orderExampleCriteria.andStatusEqualTo(4);
+        } else if(status==5){
+            orderExampleCriteria.andStatusEqualTo(5);
+        } else status=0;
+
+        orders=orderMapper.selectByExample(orderExample);
+        //获得 orderIds
+        List<String> orderIds=new ArrayList<>();
+        for(int i=0;i<orders.size();i++) {
+            orderIds.add(orders.get(i).getOrderId());
+            System.out.println("状态为1订单号"+orderIds.get(i));
+        }
+        //获得状态为1 且 商品号为productId的订单项目
+        List<OrderItem> orderItems=new ArrayList<>();
+        OrderItemExample orderItemExample=new OrderItemExample();
+        OrderItemExample.Criteria criteria=orderItemExample.createCriteria();
+        criteria.andOrderIdIn(orderIds);
+        criteria.andProductIdEqualTo(productId.toString());
+        orderItems=orderItemMapper.selectByExample(orderItemExample);
+        Integer counts=0;
+        for (OrderItem orderItem:orderItems) {
+            counts+=orderItem.getNumber();
+        }
+        return counts;
     }
 
-    @Override
-    public Integer countsReturnedOrder() {
-        OrderExample orderExample=new OrderExample();
-        OrderExample.Criteria criteria=orderExample.createCriteria();
-        criteria.andStatusEqualTo(5);
-        return orderMapper.countByExample(orderExample);
-    }
+
 
     /**
      * 获得订单详细信息
