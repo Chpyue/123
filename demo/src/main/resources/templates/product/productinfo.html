@@ -92,7 +92,7 @@
 				</div>
 				<div class="xiadan ml20 mt20">
 					<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+					<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车" />
 				</div>
 			</div>
 
@@ -135,8 +135,13 @@
 			var num = document.getElementById("num");					//商品数量
 			//location.href="{'        ?  =ID'+'&   =price'+'&   =num'}"
         }
+
+        function gouwuche() {
+            var ID = document.getElementById("id");						//商品ID
+            var price = document.getElementById("danjia");				//商品单价
+            var num = document.getElementById("num");					//商品数量
+            location.href="/cart/insert?productId="+ID;
+        }
 	</script>
-
-
 	</body>
 </html>
