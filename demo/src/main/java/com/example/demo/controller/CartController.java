@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import com.example.demo.model.Cart;
 import com.example.demo.model.Product;
 import com.example.demo.model.custom.CartCustom;
@@ -51,15 +52,17 @@ public class CartController {
      * @param productId
      */
     @GetMapping("/insert")
-    public void insert(String productId){
+    public void insert(String productId,String productCount){
         List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
         //遍历集合
         for( int i=0;i<=list.size();i++){
             //遍历完集合没有符合商品，执行添加新的购物车条目
             if (i>=list.size()){
                 Cart cart=new Cart();
-                cart.setCount(1.0);
+                cart.setCount(Double.parseDouble(productCount));
                 cart.setCartId(UUIDUtil.getUUID());
+                cart.setUserId(userService.getUser().getUserId());
+                cart.setProductId(Integer.parseInt(productId));
                 cartService.insert(cart);
                 break;
             }
@@ -70,7 +73,6 @@ public class CartController {
                 cartService.updateCart(c);
                 break;
             }
-
         }
     }
 
@@ -85,7 +87,6 @@ public class CartController {
     public ModelAndView getCartList( Model model){
         Double sum=0.0;
         List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
-        System.out.println("正在打印购物车表"+list);
         ArrayList<CartCustom> cartCustomList=new ArrayList<>();
         //遍历购物车，根据商品id获取商品对象
         for (Cart cart:list) {
@@ -98,8 +99,6 @@ public class CartController {
             cartCustom.setCartId(cart.getCartId());
             cartCustomList.add(cartCustom);
         }
-        System.out.println("sum================="+sum);
-        System.out.println("数据已装车"+cartCustomList);
         model.addAttribute("cartCustomList",cartCustomList);
         model.addAttribute("summary",sum);
         return  new ModelAndView("cart/ct","cartModel",model);
@@ -130,7 +129,6 @@ public class CartController {
      */
     @GetMapping(value = "/removeCarts")
     public ModelAndView deleteAllCarts(String ids,ModelAndView mv){
-        System.out.println("ids============="+ids);
         String[] arr=ids.split(",");
         for (String id:arr
         ) {
@@ -152,7 +150,7 @@ public class CartController {
      */
    @PostMapping(value = "/update/count")
    @ResponseBody
-   public Double updateCount(String productCount,String cartId,String userId){
+   public Double updateCount(String productCount,String cartId){
        Double s2=0.0;
        Double num= Double.parseDouble(productCount);
        Cart cart=cartService.getSingleCart(cartId);

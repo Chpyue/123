@@ -13,7 +13,7 @@
 	<header>
 		<div class="top center">
 			<div class="right fr">
-				<div class="gouwuche fr"><a>购物车</a></div>
+				<div class="gouwuche fr"><a th:href="@{/cart/list}">购物车</a></div>
 				<div class="fr">
 					<ul sec:authorize="isAnonymous()">
 						<li><a th:href="@{/login}" target="_blank">登录</a></li>
@@ -141,7 +141,8 @@
             var ID = document.getElementById("id");						//商品ID
             var price = document.getElementById("danjia");				//商品单价
             var num = document.getElementById("num");					//商品数量
-            location.href="/cart/insert?productId="+ID;
+            window.location="/cart/insert?productId="+ID+"&productCount="+num;
+
         }
 	</script>
 	</body>
