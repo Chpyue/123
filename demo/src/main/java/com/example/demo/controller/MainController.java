@@ -56,19 +56,19 @@ public class MainController {
     @GetMapping("/")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String boot(){
-        return "index";
+        return "redirect:/product/allProduct";
     }
     @GetMapping("/index")
     public ModelAndView index(Model model){
-        User user = userService.getUser();
-        model.addAttribute("user",user);
-        return new ModelAndView("index","userModel",model);
+//        User user = userService.getUser();
+//        model.addAttribute("user",user);
+        return new ModelAndView("redirect:/","userModel",model);
     }
 
     //登录跳转
     @GetMapping("/login")
     public String login(){
-        return "login";
+        return "userLogin";
     }
 
     /**
