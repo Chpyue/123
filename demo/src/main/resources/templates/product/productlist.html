@@ -112,7 +112,7 @@
 			<div class="main center" th:if="${productList.size()} ne 0">
 				<div class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'" th:each="product:${productList}">
 				<!--排序-->
-					<div class="sub_mingxing" ><a th:href="@{'/product/productInfo?productId='+${product.productId}}"><img th:src="${product.image}"></a></div>
+					<div class="sub_mingxing" ><a th:href="@{'/product/productInfo?productId='+${product.productId}}"><img th:src="'../update/product/'+ ${product.image}"></a></div>
 					<div class="pinpai">
 						<a th:href="@{'/product/productInfo?productId='+${product.productId}}" th:text="${product.productName}">商品名称</a>
 					</div>
