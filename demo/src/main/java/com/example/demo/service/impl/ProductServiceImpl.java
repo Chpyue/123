@@ -78,8 +78,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void removeProductById(Integer productId) {
         ProductViewExample example=new ProductViewExample();
-//        ProductViewExample.Criteria criteria=example.createCriteria();
-//        criteria.andProductIdEqualTo(productId);
         productMapper.deleteByPrimaryKey(productId);
     }
 
