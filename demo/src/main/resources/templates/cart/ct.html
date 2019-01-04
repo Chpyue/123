@@ -23,7 +23,6 @@
 
 
 
-
 <!--table-start-->
 <div class="container">
     <div class="row">
@@ -49,20 +48,13 @@
                     <td>
                         <a href="javascript:void(0);" class="decrement"  id="decrement" >-</a>
                         <input type="text" class="quantity-text"
-
                                th:name="${cartCustom.cartId}"
                                th:value="*{cartCustom.productCount }"
-
                                onchange="change()" >
                         <a href="javascript:void(0);" class="increment"  id="increment">+</a>
                     </td>
                     <td >
-                        <!--<a th:href="@{'/cart/delete/'+${cartCustom.cartId}}" onclick="haha()">删除</a>-->
-                       <!-- <button class="btn btn-danger " th:onclick="'javascript:deletef('+${cartCustom.cartId}+')'">
-                            删除
-                        </button>-->
-                        <button th:name="*{cartCustom.cartId}" id="dddd"></button>
-
+                        <button th:name="*{cartCustom.cartId}"  class="btn btn-danger" onclick=del1(this)>删除</button>
                     </td>
 
                 </tr>
@@ -75,25 +67,12 @@
 
 
 <script type="text/javascript">
-    //单个删除
-    $("#dddd").click(function () {
-        //alert(2)
-        if (confirm("确实要删除吗?")) {
-            location.href = "/cart/delete?cartId="+$(this).attr("name");
-            alert("已经删除！");
-        } else {
-            alert("已经取消了删除操作");
-            return false;
-        }
-    });
-
-
 
     //点击全选按钮
     $("#allcheck").click(function () {
         $("#emps_table input[type='checkbox']").prop("checked", $(this).prop("checked"));
     });
-    //点击单选按钮   单选按钮全部选中后  全选按钮自动选中
+    //点击单选按钮，单选按钮全部选中后，全选按钮自动选中
     $(document).on("click","#emps_table input[name='ck']",function () {
         var flag = $("#emps_table input[name='ck']:checked").length==$("#emps_table input[name='ck']").length;
         $("#allcheck").prop("checked",flag);
@@ -120,8 +99,16 @@
         }
     }
 
-
-
+    //单个删除
+    function del1(e){
+        if (confirm("确实要删除吗?")) {
+            alert("删除成功");
+            location.href = "/cart/delete?cartId="+$(e).attr("name");
+        } else {
+            alert("已经取消了删除操作");
+            return false;
+        }
+    }
 
     //提交订单
     function allcommit(){
@@ -144,7 +131,6 @@
         }
 
     }
-
 
     //修改数量
     $(".increment").click(function(){
@@ -176,7 +162,6 @@
             return;
         }
         _thisInput.val(eval(_thisInput.val()) - 1.0);
-
         $.ajax({
             url:"/cart/update/count",
             data:{
@@ -196,7 +181,7 @@
     })
 
 
-
+    //手动输入修改数量
     $(".quantity-form .quantity-text").change(function () {
         var _thisInput = $(this);
         //alert(_thisInput.val());
