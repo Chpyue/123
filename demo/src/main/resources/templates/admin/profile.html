@@ -281,56 +281,64 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a href="index.html">
+                    <a href="../adminIndex.html">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span>仪表盘</span>
                     </a>
                 </li>
 
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-laptop"></i>
-                        <span>Layouts</span>
+                <li>
+                    <a th:href="@{'/user/'+${user.userId}}">
+                        <i class="fa fa-user"></i>
+                        <span>个人资料</span>
                     </a>
-                    <ul class="sub">
-                        <li><a  href="boxed_page.html">Boxed Page</a></li>
-                        <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                        <li><a  href="header-color.html">Different Color Top bar</a></li>
-                        <li><a  href="mega_menu.html">Mega Menu</a></li>
-                        <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                        <li><a  href="email_template.html" target="_blank">Email Template</a></li>
-                    </ul>
                 </li>
-
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="javascript:;" class="active">
                         <i class="fa fa-book"></i>
-                        <span>UI Elements</span>
+                        <span>用户管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a  href="general.html">General</a></li>
-                        <li><a  href="buttons.html">Buttons</a></li>
-                        <li><a  href="modal.html">Modal</a></li>
-                        <li><a  href="toastr.html">Toastr Notifications</a></li>
-                        <li><a  href="widget.html">Widget</a></li>
-                        <li><a  href="slider.html">Slider</a></li>
-                        <li><a  href="nestable.html">Nestable</a></li>
-                        <li><a  href="tree.html">Tree View</a></li>
-                        <li><a  href="font_awesome.html">Font Awesome</a></li>
+                        <li ><a th:href="@{/user/list}">普通用户</a></li>
+                        <li><a th:href="@{/user/adminlist}" >管理员列表</a></li>
+                    </ul>
+                </li>
+                <!-- 商品种类-->
+                <li class="sub-menu">
+                    <a href="javascript:;"  >
+                        <i class="fa fa-th"></i>
+                        <span>商品种类管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li ><a  href="/category/list">种类信息</a></li>
+                        <li><a  href="/category/addcategory?flag=1">增加商品种类</a></li>
+                    </ul>
+                </li>
+                <!--商品管理-->
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-th"></i>
+                        <span>商品管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="/product/list">商品列表</a></li>
+                        <li><a  href="/product/addproduct?flag=1">增加商品</a></li>
                     </ul>
                 </li>
 
+
                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-cogs"></i>
-                        <span>Components</span>
+                    <a href="javascript:;" >
+                        <i class="fa fa-tasks"></i>
+                        <span>订单管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a  href="grids.html">Grids</a></li>
-                        <li><a  href="calendar.html">Calendar</a></li>
-                        <li><a  href="gallery.html">Gallery</a></li>
-                        <li><a  href="todo_list.html">Todo List</a></li>
-                        <li><a  href="draggable_portlet.html">Draggable Portlet</a></li>
+                        <li><a href="/adminOrder/newOrder">待发货</a></li>
+                        <li><a href="/adminOrder/shippedOrder">已发货</a></li>
+                        <li><a href="/adminOrder/completeOrder">确认收货</a></li>
+                        <li><a href="/adminOrder/askReturnOrder">请求退货</a></li>
+                        <li><a href="/adminOrder/returnedOrder">已退货</a></li>
+                        <li><a href="/adminOrder/seekOrder">查找订单</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
