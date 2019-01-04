@@ -32,6 +32,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     public List<ProductView> getProductList(){
         ProductViewExample example=new ProductViewExample();
+        ProductViewExample.Criteria criteria=example.createCriteria();
+        criteria.andIsEffectiveEqualTo(1);
         List<ProductView> productList=productViewMapper.selectByExample(example);
         return productList;
 
