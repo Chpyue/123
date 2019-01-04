@@ -113,10 +113,10 @@ public class AdminOrderController {
     }
     @GetMapping("/toOrderInfo")
     public String toOrderInfo(String orderId,Model model) {
-            model.addAttribute("orderId",orderId);
-
-            System.out.println(orderId);
-            return "admin/order/orderInfo";
+        model.addAttribute("orderId",orderId);
+        model.addAttribute("user",userService.getUser());
+        System.out.println(orderId);
+        return "admin/order/orderInfo";
     }
 
 

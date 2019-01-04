@@ -259,8 +259,8 @@
                 <!-- user login dropdown start-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <img alt="" src="../admins/img/avatar1_small.jpg">
-                        <span th:text="${user.name}" class="username">Jhon Doue</span>
+                        <img th:src="'../update/portrait/'+${user.portraitUrl}" width="30px", hight="30px">
+                        <span th:text="${user.name}" class="username" >Jhon Doue</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
@@ -268,7 +268,7 @@
                         <li><a th:href="@{'/user/'+${user.userId}}" href="#"><i class=" fa fa-suitcase"></i>个人资料</a></li>
                         <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                         <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
-                        <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                        <li><a th:href="@{/logout}"><i class="fa fa-key"></i> 注销</a></li>
                     </ul>
                 </li>
                 <li class="sb-toggle-right">

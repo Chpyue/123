@@ -57,7 +57,12 @@
                         <a href="javascript:void(0);" class="increment"  id="increment">+</a>
                     </td>
                     <td >
-                        <a th:href="@{'/cart/delete/'+${cartCustom.cartId}}">删除</a>
+                        <!--<a th:href="@{'/cart/delete/'+${cartCustom.cartId}}" onclick="haha()">删除</a>-->
+                       <!-- <button class="btn btn-danger " th:onclick="'javascript:deletef('+${cartCustom.cartId}+')'">
+                            删除
+                        </button>-->
+                        <button th:name="*{cartCustom.cartId}" id="dddd"></button>
+
                     </td>
 
                 </tr>
@@ -70,17 +75,19 @@
 
 
 <script type="text/javascript">
-    //全选
-    /* function allcheck(){
-         // 先得到所有的checkbox
-         var ck=document.getElementsByName("ck");// 得到一组checkbox 相当于数组
-         // 循环这一组checkbox让每一个checkbox选中
-         for(var i=0;i<ck.length;i++){
-             var c=ck[i];
-         // 得到一个checkbox
-             c.checked=true;//true代表选中
-         }
-     }*/
+    //单个删除
+    $("#dddd").click(function () {
+        //alert(2)
+        if (confirm("确实要删除吗?")) {
+            location.href = "/cart/delete?cartId="+$(this).attr("name");
+            alert("已经删除！");
+        } else {
+            alert("已经取消了删除操作");
+            return false;
+        }
+    });
+
+
 
     //点击全选按钮
     $("#allcheck").click(function () {
@@ -112,6 +119,9 @@
             alert("请至少选中一条进行批量删除");
         }
     }
+
+
+
 
     //提交订单
     function allcommit(){

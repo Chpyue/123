@@ -41,6 +41,8 @@ public class MainController {
     private static final Integer ROLE_USER_AUTHORITY_ID = 2;
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
     private static final String ROLE_USER = "ROLE_USER";
+    private static final String Portrait_Url = "profile.jpeg";
+
 
     @Autowired
     private UserService userService;
@@ -84,7 +86,9 @@ public class MainController {
         if (authority.contains(ROLE_ADMIN)){
             return new ModelAndView("redirect:/adminIndex");
         }
-        else  return new ModelAndView("redirect:/index");
+        else {
+            return new ModelAndView("redirect:/index");
+        }
 
     }
     /*
@@ -127,6 +131,7 @@ public class MainController {
         //查重避免userId重复
         user.setUserId(UUIDUtil.getUUID());
         user.setName("chpyue");
+        user.setPortraitUrl(Portrait_Url);
         user.setRegisterTime(new Date());
 //        while (userService.isRepeat(user.getUserId())){
 //            user.setUserId(UUIDUtil.getUUID());

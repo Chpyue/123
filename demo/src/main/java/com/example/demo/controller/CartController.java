@@ -52,7 +52,7 @@ public class CartController {
      * @param productId
      */
     @GetMapping("/insert")
-    public void insert(String productId,String productCount){
+    public String insert(String productId,String productCount){
         List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
         //遍历集合
         for( int i=0;i<=list.size();i++){
@@ -69,11 +69,13 @@ public class CartController {
             //判断该用户所拥有的购物车是否已有该商品，若有即更新数量
             Cart c=list.get(i);
             if (Integer.parseInt(productId)==c.getProductId()){
-                c.setCount(c.getCount()+1.0);
+                c.setCount(c.getCount()+Integer.parseInt(productCount));
                 cartService.updateCart(c);
                 break;
             }
         }
+        return "redirect:/product/productInfo?productId="+Integer.parseInt(productId);
+
     }
 
 
@@ -111,8 +113,8 @@ public class CartController {
      * 删除单个商品购物车条目
      * @param cartId
      */
-    @GetMapping(value = "/delete/{cartId}")
-   public ModelAndView deleteSingleCart(@PathVariable("cartId")String cartId,ModelAndView mv){
+    @GetMapping(value = "/delete")
+   public ModelAndView deleteSingleCart(String cartId,ModelAndView mv){
         cartService.deleteCart(cartId);
         String userId=userService.getUser().getUserId();
         mv.addObject("userId",userId);

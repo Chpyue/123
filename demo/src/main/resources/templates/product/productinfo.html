@@ -21,7 +21,7 @@
 						<li><a th:href="@{/toRegister}" target="_blank" >注册</a></li>
 					</ul>
 					<ul sec:authorize="isAuthenticated()">
-						<li><a th:text="${user.username}">username</a> </li>
+						<!--<li><a th:text="${user.username}">username</a> </li>-->
 						<li>
 							<form action="/logout" th:action="@{/logout}" method="post">
 								<button type="submit">退出登录</button>
@@ -71,7 +71,7 @@
 	<!-- xiangqing -->
 	<form action="post" method="">
 		<div class="jieshao mt20 w">
-			<div class="left fl"><img th:src="'../update/product/'+ ${productInfo.image}"></div>
+			<div class="left fl"><img th:src="'../update/product/'+ ${productInfo.image}" width="560" height="560"></div>
 			<div class="right fr">
 				<div class="h3 ml20 mt20" th:text="${productInfo.productName}">名称</div>
 				<div class="ft10 ml20 mt20" th:text="${productInfo.remarks}">描述</div>
@@ -93,7 +93,9 @@
 				</div>
 				<div class="xiadan ml20 mt20">
 					<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
-					<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车" />
+					<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车"  />
+					<!--<a th:href="@{'/cart/insert/'+${productInfo.productId}+'/'+${}"></a>-->
+
 				</div>
 			</div>
 
@@ -138,12 +140,15 @@
         }
 
         function gouwuche() {
-            var ID = document.getElementById("id");						//商品ID
-            var price = document.getElementById("danjia");				//商品单价
-            var num = document.getElementById("num");					//商品数量
-            window.location="/cart/insert?productId="+ID+"&productCount="+num;
+            var ID = document.getElementById("id").value;						//商品ID
+           // var price = document.getElementById("danjia");				//商品单价
+            var num = document.getElementById("num").value;					//商品数量
+			alert("添加成功！在购物车等你呦，亲！");
+            location.href="/cart/insert?productId="+ID+"&productCount="+num;
 
         }
+
+
 	</script>
 	</body>
 </html>
