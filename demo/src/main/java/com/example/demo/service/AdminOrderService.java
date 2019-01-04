@@ -52,4 +52,6 @@ public interface AdminOrderService {
      * @return
      */
     Integer countsNewOrders();
+
+    Integer countsAskReturnOrders();
 }

@@ -302,8 +302,8 @@
                         <span>用户管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a th:href="@{user/list}">普通用户</a></li>
-                        <li><a th:href="@{user/adminlist}" >管理员列表</a></li>
+                        <li><a th:href="@{/user/list}">普通用户</a></li>
+                        <li><a th:href="@{/user/adminlist}" >管理员列表</a></li>
                     </ul>
                 </li>
 
@@ -732,7 +732,7 @@
         }
         //拒绝则变为已发货状态
         if(dotype==("拒绝")) {
-            status=2;
+            status=6;
         }
 
         if(confirm("确定"+dotype+"退货吗？")) {

@@ -77,6 +77,8 @@ public class AdminOrderController {
     @GetMapping("/adminOrder/{path}")
     public String toPath(@PathVariable String path,Model model) {
         model.addAttribute("user",userService.getUser());
+        model.addAttribute("countsNewOrder",orderService.countsNewOrders());
+        model.addAttribute("countsAskReturnOrder",orderService.countsAskReturnOrders());
         return "admin/order/"+path;
     }
 
@@ -113,6 +115,7 @@ public class AdminOrderController {
         Order order=orderService.getOrderInfo(orderId);
         return Msg.success().add("order",order);
     }
+
     @GetMapping("/toOrderInfo")
     public String toOrderInfo(String orderId,Model model) {
 
@@ -122,6 +125,8 @@ public class AdminOrderController {
         return "admin/order/orderInfo";
 
     }
+
+
 
 
 }

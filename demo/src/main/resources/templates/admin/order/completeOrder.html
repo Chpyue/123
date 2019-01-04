@@ -302,8 +302,8 @@
                         <span>用户管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a th:href="@{user/list}">普通用户</a></li>
-                        <li><a th:href="@{user/adminlist}" >管理员列表</a></li>
+                        <li><a th:href="@{/user/list}">普通用户</a></li>
+                        <li><a th:href="@{/user/adminlist}" >管理员列表</a></li>
                     </ul>
                 </li>
 
@@ -567,7 +567,6 @@
                 data:"content="+queryContent+"&pn="+pn,
                 success:function (result) {
                     console.log(result);
-
                     build_emps_table(result);
                     //建立分页信息
                     build_page_info_area(result);
@@ -620,6 +619,9 @@
 
             if(item.status==3) {
                 var tdOrderStatus = $("<td width='100'></td>").append("交易成功").appendTo(trOrder2);
+            }
+            if(item.status==6) {
+                var tdOrderStatus = $("<td width='100'></td>").append("退款已拒绝").appendTo(trOrder2);
             }
             var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(item.totalPrice).appendTo(trOrder2);
             $("#orders").append(tableOrder2);

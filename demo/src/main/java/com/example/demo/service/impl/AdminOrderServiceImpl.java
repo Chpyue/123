@@ -43,7 +43,14 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         List<Order> orderList=new ArrayList<Order>();
         OrderExample orderExample=new OrderExample();
         OrderExample.Criteria criteria=orderExample.createCriteria();
-        criteria.andStatusEqualTo(status);
+        if(status==3) {
+            List<Integer> statusList=new ArrayList<>();
+            statusList.add(3);
+            statusList.add(6);
+            criteria.andStatusIn(statusList);
+        }else {
+            criteria.andStatusEqualTo(status);
+        }
         orderExample.setOrderByClause("order_time desc");
         orderList=orderMapper.selectByExample(orderExample);
 //        System.out.println("orderId"+orderList.get(0).getOrderItemList().size());
@@ -93,6 +100,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
      */
     @Override
     public void orderShip(Order order) {
+        System.out.println("订单号："+order.getOrderId()+"状态："+order.getStatus());
         orderMapper.updateByPrimaryKeySelective(order);
     }
 
@@ -169,6 +177,15 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         OrderExample orderExample=new OrderExample();
         OrderExample.Criteria criteria=orderExample.createCriteria();
         criteria.andStatusEqualTo(1);
+        Integer counts=orderMapper.countByExample(orderExample);
+        return counts;
+    }
+
+    @Override
+    public Integer countsAskReturnOrders() {
+        OrderExample orderExample=new OrderExample();
+        OrderExample.Criteria criteria=orderExample.createCriteria();
+        criteria.andStatusEqualTo(4);
         Integer counts=orderMapper.countByExample(orderExample);
         return counts;
     }

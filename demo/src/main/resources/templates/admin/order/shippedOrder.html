@@ -302,8 +302,8 @@
                         <span>用户管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a th:href="@{user/list}">普通用户</a></li>
-                        <li><a th:href="@{user/adminlist}" >管理员列表</a></li>
+                        <li><a th:href="@{/user/list}">普通用户</a></li>
+                        <li><a th:href="@{/user/adminlist}" >管理员列表</a></li>
                     </ul>
                 </li>
 
@@ -617,10 +617,7 @@
             // alert("a"+item.userId+index);
             adminGetUserInfo(item.userId,index);
             var i=index;
-
-            if(item.status==2) {
-                var tdOrderStatus = $("<td width='100'></td>").append("已发货").appendTo(trOrder2);
-            }
+            var tdOrderStatus = $("<td width='100'></td>").append("已发货").appendTo(trOrder2);
             var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(item.totalPrice).appendTo(trOrder2);
             $("#orders").append(tableOrder2);
 
