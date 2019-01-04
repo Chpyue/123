@@ -83,4 +83,14 @@ public class ProductUserServiceImpl implements ProductUserService {
 
         return productMapper.selectByPrimaryKey(productId);
     }
+
+    /**
+     * 更新商品信息
+     * @param product
+     * @return
+     */
+    @Override
+    public int updateProductById(Product product){
+        return  productMapper.updateByPrimaryKeySelective(product);
+    }
 }

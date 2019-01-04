@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:margin="http://www.w3.org/1999/xhtml"
+      xmlns:left="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>申请退货</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../users/css/style.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+    <div class="top center">
+        <div class="left fl">
+            <ul>
+                <li><a href="http://www.mi.com/" target="_blank">小米商城</a></li>
+                <li>|</li>
+                <li><a href="">MIUI</a></li>
+                <li>|</li>
+                <li><a href="">米聊</a></li>
+                <li>|</li>
+                <li><a href="">游戏</a></li>
+                <li>|</li>
+                <li><a href="">多看阅读</a></li>
+                <li>|</li>
+                <li><a href="">云服务</a></li>
+                <li>|</li>
+                <li><a href="">金融</a></li>
+                <li>|</li>
+                <li><a href="">小米商城移动版</a></li>
+                <li>|</li>
+                <li><a href="">问题反馈</a></li>
+                <li>|</li>
+                <li><a href="">Select Region</a></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="right fr">
+            <div class="gouwuche fr"><a href="/order/myOrder">我的订单</a></div>
+            <div class="fr">
+                <ul>
+                    <li><a href="../login.html" target="_blank">登录</a></li>
+                    <li>|</li>
+                    <li><a href="../register.html" target="_blank" >注册</a></li>
+                    <li>|</li>
+                    <li><a href="./self_info.html">个人中心</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+
+<form class="form-horizontal" role="form" th:action="@{/order/returnOrder}">
+    <div class="form-group">
+    <!--    <label for="orderId" class="col-sm-2 control-label">订单号</label>-->
+        <div class="col-sm-10">
+          <span>订单号<input type="text" class="form-control" id="orderId" name="orderId"  size="15" style="width:200px;height:50px;" readonly="readonly" th:value="${orderId}"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="returnReason" class="col-sm-2 control-label">退货原因</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="returnReason" size="15" style="width:400px;height:200px;" name="returnReason" placeholder="请输入退货原因">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">提交</button>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

@@ -34,4 +34,12 @@ public interface ProductUserService {
      */
     Product productInfo(int productId);
 
+    /**
+     * 石诗佳
+     * 更新商品信息
+     * @param product
+     * @return
+     */
+    int updateProductById(Product product);
+
 }

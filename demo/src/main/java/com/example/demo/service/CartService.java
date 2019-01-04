@@ -50,4 +50,35 @@ public interface CartService {
     void deleteCart(String cartId);
 
 
+    /**石诗佳
+     * 通过id查询购物车
+     * @param cartId
+     * @return
+     */
+    Cart findCartById(String cartId);
+
+    /**石诗佳
+     * 通过id删除购物车
+     * @param cartId
+     * @return
+     */
+    int deleteCartById(String cartId);
+
+
+    /**石诗佳
+     * 通过id更新购物车
+     */
+    int updateCartById(Cart cart);
+
+
+    /**石诗佳
+     * 通过ids,得到cartList
+     */
+    List<Cart> findCartListByIds(String ids);
+
+    /**石诗佳
+     * 通过ids，得到订单总价
+     */
+    Double getTotalPrice(String ids);
+
 }

@@ -132,12 +132,12 @@
             zongji.value= (num.value*1)*(danjia.value*1);
 
         }
-        function zhijiegoumai() {
-			var ID = document.getElementById("id");						//商品ID
-			var price = document.getElementById("danjia");				//商品单价
-			var num = document.getElementById("num");					//商品数量
-			//location.href="{'        ?  =ID'+'&   =price'+'&   =num'}"
-        }
+		function zhijiegoumai() {
+			var ID = document.getElementById("id").value;						//商品ID
+			var price = document.getElementById("danjia").value;				//商品单价
+			var num = document.getElementById("num").value;					//商品
+			location.href="/order/buyProduct?productId="+ID+"&num="+num;
+		}
 
         function gouwuche() {
             var ID = document.getElementById("id").value;						//商品ID

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:left="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情页面</title>
+    <link href="../users/jQueryGwc/css/public.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../users/jQueryGwc/css/base.css"/>
+   <link rel="stylesheet" type="text/css" href="../users/jQueryGwc/css/checkOut.css" />
+
+    <link rel="stylesheet" type="text/css" href="../users/css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<header>
+    <div class="top center">
+        <div class="left fl">
+            <ul>
+                <li><a href="http://www.mi.com/" target="_blank">小米商城</a></li>
+                <li>|</li>
+                <li><a href="">MIUI</a></li>
+                <li>|</li>
+                <li><a href="">米聊</a></li>
+                <li>|</li>
+                <li><a href="">游戏</a></li>
+                <li>|</li>
+                <li><a href="">多看阅读</a></li>
+                <li>|</li>
+                <li><a href="">云服务</a></li>
+                <li>|</li>
+                <li><a href="">金融</a></li>
+                <li>|</li>
+                <li><a href="">小米商城移动版</a></li>
+                <li>|</li>
+                <li><a href="">问题反馈</a></li>
+                <li>|</li>
+                <li><a href="">Select Region</a></li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="right fr">
+            <div class="gouwuche fr"><a href="/order/myOrder">我的订单</a></div>
+            <div class="fr">
+                <ul>
+                    <li><a href="../login.html" target="_blank">登录</a></li>
+                    <li>|</li>
+                    <li><a href="../register.html" target="_blank" >注册</a></li>
+                    <li>|</li>
+                    <li><a href="./self_info.html">个人中心</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<form >
+
+    <div class="checkout-box-ft">
+        <!-- 商品清单 -->
+        <div id="checkoutGoodsList" class="checkout-goods-box">
+            <div class="xm-box">
+                <div class="box-hd">
+                    <h2 class="title">订单信息</h2>
+                </div>
+                <div class="box-bd">
+                    <dl class="checkout-goods-list">
+                        <dt class="clearfix">
+                            <span class="col col-1">商品名称</span>
+                            <span class="col col-2">购买价格</span>
+                            <span class="col col-3">购买数量</span>
+                            <span class="col col-4">小计（元）</span>
+                        </dt>
+
+                        <dd class="item clearfix" th:each="productOrderItem:${productOrderItems}">
+                            <div class="item-row">
+                                <div class="col col-1">
+                                    <div class="g-pic">
+                                        <img src="${productOrderItem.image}"  width="40" height="40" />
+                                    </div>
+                                    <div class="g-info" th:text="${productOrderItem.productName}">
+                                        小米T恤
+                                    </div>
+                                </div>
+                                <div class="col col-2" th:text="${productOrderItem.price}"></div>
+                                <div class="col col-3" ><input style="border:none;" name="numbers"   th:value="${productOrderItem.number}"/></div>
+                                <div class="col col-4"   th:text="${productOrderItem.getTotalPrice()}"  >12</div>
+
+                                <input name="cartIds"  type="hidden" th:value="${productOrderItem.cartId}"/>
+                                <input name="productIds"  type="hidden" th:value="${productOrderItem.productId}"/>
+                            </div>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   <span>订单号：<input style="border: none ;width: 300px;" readonly="readonly" th:type="text" th:value="${order.orderId}"/></span>
+   <span>总价：  <input  style="border: none" readonly="readonly"th:type="text" th:value="${order.totalPrice}"/></span>
+
+    <ul class="list-group" >
+        收货人：<li  th:text="${order.receiver}"></li>
+        电话：<li  th:text="${order.receivePhone}"></li>
+        地址：<li th:text="${order.receiveAddress}"></li>
+    </ul>
+
+    <div th:if="${flag}==4" >
+        退货理由  <input class="list-group-item"  readonly="readonly" th:value="${order.returnReason}"/>
+    </div>
+    <div th:if="${flag}==5" >
+        退货理由  <input class="list-group-item"  readonly="readonly" th:value="${order.returnReason}"/>
+    </div>
+
+<!--<input th:value="${flag}"/>-->
+    <!--/*@thymesVar id="flag" type="java.lang.String"*/-->
+<div th:if="${flag}==2">
+    <!--<button type="button" class="btn btn-info btn-lg">确认收货</button>-->
+    <a th:href="@{/order/confirmOrder(orderId=${order.orderId})}"  >确认收货</a>
+</div>
+
+
+    <div th:if="${flag} ne 4">
+        <div th:if="${flag} ne 5 ">
+            <a th:href="@{/order/applyReturn(orderId=${order.orderId})}"  >申请退货</a>
+        </div>
+    </div>
+
+
+</form>
+
+<footer class="mt20 center">
+    <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
+    <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
+    <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
+</footer>
+</body>
+</html>

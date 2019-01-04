@@ -1,11 +1,15 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.mapper.CartMapper;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Cart;
 import com.example.demo.model.CartExample;
+import com.example.demo.model.Product;
 import com.example.demo.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +21,15 @@ public class CartServiceImpl implements CartService{
 
     private final CartMapper cartMapper;
 
-    public CartServiceImpl(CartMapper cartMapper) {
-        this.cartMapper = cartMapper;
-    }
+    private final ProductMapper productMapper;
 
+
+
+    @Autowired
+    public CartServiceImpl(CartMapper cartMapper,ProductMapper productMapper){
+        this.cartMapper=cartMapper;
+        this.productMapper=productMapper;
+    }
 
     /**
      * 单个商品条目添加到购物车
@@ -78,6 +87,51 @@ public class CartServiceImpl implements CartService{
      */
     @Override
     public void updateCart(Cart cart) {cartMapper.updateByPrimaryKey(cart);}
+
+    /**
+     * 石诗佳
+     * @param cartId
+     * @return
+     */
+    @Override
+    public  Cart findCartById(String cartId){
+        return cartMapper.selectByPrimaryKey(cartId);
+    }
+    @Override
+    public int deleteCartById(String cartId){
+        return cartMapper.deleteByPrimaryKey(cartId);
+    }
+
+    @Override
+    public int updateCartById(Cart cart){
+        return cartMapper.updateByPrimaryKey(cart);
+    }
+    @Override
+    public  List<Cart> findCartListByIds(String ids){
+        String[] idArray=ids.split(",");
+        List<Cart>carts=new ArrayList<>();
+
+        //获取购物车集合
+        for(String id:idArray){
+            Cart cart=cartMapper.selectByPrimaryKey(id);
+            carts.add(cart);
+        }
+        return  carts;
+    }
+
+    @Override
+    public Double getTotalPrice(String ids){
+        Double totalPrice=0d;
+        String[] idArray=ids.split(",");
+        for(String id:idArray){
+            Cart cart=cartMapper.selectByPrimaryKey(id);
+            Product product=productMapper.selectByPrimaryKey(cart.getProductId());
+            double price=cart.getCount()*product.getPrice();
+            totalPrice+=price;
+        }
+        return totalPrice;
+
+    }
 
 
 }
