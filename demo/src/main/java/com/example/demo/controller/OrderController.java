@@ -112,6 +112,10 @@ public class OrderController {
      */
     @PostMapping("/addOrderByProduct")
      public ModelAndView addOrderByProduct(Order order, String productId, Integer number, Double totalPrice){
+        System.out.println(order.toString());
+        System.out.println(productId);
+        System.out.println(number);
+        System.out.println(totalPrice);
         User user = userService.getUser();
         order.setOrderId(UUIDUtil.getUUID());
         order.setTotalPrice(new BigDecimal(totalPrice));
@@ -124,6 +128,7 @@ public class OrderController {
         orderItem.setOrderId(order.getOrderId());
         orderItem.setNumber(number);
         Product product = productUserService.productInfo(Integer.valueOf(productId));//通过product_id，来得到product
+        System.out.println("product="+product.toString());
         int count = product.getCount() - number;
         product.setCount(count);
         int sales = product.getSales() +number;

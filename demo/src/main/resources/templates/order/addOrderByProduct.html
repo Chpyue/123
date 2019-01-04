@@ -181,7 +181,7 @@
                                                 <div class="item-row">
                                                     <div class="col col-1">
                                                         <div class="g-pic">
-                                                            <img src="${productOrderItem.image}" width="40" height="40" />
+                                                            <img th:src="'../update/product/'+${productOrderItem.image}" width="40" height="40" />
                                                         </div>
                                                         <div class="g-info" th:text="${productOrderItem.productName}">
 
