@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:hight="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -265,8 +266,8 @@
                 <!-- user login dropdown start-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <img alt="" src="admins/img/avatar1_small.jpg">
-                        <span th:text="${user.name}" class="username">Jhon Doue</span>
+                        <img th:src="'../update/portrait/'+${user.portraitUrl}" width="30px", hight="30px">
+                        <span th:text="${user.name}" class="username" >Jhon Doue</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">

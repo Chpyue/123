@@ -44,16 +44,20 @@ public class FileUtil {
         System.out.println("生成的文件名"+saveFileName);
 
         String filePath = base;
+        String filepath = base0;
         switch (type){
             case "portrait":
                 filePath += portrait;
+                filepath += portrait;
                 break;
             case "product":
                 filePath += product;
+                filepath += product;
                 break;
                 default:break;
         }
-        System.out.println("filePath"+filePath);
+        System.out.println(filePath);
+        System.out.println(filepath);
         System.out.println("开始创建文件夹");
         File tempFilePath = new File(filePath);   //创建临时文件夹
         if (!tempFilePath.exists()) {
@@ -62,9 +66,17 @@ public class FileUtil {
         }else {
             System.out.println("文件夹已经存在！");
         }
+        System.out.println("开始创建文件夹");
+        File tempFilePath0 = new File(filepath);   //创建临时文件夹
+        if (!tempFilePath0.exists()) {
+            tempFilePath0.mkdirs();  //不存在文件夹就创建该文件夹
+            System.out.println("创建文件夹成功");
+        }else {
+            System.out.println("文件夹已经存在！");
+        }
         //将路径与文件名拼装
         filePath+=saveFileName;
-        String filepath = base0+saveFileName;
+        filepath+=saveFileName;
 
         write(file.getInputStream(), new FileOutputStream(filePath));  //将文件写入到磁盘中z
         write(file.getInputStream(), new FileOutputStream(filepath));  //将文件写入到磁盘中z

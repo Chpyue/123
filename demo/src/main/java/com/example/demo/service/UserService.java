@@ -63,6 +63,7 @@ public interface UserService extends UserDetailsService {
      * @return
      * @throws UsernameNotFoundException
      */
+    @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
