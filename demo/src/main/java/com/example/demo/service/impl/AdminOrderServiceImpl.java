@@ -161,6 +161,19 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     }
 
     /**
+     * 返回新订单数量
+     * @return
+     */
+    @Override
+    public Integer countsNewOrders() {
+        OrderExample orderExample=new OrderExample();
+        OrderExample.Criteria criteria=orderExample.createCriteria();
+        criteria.andStatusEqualTo(1);
+        Integer counts=orderMapper.countByExample(orderExample);
+        return counts;
+    }
+
+    /**
      * 通过商品名找productId
      * @param name
      * @return

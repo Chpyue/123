@@ -42,10 +42,14 @@ public interface AdminOrderService {
      */
     Integer countsOrderProductByStatus(Integer status,Integer productId);
 
-
-
     /**
      * 获得订单详细信息
      */
     Order getOrderInfo(String orderId);
+
+    /**
+     * 获得新订单（待接单也是未发货）数量
+     * @return
+     */
+    Integer countsNewOrders();
 }

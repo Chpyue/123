@@ -122,12 +122,10 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/deleteproduct")
-    public ModelAndView removeProduct(Integer productId,ModelAndView mv){
-        productService.removeProductById(productId);
-        mv.setViewName("redirect:/product/list");
-        return mv;
+    public ModelAndView removeProduct(Integer productId,Model model){
+        Product product=productService.findProductById(productId);
+        product.setIsEffective(0);
+        productService.modifiProduct(product);
+        return new ModelAndView("redirect:/product/list");
     }
-
-
-
 }
