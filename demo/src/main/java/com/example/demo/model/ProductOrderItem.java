@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+/**
+ * 石诗佳
+ */
 public class ProductOrderItem {
     private Integer productId;
 
@@ -13,6 +16,35 @@ public class ProductOrderItem {
 
     private Integer status;
 
+    private String itemId;
+
+    private Integer number;
+
+    private String cartId;
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     public Integer getProductId() {
         return productId;
@@ -60,5 +92,9 @@ public class ProductOrderItem {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Double getTotalPrice(){
+        return number*price;
     }
 }

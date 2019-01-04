@@ -125,4 +125,22 @@ public class Order {
     public void setReturnReason(String returnReason) {
         this.returnReason = returnReason == null ? null : returnReason.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId='" + orderId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", orderTime=" + orderTime +
+                ", completeTime=" + completeTime +
+                ", status=" + status +
+                ", receiver='" + receiver + '\'' +
+                ", receivePhone='" + receivePhone + '\'' +
+                ", receiveAddress='" + receiveAddress + '\'' +
+                ", receiveRemark='" + receiveRemark + '\'' +
+                ", returnReason='" + returnReason + '\'' +
+                ", orderItemList=" + orderItemList +
+                '}';
+    }
 }
