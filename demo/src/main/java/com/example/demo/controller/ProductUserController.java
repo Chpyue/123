@@ -93,6 +93,11 @@ public class ProductUserController {
         model.addAttribute("categoryList",productUserService.categoryList());
         model.addAttribute("isHidden",true);
         model.addAttribute("kind",kind);
+        try{
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            System.out.println("暂未无用户登录");
+        }
         return new ModelAndView("product/productlist","productModel",model);
     }
 
