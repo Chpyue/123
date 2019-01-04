@@ -125,7 +125,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         List<String> orderIds=new ArrayList<>();
         for(int i=0;i<orders.size();i++) {
             orderIds.add(orders.get(i).getOrderId());
-            System.out.println("状态为1订单号"+orderIds.get(i));
+//            System.out.println("状态为1订单号"+orderIds.get(i));
         }
         //获得状态为1 且 商品号为productId的订单项目
         List<OrderItem> orderItems=new ArrayList<>();

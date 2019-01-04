@@ -54,6 +54,7 @@ public class AdminOrderController {
             ,@RequestParam("seekType")Integer seekType) {
         List<Order> orderList= orderService.seekOrder(seekContent,seekType);
         model.addAttribute("orderList",orderList);
+        model.addAttribute("user",userService.getUser());
         return "admin/order/seekOrder";
     }
 
@@ -74,7 +75,8 @@ public class AdminOrderController {
      * @return
      */
     @GetMapping("/adminOrder/{path}")
-    public String toPath(@PathVariable String path) {
+    public String toPath(@PathVariable String path,Model model) {
+        model.addAttribute("user",userService.getUser());
         return "admin/order/"+path;
     }
 
@@ -113,10 +115,12 @@ public class AdminOrderController {
     }
     @GetMapping("/toOrderInfo")
     public String toOrderInfo(String orderId,Model model) {
+
         model.addAttribute("orderId",orderId);
         model.addAttribute("user",userService.getUser());
         System.out.println(orderId);
         return "admin/order/orderInfo";
+
     }
 
 

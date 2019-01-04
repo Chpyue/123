@@ -23,8 +23,8 @@ public class FileUtil {
 
     //绝对根路径，从yml文件里获取
 //    @Value("${filePath}")
-    private static final String base = "./target/classes/static/update/";
-    private static final String base0 = "./src/main/resources/static/update/";
+    private static final String base = "./target/classes/static/update";
+    private static final String base0 = "./src/main/resources/static/update";
     //相对路径
     private static final String portrait = "/portrait/";
     private static final String product = "/product/";
