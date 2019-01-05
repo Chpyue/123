@@ -60,7 +60,7 @@ public class OrderController {
         Double totalPrice = 0d;
         List<ProductOrderItem> productOrderItems = new ArrayList<>();
         for (Cart cart : carts) {
-            System.out.println(cart.toString());
+
             ProductOrderItem productOrderItem = new ProductOrderItem();
             Product product = productUserService.productInfo(cart.getProductId());
             productOrderItem.setProductName(product.getProductName());
@@ -72,9 +72,12 @@ public class OrderController {
             totalPrice += productOrderItem.getTotalPrice();
             productOrderItems.add(productOrderItem);
         }
+        User user = userService.getUser();
+        String address=user.getAddress();
         System.out.println(productOrderItems.toString());
         model.addAttribute("productOrderItems", productOrderItems);//订单详情条目展示
         model.addAttribute("totalPrice", totalPrice);//总价
+        model.addAttribute("address",address);//地址
         System.out.println("进入结算中心");
         //跳转到生成订单页面（输入收货信息）
         return new ModelAndView("order/addOrder1", "buyModel", model);
@@ -92,8 +95,11 @@ public class OrderController {
         productOrderItem.setPrice(product.getPrice());
         Double totalPrice=productOrderItem.getTotalPrice();
 
+        User user = userService.getUser();
+        String address=user.getAddress();
         model.addAttribute("productOrderItem", productOrderItem);//订单详情条目展示
         model.addAttribute("totalPrice", totalPrice);//总价
+        model.addAttribute("address",address);//地址
         System.out.println("进入结算中心");
         //跳转到生成订单页面（输入收货信息）
         return new ModelAndView("order/addOrderByProduct", "buyModel", model);
@@ -111,7 +117,7 @@ public class OrderController {
      * @return
      */
     @PostMapping("/addOrderByProduct")
-     public ModelAndView addOrderByProduct(Order order, String productId, Integer number, Double totalPrice){
+     public ModelAndView addOrderByProduct(Model model,Order order, String productId, Integer number, Double totalPrice){
         System.out.println(order.toString());
         System.out.println(productId);
         System.out.println(number);
@@ -145,7 +151,8 @@ public class OrderController {
         }
 
     int d = orderService.insertOrder(order);
-    return new ModelAndView("order/addOrderSuccess");
+        model.addAttribute("order",order);
+    return new ModelAndView("order/addOrderSuccess","model",model);
 }
 
     /**
@@ -196,8 +203,9 @@ public class OrderController {
             }
         }
         int d = orderService.insertOrder(order);
+        model.addAttribute("order",order);
         //跳转到下单成功页面
-        return new ModelAndView("order/addOrderSuccess");
+        return new ModelAndView("order/addOrderSuccess","model",model);
     }
 
 
@@ -247,7 +255,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/returnOrder")
-    public ModelAndView returnOrder(Model model, String orderId,String returnReason) {
+    public ModelAndView returnOrder( String orderId,String returnReason) {
         Order order=orderService.findOrder(orderId);
         order.setReturnReason(returnReason);
         order.setStatus(4);

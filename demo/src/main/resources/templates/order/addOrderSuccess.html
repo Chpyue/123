@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>小米商城</title>
@@ -42,12 +42,6 @@
         <ul class="fr 1h">
             <li class="fl"><div class="menu_hd"><a href="orderCenter">我的订单</a></div></li>
             <li class="fl"><i class="shortcut_s"></i></li>
-           <!-- <li class="fl"><div class="menu_hd"><a href="#">我的锡货</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl"><div class="menu_hd"><a href="#">服务中心</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl"><div class="menu_hd"><a href="#">商家入驻</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>-->
             <li class="fl">
                 <div class="menu">
                     <div class="menu_hd"><a href="#">网站导航</a><b><em></em></b></div>
@@ -87,17 +81,17 @@
                     <p class="post-date">成功付款后，7天发货</p>
                 </div>
                 <div class="info">
-                  <!--  <p>
-                        金额：<span class="pay-total">49.00元</span>
+                 <p>
+                        金额：<span class="pay-total" th:text="${order.totalPrice}"></span>
                     </p>
                     <p>
-                        订单：1150505740045173                    </p>
+                        订单：<span th:text="${order.orderId}"></span>                   </p>
                     <p>
-                        配送：潘骏杰                                    <span class="line">/</span>
-                        159****6437                                    <span class="line">/</span>
-                        江苏,无锡市,北塘区 民丰西苑82号202室                                                                <span class="line">/</span>
+                        配送: <span class="line" th:text="${order.receiver}">/</span>
+                        联系方式：<span class="line" th:text="${order.receivePhone}">/</span>
+                        地址：<span class="line" th:text="${order.receiveAddress}">/</span>
                         不限送货时间                                    <span class="line">/</span>
-                        个人电子发票                                                    </p>-->
+                        个人电子发票                                                    </p>
                 </div>
                 <div class="icon-box">
                     <i class="iconfont"><img src="../users/jQueryGwc/images/yes_ok.png"></i>
@@ -172,19 +166,15 @@
     </ul>
 </div>
 
-</div>
 <!-- 底部 -->
-
-
-
-
+            </div>
         </form>
     </div>
 </div>
-<footer class="jumbotron text-center" style="margin-bottom:0">
+<!--<footer class="jumbotron text-center" style="margin-bottom:0">
     <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
     <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
     <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
-</footer>
+</footer>-->
 </body>
 </html>

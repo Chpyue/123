@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../users/jQueryGwc/js/jquery_cart.js"></script>
     <link rel="stylesheet" type="text/css" href="../users/jQueryGwc/css/checkOut.css" />
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -86,22 +87,20 @@
                     <div  style="padding:  50px 50px;">
                         <div class="input-group">
                             <span class="input-group-addon">收货人</span>
-                            <input class="form-control" type="text" name="receiver" placeholder="请输入你的用户名"/>
+                            <input class="form-control" type="text" name="receiver" maxlength="10" placeholder="请输入你的收货人姓名" required/>
                         </div>
                         <br>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">电话</span>
-                            <input class="form-control" type="text" name="receivePhone" placeholder="请输入你的电话号码"/>
+                            <input class="form-control" type="text" name="receivePhone" pattern="^1[345678]\d{9}$" placeholder="请输入你的电话号码"/>
                         </div>
                         <br>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">地址</span>
-                            <input class="form-control"type="text" name="receiveAddress" placeholder="请输入你的地址"/>
+                            <input class="form-control"  id="address"  minlength="10" maxlength="20" name="receiveAddress"  th:value="${address}" required/>
                         </div>
-
-
                     </div>
 
                     <!--点击弹出新增/收货地址界面end-->
@@ -150,7 +149,8 @@
                     </div>
                     <div class="box-bd">
                         <ul class="checkout-option-list clearfix J_optionList">
-                            <li class="item selected"><input type="radio" checked="checked" name="Checkout[best_time]" value="1"><p>不限送货时间<span>周一至周日</span></p></li><li class="item "><input type="radio"  name="Checkout[best_time]" value="2"><p>工作日送货<span>周一至周五</span></p></li><li class="item "><input type="radio"  name="Checkout[best_time]" value="3"><p>双休日、假日送货<span>周六至周日</span></p></li>                        </ul>
+                            <li class="item selected"><input type="radio" checked="checked" name="Checkout[best_time]" value="1"><p>不限送货时间<span>周一至周日</span></p></li>
+                        </ul>
                     </div>
                 </div>
                 <!-- 送货时间 END-->
@@ -196,52 +196,28 @@
                                                 </div>
                                             </dd>
 
-                                            <div class="checkout-count clearfix">
-                                                <div class="checkout-count-extend xm-add-buy">
-                                                    <h2 class="title">会员留言</h2></br>
-                                                    <input  name="receiveRemark"  type="text" />
+                                            <div class="form-group">
+
+                                                <h2 class="title">会员留言</h2></br>
+                                                <div class="col-md-6">
+                                                    <textarea class='form-control' name='receiverRemark' onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5' required></textarea>
+                                                    <div class='text-right'>
+                                                        <em style='color:red'>200</em>/<span>200</span>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                             <!-- checkout-count-extend -->
                                             <div class="checkout-price">
                                                 <p class="checkout-total">应付总额：<span><input id="totalPrice"  style="border: none" readonly="readonly" name="totalPrice" th:value="${totalPrice}" />元</span></p>
                                             </div>
                                         </dl>
                                     </div>
-
-                                    <!--S 加价购 产品选择弹框 -->
-                                    <div class="modal hide modal-choose-pro" id="J_choosePro-664">
-                                        <div class="modal-header">
-                                            <span class="close" data-dismiss='modal'><i class="iconfont">&#xe617;</i></span>
-                                            <h3>选择产品</h3>
-                                            <div class="more">
-                                                <div class="xm-recommend-page clearfix">
-                                                    <a class="page-btn-prev   J_carouselPrev iconfont" href="javascript: void(0);">&#xe604;</a><a class="page-btn-next  J_carouselNext iconfont" href="javascript: void(0);">&#xe605;</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body J_chooseProCarousel">
-                                            <div class="J_carouselWrap modal-choose-pro-list-wrap">
-                                                <ul class="clearfix J_carouselList">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#" class="btn btn-disabled J_chooseProBtn">加入购物车</a>
-                                        </div>
-                                    </div>
-                                    <!--E 加价购 产品选择弹框 -->
-
-                                    <!--S 保障计划 产品选择弹框 -->
-
-
                                 </div>
                                 <!-- 商品清单 END -->
                                 <input type="hidden"  id="couponType" name="Checkout[couponsType]">
                                 <input type="hidden" id="couponValue" name="Checkout[couponsValue]">
                                 <div class="checkout-confirm">
-
-                                <!--    <a href="#" class="btn btn-lineDakeLight btn-back-cart">返回购物车</a>-->
                                     <input type="submit" class="btn btn-primary" value="立即下单" id="checkoutToPay" />
                                 </div>
                             </div>
@@ -251,57 +227,84 @@
 
             </form>
 
+            <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+            <script type="text/javascript">
+                //显示限制输入字符method
+                function textAreaChange(obj){
+                    var $this = $(obj);
+                    var count_total = $this.next().children('span').text();
+                    var count_input = $this.next().children('em');
+                    var area_val = $this.val();
+                    if(area_val.len()>count_total){
+                        area_val = autoAddEllipsis(area_val,count_total);//根据字节截图内容
+                        $this.val(area_val);
+                        count_input.text(0);//显示可输入数
+                    }else{
+                        count_input.text(count_total - area_val.len());//显示可输入数
+                    }
+                }
+                //得到字符串的字节长度
+                String.prototype.len = function(){
+                    return this.replace(/[^\x00-\xff]/g, "xx").length;
+                };
+                /*
+                 * 处理过长的字符串，截取并添加省略号
+                 * 注：半角长度为1，全角长度为2
+                 * pStr:字符串
+                 * pLen:截取长度
+                 * return: 截取后的字符串
+                 */
+                function autoAddEllipsis(pStr, pLen) {
+                    var _ret = cutString(pStr, pLen);
+                    var _cutFlag = _ret.cutflag;
+                    var _cutStringn = _ret.cutstring;
+                    return _cutStringn;
+                }
+                /*
+                 * 取得指定长度的字符串
+                 * 注：半角长度为1，全角长度为2
+                 * pStr:字符串
+                 * pLen:截取长度
+                 * return: 截取后的字符串
+                 */
+                function cutString(pStr, pLen) {
+                    // 原字符串长度
+                    var _strLen = pStr.length;
+                    var _tmpCode;
+                    var _cutString;
+                    // 默认情况下，返回的字符串是原字符串的一部分
+                    var _cutFlag = "1";
+                    var _lenCount = 0;
+                    var _ret = false;
+                    if (_strLen<= pLen/2){_cutString = pStr;_ret = true;}
+                    if (!_ret){
+                        for (var i = 0; i < _strLen ; i++ ){
+                            if (isFull(pStr.charAt(i))){_lenCount += 2;}
+                            else {_lenCount += 1;}
+                            if (_lenCount > pLen){_cutString = pStr.substring(0, i);_ret = true;break;}
+                            else if(_lenCount == pLen){_cutString = pStr.substring(0, i + 1);_ret = true;break;}
+                        }
+                    }
+                    if (!_ret){_cutString = pStr;_ret = true;}
+                    if (_cutString.length == _strLen){_cutFlag = "0";}
+                    return {"cutstring":_cutString, "cutflag":_cutFlag};
+                }
+                /*
+                 * 判断是否为全角
+                 *
+                 * pChar:长度为1的字符串
+                 * return: true:全角
+                 *         false:半角
+                 */
+                function isFull (pChar){
+                    if((pChar.charCodeAt(0) > 128)){return true;}
+                    else{return false;}
+                }
+            </script>
+
+
 
         </div>
-        <!-- 禮品卡提示 S-->
-        <div class="modal hide lipin-modal" id="lipinTip">
-            <div class="modal-header">
-                <h2 class="title">温馨提示</h2>
-                <p> 为保障您的利益与安全，下单后礼品卡将会被使用，<br>
-                    且订单信息将不可修改。请确认收货信息：</p>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li><strong>收&nbsp;&nbsp;货&nbsp;&nbsp;人：</strong><span id="lipin-uname"></span></li>
-                    <li><strong>联系电话：</strong><span id="lipin-uphone"></span></li>
-                    <li><strong>收货地址：</strong><span id="lipin-uaddr"></span></li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <span class="btn btn-primary" id="useGiftCard">确认下单</span><span class="btn btn-dakeLight" id="closeGiftCard">返回修改</span>
-            </div>
-        </div>
-        <!--  禮品卡提示 E-->
-        <!-- 预售提示 S-->
-        <div class="modal hide yushou-modal" id="yushouTip">
-            <div class="modal-body">
-                <h2>请确认收货地址及发货时间</h2>
-                <ul class="list">
-                    <li>
-                        <strong>请确认配送地址，提交后不可变更：</strong>
-                        <p id="yushouAddr"> </p>
-                        <span class="icon-common icon-1"></span>
-                    </li>
-                    <li>
-                        <strong>支付后发货</strong>
-                        <p>如您随预售商品一起购买的商品，将与预售商品一起发货</p>
-                        <span class="icon-common icon-2"></span>
-                    </li>
-                    <li>
-                        <strong>以支付价格为准</strong>
-                        <p>如预售产品发生调价，已支付订单价格将不受影响。</p>
-                        <span class="icon-common icon-3"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <p id="yushouOk" class="yushou-ok">
-                    <span class="icon-checkbox"><i class="iconfont">&#xe626;</i></span>
-                    我已确认收货地址正确，不再变更</p>
-                <span class="btn btn-lineDakeLight" data-dismiss="modal">返回修改地址</span>
-                <span class="btn btn-primary" id="yushouCheckout">继续下单</span>
-
-            </div>
         </div>
 
         <script src="../users/jQueryGwc/js/base.min.js"></script>
@@ -311,100 +314,13 @@
     </div>
 
     <!--收货地址body部分结束-->
-
-
-
     <!-- 底部 -->
-    <div class="promise_box">
-        <div class="w">
-            <ul>
-                <li><img src="../users/jQueryGwc/images/promise_img01.jpg"><span>365天不打烊</span></li>
-                <li><img src="../users/jQueryGwc/images/promise_img02.jpg"><span>无理由退换货</span></li>
-                <li><img src="../users/jQueryGwc/images/promise_img03.jpg"><span>担保交易</span></li>
-                <li><img src="../users/jQueryGwc/images/promise_img04.jpg"><span>先行赔付</span></li>
-                <li><img src="../users/jQueryGwc/images/promise_img05.jpg"><span>支持定制</span></li>
-            </ul>
-        </div>
     </div>
-    <div class="bottom-links">
-        <ul class="clearfix cols">
-            <li class="col">
-                <div class="bottom-links-title">关于我们</div>
-                <ul class="clearfix bottom-links-items">
-                    <li><a href="#">招聘英才</a></li>
-                    <li><a href="#">公司简介</a></li>
-                    <li><a href="#">合作洽谈</a></li>
-                    <li><a href="#">联系我们</a></li>
-                </ul>
-            </li>
-            <li class="col">
-                <div class="bottom-links-title">客服中心</div>
-                <ul class="clearfix bottom-links-items">
-                    <li><a href="#">收货地址</a></li>
-                    <li><a href="#">个人资料</a></li>
-                    <li><a href="#">修改密码</a></li>
-                </ul>
-            </li>
-            <li class="col">
-                <div class="bottom-links-title">售后服务</div>
-                <ul class="clearfix bottom-links-items">
-                    <li><a href="#">退换货政策</a></li>
-                    <li><a href="#">退款说明</a></li>
-                    <li><a href="#">联系卖家</a></li>
-                </ul>
-            </li>
-            <li class="col">
-                <div class="bottom-links-title">帮助中心</div>
-                <ul class="clearfix bottom-links-items">
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">积分兑换</a></li>
-                    <li><a href="#">积分细则</a></li>
-                    <li><a href="#">已购商品</a></li>
-                </ul>
-            </li>
-            <li class="col">
-                <div class="bottom-links-title">公众号</div>
-                <ul class="clearfix bottom-links-items">
-                    <!-- <li>
-                         <img src="../users/jQueryGwc/images/weixin_big.jpg" />
-                     </li>-->
-                </ul>
-            </li>
-            <li class="col">
-                <div class="bottom-links-title">关注我们</div>
-                <!-- <ul class="clearfix bottom-links-items">
-                     <li><img src="../users/jQueryGwcimages/icon_sina.png" /><a href="#">新浪微博</a></li>
-                     <li><img src="../users/jQueryGwcimages/icon_tencent.png" /><a href="#">腾讯微博</a></li>
-                     <li><img src="../users/jQueryGwcimages/icon_dou.png" /><a href="#">豆瓣小站</a></li>
-                     <li><img src="../users/jQueryGwcimages/icon_weixin.png" /><a href="#">官方微信</a></li>
-                 </ul>-->
-            </li>
-
-        </ul>
-    </div>
-    <div class="footer_v2013 bottom-about">
-        <div class="w">
-            <p class="foot_p1">
-                <a href="#">首页</a>|<a href="#">招聘英才</a>|<a href="#">广告合作</a>|<a href="#">联系我们</a>|<a href="#">关于我们</a>
-            </p>
-            <pre>
-      <p>哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</p>
+<footer class="jumbotron text-center" style="margin-bottom:0">
+    <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
     <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
     <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
-                </pre>
-        </div>
-        <!-- <p>
-             <a href="#"><img src="../users/jQueryGwc/images/bottom_img01.png"></a>
-             <a href="#"><img src="../users/jQueryGwc/images/bottom_img02.png"></a>
-             <a href="#"><img src="../users/jQueryGwc/images/bottom_img03.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img04.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img05.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img06.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img07.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img08.png"></a>
-             <a href="#"><img src="../users/jQueryGwcimages/bottom_img09.png"></a>
-         </p>-->
-    </div>
+</footer>
     <!-- 底部 -->
     <div class="fixed-buttons">
         <ul>

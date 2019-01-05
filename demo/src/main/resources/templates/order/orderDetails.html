@@ -102,20 +102,23 @@
     </div>
 
 
-   <span>订单号：<input style="border: none ;width: 300px;" readonly="readonly" th:type="text" th:value="${order.orderId}"/></span>
-   <span>总价：  <input  style="border: none" readonly="readonly"th:type="text" th:value="${order.totalPrice}"/></span>
+   <div>订单号：<input style="border: none ;width: 300px;" readonly="readonly" th:type="text" th:value="${order.orderId}"/></div>
+   <div>总价：  <input  style="border: none" readonly="readonly"th:type="text" th:value="${order.totalPrice}"/>元</div>
 
     <ul class="list-group" >
-        收货人：<li  th:text="${order.receiver}"></li>
-        电话：<li  th:text="${order.receivePhone}"></li>
-        地址：<li th:text="${order.receiveAddress}"></li>
+      <!--  <span>收货人：<li  th:text="${order.receiver}"></li></span>-->
+        <li>收货人：<span th:text="${order.receiver}"></span></li>
+        <li>联系方式：<span th:text="${order.receivePhone}"></span></li>
+        <li>地址：<span th:text="${order.receiveAddress}"></span></li>
+        <!--电话：<li  th:text="${order.receivePhone}"></li>
+        地址：<li th:text="${order.receiveAddress}"></li>-->
     </ul>
 
     <div th:if="${flag}==4" >
-        退货理由  <input class="list-group-item"  readonly="readonly" th:value="${order.returnReason}"/>
+      <li> 退货理由  <input class="list-group-item"  style="border: none" readonly="readonly" th:value="${order.returnReason}"/></li>
     </div>
     <div th:if="${flag}==5" >
-        退货理由  <input class="list-group-item"  readonly="readonly" th:value="${order.returnReason}"/>
+        退货理由  <input class="list-group-item"  style="border: none" readonly="readonly" th:value="${order.returnReason}"/>
     </div>
 
 <!--<input th:value="${flag}"/>-->
