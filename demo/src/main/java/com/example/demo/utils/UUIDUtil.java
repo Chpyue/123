@@ -30,4 +30,7 @@ public class UUIDUtil {
         }
         return list;
     }
+    public static void main(String[] args) {
+        System.out.println(getUUID());
+    }
 }

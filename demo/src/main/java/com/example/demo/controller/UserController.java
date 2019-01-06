@@ -6,6 +6,7 @@ import com.example.demo.service.UserService;
 import com.example.demo.utils.DateToString;
 import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/list")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getUserList(Model model){
         List<User> userList = userService.getUserList();
         model.addAttribute("title","用户列表");
@@ -70,6 +72,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/adminlist")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAdminList(Model model){
         List<User> adminList = userService.getAdminList();
         model.addAttribute("title","用户列表");
@@ -82,12 +85,13 @@ public class UserController {
 
 
     /**
-     * 通过userId查找对应用户信息
+     * 通过userId查找对应用户信息（管理员）
      * @param userId
      * @param model
      * @return
      */
     @GetMapping(value = "/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getUserInfo(@PathVariable("userId") String userId, Model model){
 
         //所查询用户信息
@@ -100,12 +104,13 @@ public class UserController {
     }
 
     /**
-     * 跳转至用户个人信息修改页面
+     * 跳转至用户个人信息修改页面（管理员）
      * @param userId
      * @param model
      * @return
      */
     @GetMapping("/toUserEdit")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView toUserEdit(String userId,Model model){
         //所查询用户信息
         model.addAttribute("users",userService.findByUserId(userId));
@@ -123,6 +128,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/updateImage")
+    @PreAuthorize("isAuthenticated()")
     public String updateImage(MultipartFile file) throws IOException {
         User user = userService.getUser();
         user.setPortraitUrl(FileUtil.saveFile(file,"portrait"));
@@ -136,6 +142,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updateUser")
+    @PreAuthorize("isAuthenticated()")
     public String updateUser(User user){
         System.out.println("用户信息="+user.toString());
         userService.updateUser(user);
@@ -147,6 +154,7 @@ public class UserController {
 
 
     @PostMapping("/changePassword")
+    @PreAuthorize("isAuthenticated()")
     public String changePassword(User user,HttpServletRequest request){
         String newPassword = request.getParameter("newPassword");
         String reNewPassword = request.getParameter("reNewPassword");

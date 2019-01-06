@@ -116,15 +116,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserAuthorityExample.Criteria criteria = example.createCriteria();
         criteria.andAuthorityIdEqualTo(ROLE_USER_AUTHORITY_ID);
         List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example);
-        List<String> userIdList = new ArrayList<>();
+        System.out.println("列表="+userAuthorityList.toString());
+        List<User> userList = new ArrayList<>();
         for (UserAuthority userAuthority : userAuthorityList) {
-            userIdList.add(userAuthority.getUserId());
+            userList.add(findByUserId(userAuthority.getUserId()));
         }
-//        获取普通用户列表
-        UserExample example1 = new UserExample();
-        UserExample.Criteria criteria1 = example1.createCriteria();
-        criteria.andUserIdIn(userIdList);
-        List<User> userList = userMapper.selectByExample(example1);
         return userList;
     }
 
@@ -134,15 +130,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserAuthorityExample.Criteria criteria = example.createCriteria();
         criteria.andAuthorityIdEqualTo(ROLE_ADMIN_AUTHORITY_ID);
         List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example);
-        List<String> userIdList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         for (UserAuthority userAuthority : userAuthorityList) {
-            userIdList.add(userAuthority.getUserId());
+            userList.add(findByUserId(userAuthority.getUserId()));
         }
-//        获取普通用户列表
-        UserExample example1 = new UserExample();
-        UserExample.Criteria criteria1 = example1.createCriteria();
-        criteria.andUserIdIn(userIdList);
-        List<User> userList = userMapper.selectByExample(example1);
         return userList;
     }
 

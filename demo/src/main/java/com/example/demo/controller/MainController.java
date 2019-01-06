@@ -10,6 +10,7 @@ import com.example.demo.utils.MD5Util;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,8 @@ import java.util.List;
  */
 //主页控制器
 @Controller
+//开启权限认证
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MainController {
 
 
@@ -57,14 +60,11 @@ public class MainController {
 
 
     @GetMapping("/")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String boot(){
         return "redirect:/product/allProduct";
     }
     @GetMapping("/index")
     public ModelAndView index(Model model){
-//        User user = userService.getUser();
-//        model.addAttribute("user",user);
         return new ModelAndView("redirect:/","userModel",model);
     }
 
@@ -80,6 +80,7 @@ public class MainController {
      * @return
      */
     @GetMapping("/login-allot")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView loginAllot(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
@@ -98,6 +99,7 @@ public class MainController {
      * @return
              */
     @GetMapping("/adminIndex")
+        @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView adminIndex(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
