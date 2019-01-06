@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.DateToString;
 import com.example.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -93,6 +94,8 @@ public class UserController {
         model.addAttribute("users",userService.findByUserId(userId));
         //获取当前用户信息
         model.addAttribute("user",userService.getUser());
+        //日期格式化对象
+        model.addAttribute("ds", new DateToString());
         return new ModelAndView("admin/profile","userModel",model);
     }
 
@@ -108,6 +111,8 @@ public class UserController {
         model.addAttribute("users",userService.findByUserId(userId));
         //获取当前用户信息
         model.addAttribute("user",userService.getUser());
+        //日期格式化对象
+        model.addAttribute("ds", new DateToString());
         return new ModelAndView("admin/profileEdit","userModel",model);
     }
 

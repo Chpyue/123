@@ -104,7 +104,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             String username = userList.get(0).getUsername();
             return findByUsername(username);
         }
-        else return null;
+        else {
+            return null;
+        }
     }
 
     @Override

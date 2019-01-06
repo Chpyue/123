@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ public class User implements UserDetails, Serializable {
 
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     private String email;
@@ -49,6 +51,7 @@ public class User implements UserDetails, Serializable {
         this.userId = userId == null ? null : userId.trim();
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -97,6 +100,7 @@ public class User implements UserDetails, Serializable {
         return simpleGrantedAuthorities;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }

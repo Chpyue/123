@@ -380,10 +380,8 @@
                             <p th:text="${users.email}">jsmith@flatlab.com</p>
                             <form action="/user/updateImage" id="Picture" method="post"  enctype="multipart/form-data">
                                 <input type="file" id="file" name="file" value="更换图片">
-                                <!--<input  type="submit" value="提交">-->
                                 <button class="btn btn-success " onclick="pictureSubmit()" >提交</button>
                             </form>
-
                         </div>
 
                         <ul class="nav nav-pills nav-stacked">
@@ -433,7 +431,7 @@
                                     <p><span>姓名 </span><a th:text="':'+${users.name}">: Smith</a> </p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>生日 </span><a th:text="':'+${users.birth.toLocaleString()}">1998-3-12</a> </p>
+                                    <p><span>生日 </span><a th:text="':'+${ds.format(users.birth)}">1998-3-12</a> </p>
                                 </div>
                                 <div class="bio-row">
                                     <p><span>邮箱</span><a th:text="':'+${users.email}">chpyue@foxmail.com</a></p>
