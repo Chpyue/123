@@ -67,6 +67,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product addProduct(Product product) {
         ProductExample example=new ProductExample();
+//        ProductExample.Criteria criteria=example.createCriteria();
+//        criteria.andIsEffectiveEqualTo(1);
         productMapper.insertSelective(product);
         return product;
     }
