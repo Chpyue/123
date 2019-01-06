@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.service.UserService;
+import com.example.demo.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @ProjectName: demo
@@ -40,9 +42,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .password("admin")
 //                .roles("ADMIN");
 
+        auth.userDetailsService(userService).passwordEncoder(new PasswordEncoder(){
 
+            @Override
+            public String encode(CharSequence charSequence) {
+                return MD5Util.encode((String)charSequence);
+            }
 
-        auth.userDetailsService(userService);
+            @Override
+            public boolean matches(CharSequence charSequence, String s) {
+                return s.equals(MD5Util.encode((String)charSequence));
+            }
+        });
     }
 
     @Override

@@ -12,30 +12,36 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Util {
 
-    /**
-     * 获取该输入流的MD5值
-     *
-     * @param is
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
-     */
-    public static String getMD5(InputStream is) throws NoSuchAlgorithmException, IOException {
-        StringBuffer md5 = new StringBuffer();
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] dataBytes = new byte[1024];
+    private static final String SALT = "cdio";
 
-        int nread = 0;
-        while ((nread = is.read(dataBytes)) != -1) {
-            md.update(dataBytes, 0, nread);
-        };
-        byte[] mdbytes = md.digest();
-
-        // convert the byte to hex format
-        for (int i = 0; i < mdbytes.length; i++) {
-            md5.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+    public static String encode(String password) {
+        password = password + SALT;
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return md5.toString();
+        char[] charArray = password.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for (int i = 0; i < charArray.length; i++)
+            byteArray[i] = (byte) charArray[i];
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16) {
+                hexValue.append("0");
+            }
+
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(MD5Util.encode("admin"));
     }
 
 }

@@ -6,6 +6,7 @@ import com.example.demo.service.AuthorityService;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
+import com.example.demo.utils.MD5Util;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -130,12 +131,15 @@ public class MainController {
         authorities.add(authorityService.getAuthorityById(ROLE_USER_AUTHORITY_ID));
         //查重避免userId重复
         user.setUserId(UUIDUtil.getUUID());
-        user.setName("chpyue");
+        //进行密码加密
+        user.setPassword(MD5Util.encode(user.getPassword()));
+        //设置默认姓名为用户名
+        user.setName(user.getUsername());
+        //设置默认头像
         user.setPortraitUrl(Portrait_Url);
+        //设置注册时间
         user.setRegisterTime(new Date());
-//        while (userService.isRepeat(user.getUserId())){
-//            user.setUserId(UUIDUtil.getUUID());
-//        }
+        //设置权限
         user.setAuthorities(authorities);
         System.out.println(user.toString());
 
