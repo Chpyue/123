@@ -14,6 +14,13 @@
 	<body>
 		<header>
 			<div class="top center">
+				<div class="left fl">
+					<ul>
+						<li><a href="/" target="_blank">小米商城</a></li>
+
+						<div class="clear"></div>
+					</ul>
+				</div>
 				<div class="right fr">
 					<div class="gouwuche fr"><a th:href="@{/cart/list}">购物车</a></div>
 					<div class="fr">
@@ -36,11 +43,13 @@
 				<div class="clear"></div>
 			</div>
 		</header>
-<!--类型列表-->
+		<!-- 顶部分类及搜索框 start banner_x -->
 		<div class="banner_x center">
+			<a href="/" target="_blank"><div class="logo fl"></div></a>
+			<!--<a href=""><div class="ad_top fl"></div></a>-->
 			<div class="nav fl">
 				<ul >
-				<li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
+					<li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
 				</ul>
 			</div>
 			<div class="nav fl">
@@ -50,9 +59,6 @@
 					</li>
 				</ul>
 			</div>
-
-
-<!--搜索框	-->
 			<div class="search fr">
 				<form action="/product/findProduct" method="post">
 					<div class="text fl">
@@ -66,6 +72,8 @@
 				<div class="clear"></div>
 			</div>
 		</div>
+		<!-- end banner_x -->
+
 <!--页面顶部结束-->
 
 
