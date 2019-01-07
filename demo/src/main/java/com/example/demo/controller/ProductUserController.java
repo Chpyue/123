@@ -68,6 +68,11 @@ public class ProductUserController {
     @RequestMapping("/findProduct")//查找商品
     public ModelAndView findProduct(Model model,String name){
         model.addAttribute("productList",productUserService.findByName(name));
+        try{
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            System.out.println("暂未无用户登录");
+        }
         model.addAttribute("categoryList",productUserService.categoryList());
         model.addAttribute("isHidden",false);
         return new ModelAndView("product/productlist","productModel",model);

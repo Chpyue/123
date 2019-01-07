@@ -75,8 +75,8 @@
 			<div class="right fr">
 				<div class="h3 ml20 mt20" th:text="${productInfo.productName}">名称</div>
 				<div class="ft10 ml20 mt20" th:text="${productInfo.remarks}">描述</div>
-				<div class="ft20 ml20 mt20 ftbc" th:text="${productInfo.price}">单价</div>
 				<div class="xqxq ml20 mt21">
+					<div class="ft20  ftbc" th:text="${productInfo.price}">单价</div>
 					<div class="top1 mt10">
 						<div class="left1 fl">
 							<ul>
@@ -90,12 +90,11 @@
 					<div class="bot mt20 ft20 ftbc">总计:
 						<input id="zongji" disabled type="text" th:value="${productInfo.price}" style="border-style:none;font-size:25px;color: #ff6700;background-color:transparent" />
 					</div>
-				</div>
-				<div class="xiadan ml20 mt20">
-					<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
-					<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车"  />
-					<!--<a th:href="@{'/cart/insert/'+${productInfo.productId}+'/'+${}"></a>-->
-
+					<div class="xiadan ml20 mt20">
+						<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
+						<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车"  />
+						<!--<a th:href="@{'/cart/insert/'+${productInfo.productId}+'/'+${}"></a>-->
+					</div>
 				</div>
 			</div>
 

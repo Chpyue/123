@@ -9,7 +9,8 @@ a{border:none;text-decoration: none;color:#000;}
 .fr{float: right;}
 .clear{clear:both;}
 .mt20{margin-top: 20px;}
-.mt21{margin-top: 20%;}
+.mtd{margin-bottom: 1px;}
+.mt21{margin-top: 40%;}
 .mt10{margin-top: 10px;}
 .ml20{margin-left: 20px;}
 .ml40{margin-left: 40px;}
@@ -156,7 +157,7 @@ xuanze{width: 1226px;height: 58px;line-height: 58px;font-size:
 /*jieshao*/
 .jieshao{height: 560px; }
 .jieshao .left{width:560px;height:560px;border:1px solid #ccc;}
-.jieshao .right{width:620px;background: rgb(248,248,248);height: 600px;}
+.jieshao .right{width:620px;background: rgb(248,248,248);height: 560px;}
 .jieshao .right .jianjie{font-size: 14px;color: rgb(176,176,176);line-height: 20px;}
 .jieshao .right .jiage{font-size: 18px;color:#ff6700;font-weight: bold;}
 .jieshao .right .xzbb{height: 58px;line-height:58px;}
@@ -167,7 +168,7 @@ xuanze{width: 1226px;height: 58px;line-height: 58px;font-size:
 .jieshao .right .xzbb .banben:hover{border:1px solid #ff6700;}
 .jieshao .right .xzbb .banben a .yuandian{display: inline-block;height: 15px;width: 15px;border-radius: 50%;background: #000;margin-left: 80px;}
 /*选取详情*/
-.xqxq{height: 80px;width: 555px;background: rgb(255,255,255);padding:20px;}
+.xqxq{height: 100px;width: 555px;background: rgb(255,255,255);padding:20px;}
 /*是否下单*/
 .xiadan{height: 50px;line-height: 50px;}
 .xiadan .jrgwc{height: 50px;width: 200px;border:none;background:#ff6700;color:#fff;font-size: 18px;font-weight: bold;cursor:pointer;margin-right: 50px;}
