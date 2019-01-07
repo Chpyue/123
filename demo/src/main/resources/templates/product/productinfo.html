@@ -38,13 +38,13 @@
 	<div class="banner_x center">
 		<div class="nav fl">
 			<ul >
-				<li><a th:href="@{'/product/allProduct?orderbyname=price'}">全部商品</a></li>
+				<li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
 			</ul>
 		</div>
 		<div class="nav fl">
 			<ul >
 				<li th:each="category:${categoryList}">
-					<a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderbyname=price'}" th:text="${category.name}">全部商品类型</a>
+					<a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderbyname=sales'}" th:text="${category.name}">全部商品类型</a>
 				</li>
 			</ul>
 		</div>
