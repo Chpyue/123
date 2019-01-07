@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Authority;
 import com.example.demo.model.User;
-import com.example.demo.service.AuthorityService;
-import com.example.demo.service.CategoryService;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.*;
 import com.example.demo.utils.MD5Util;
 import com.example.demo.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +53,8 @@ public class MainController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private AdminOrderService adminOrderService;
 
 
 
@@ -106,7 +105,8 @@ public class MainController {
         model.addAttribute("userCount",userService.getUserList().size());
         model.addAttribute("categoryCount",categoryService.getCategoryList().size());
         model.addAttribute("productCount",productService.getProductList().size());
-
+        model.addAttribute("newOrderCount",adminOrderService.getOrderAndOrderItem(1).size());
+        System.out.println("未接单订单数量："+adminOrderService.getOrderAndOrderItem(1).size());
         return new ModelAndView("admin/index","userModel",model);
 
     }

@@ -39,7 +39,7 @@
     <![endif]-->
 </head>
 
-<body th:onload="'javascript:loadCountUp('+${userCount}+','+${categoryCount}+','+${productCount}+','+${userCount}+')'">
+<body th:onload="'javascript:loadCountUp('+${userCount}+','+${categoryCount}+','+${productCount}+','+${newOrderCount}+')'">
 
 <section id="container" >
     <!--header start-->
@@ -229,7 +229,7 @@
                             <h1 class=" count4">
                                 0
                             </h1>
-                            <p>待接单数量</p>
+                            <p><a href="/adminOrder/newOrder">待接单数量</a></p>
                         </div>
                     </section>
                 </div>
