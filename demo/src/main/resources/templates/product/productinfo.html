@@ -74,8 +74,10 @@
 			<div class="left fl"><img th:src="'../update/product/'+ ${productInfo.image}" width="560" height="560"></div>
 			<div class="right fr">
 				<div class="h3 ml20 mt20" th:text="${productInfo.productName}">名称</div>
-				<div class="ft10 ml20 mt20" th:text="${productInfo.remarks}">描述</div>
-				<div class="xqxq ml20 mt21">
+				<div class="xqxq1 ml20 mt20">
+					<div th:text="${productInfo.remarks}">描述</div>
+				</div>
+				<div class="xqxq2 ml20 mt20">
 					<div class="ft20  ftbc" th:text="${productInfo.price}">单价</div>
 					<div class="top1 mt10">
 						<div class="left1 fl">
