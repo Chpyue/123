@@ -103,6 +103,7 @@ public class CartController {
         }
         model.addAttribute("cartCustomList",cartCustomList);
         model.addAttribute("summary",sum);
+        model.addAttribute("user",userService.getUser());
         return  new ModelAndView("cart/ct","cartModel",model);
     }
 

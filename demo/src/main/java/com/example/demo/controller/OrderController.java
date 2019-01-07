@@ -78,6 +78,7 @@ public class OrderController {
         model.addAttribute("productOrderItems", productOrderItems);//订单详情条目展示
         model.addAttribute("totalPrice", totalPrice);//总价
         model.addAttribute("address",address);//地址
+        model.addAttribute("user",userService.getUser());
         System.out.println("进入结算中心");
         //跳转到生成订单页面（输入收货信息）
         return new ModelAndView("order/addOrder1", "buyModel", model);
@@ -100,6 +101,7 @@ public class OrderController {
         model.addAttribute("productOrderItem", productOrderItem);//订单详情条目展示
         model.addAttribute("totalPrice", totalPrice);//总价
         model.addAttribute("address",address);//地址
+        model.addAttribute("user",userService.getUser());
         System.out.println("进入结算中心");
         //跳转到生成订单页面（输入收货信息）
         return new ModelAndView("order/addOrderByProduct", "buyModel", model);
@@ -152,6 +154,7 @@ public class OrderController {
 
     int d = orderService.insertOrder(order);
         model.addAttribute("order",order);
+        model.addAttribute("user",userService.getUser());
     return new ModelAndView("order/addOrderSuccess","model",model);
 }
 
@@ -204,6 +207,7 @@ public class OrderController {
         }
         int d = orderService.insertOrder(order);
         model.addAttribute("order",order);
+        model.addAttribute("user",userService.getUser());
         //跳转到下单成功页面
         return new ModelAndView("order/addOrderSuccess","model",model);
     }
@@ -225,8 +229,10 @@ public class OrderController {
         order.setStatus(3);
         //修改收货时间和订单状态
         int a = orderService.confirmOrder(order);
-        if (a < 0)
+        if (a < 0){
             System.out.println("确认收货出错");
+        }
+
         //跳转到确认收货成功页面
         return new ModelAndView("order/confirmOrderSuccess");
     }

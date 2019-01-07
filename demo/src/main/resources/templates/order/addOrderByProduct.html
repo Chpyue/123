@@ -1,5 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>结算中心</title>
@@ -11,66 +14,48 @@
     <link rel="stylesheet" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/users/css/style.css"
+          th:href="@{/users/css/style.css}">
 </head>
 
 <body>
 <!--顶部快捷菜单-->
-<div class="shortcut_v2013 alink_v2013">
-    <div class="w">
-        <ul class="fl 1h">
-            <li class="fl">
-                <div class="menu">
-                    <div class="menu_hd">
-                        <a href="#">
-                            <img src="../users/jQueryGwc/images/top_phone_icon.png" width="12px" height="16px" />
-                            小米商城
-                        </a>
-                        <b><em></em></b></div>
-                    <div class="menu_bd">
-                        <ul>
-                            <li><a href="#">App For Android</a></li>
-                            <li><a href="#">App For IOS</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl"><div class="menu_hd">您好，欢迎！</div></li>
-        </ul>
-        <ul class="fr 1h">
-            <li class="fl"><div class="menu_hd"><a href="/order/orderCenter">我的订单</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>
+<header>
+    <div class="top center">
+        <div class="left fl">
+            <ul>
+                <li><a href="/" >小米商城</a></li>
 
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl"><div class="menu_hd"><a href="#">服务中心</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl"><div class="menu_hd"><a href="#">商家入驻</a></div></li>
-            <li class="fl"><i class="shortcut_s"></i></li>
-            <li class="fl">
-                <div class="menu">
-                    <div class="menu_hd"><a href="#">网站导航</a><b><em></em></b></div>
-                    <div class="menu_bd">
-
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <span class="clr"></span>
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <div class="right fr">
+            <div class="gouwuche fr"><a th:href="@{/cart/list}" target="_blank">购物车</a></div>
+            <div class="fr">
+                <ul sec:authorize="isAnonymous()">
+                    <li><a th:href="@{/login}" target="_blank">登录</a></li>
+                    <li>|</li>
+                    <li><a th:href="@{/toRegister}" target="_blank" >注册</a></li>
+                </ul>
+                <ul sec:authorize="isAuthenticated()">
+                    <li><a th:text="${user.name}">name</a> </li>
+                    <li>|</li>
+                    <li><a href="/user/user">个人中心</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">|</li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/adminIndex}">管理后台</a>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <a href="/logout">退出登录</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
     </div>
-</div>
-
-<!--  导航条    start-->
-<div class="yHeader">
-</div>
-<!--  导航条    end-->
-
-
-
-<div class="banner_red_top">
-
-
-</div>
-
+</header>
 
 <!--收货地址body部分开始-->
 <div class="border_top_cart">
@@ -80,20 +65,20 @@
 
             <form  id="checkoutForm" th:action="@{/order/addOrderByProduct}" th:method="post" >
 
-                <h2 class="title">收货地址</h2>
+                <h2 class="title">订单信息</h2>
 
 
                 <div class="box-bd">
                     <div  style="padding:  50px 50px;">
                         <div class="input-group">
                             <span class="input-group-addon">收货人</span>
-                            <input class="form-control" type="text" name="receiver" maxlength="10" placeholder="请输入你的收货人姓名" required/>
+                            <input class="form-control"   id="receiver" type="text" name="receiver" th:value="${user.name}" placeholder="请输入收货人姓名" required/>
                         </div>
                         <br>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">电话</span>
-                            <input class="form-control" type="text" name="receivePhone" pattern="^1[345678]\d{9}$" placeholder="请输入你的电话号码"/>
+                            <input class="form-control"   id="telephone" type="text"  name="receivePhone" th:value="${user.phone}" pattern="^1[345678]\d{9}$" placeholder="请输入你的电话号码"/>
                         </div>
                         <br>
                         <br>
@@ -198,7 +183,7 @@
 
                                             <div class="form-group">
 
-                                                <h2 class="title">会员留言</h2></br>
+                                                <h2 class="title">备注</h2></br>
                                                 <div class="col-md-6">
                                                     <textarea class='form-control' name='receiverRemark' onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5' required></textarea>
                                                     <div class='text-right'>

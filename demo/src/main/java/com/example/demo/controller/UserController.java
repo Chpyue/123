@@ -104,6 +104,18 @@ public class UserController {
     }
 
     /**
+     * 跳转至当前用户详情信息（用户部分）
+     * @param model
+     * @return
+     */
+    @GetMapping("/user")
+    public ModelAndView userInfo(Model model){
+        User user = userService.getUser();
+        model.addAttribute("user",user);
+        return new ModelAndView("/");
+    }
+
+    /**
      * 跳转至用户个人信息修改页面（管理员）
      * @param userId
      * @param model

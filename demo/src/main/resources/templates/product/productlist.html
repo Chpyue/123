@@ -15,13 +15,13 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><a href="/" target="_blank">小米商城</a></li>
+						<li><a href="/" >小米商城</a></li>
 
 						<div class="clear"></div>
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"><a th:href="@{/cart/list}">购物车</a></div>
+					<div class="gouwuche fr"><a th:href="@{/cart/list}" target="_blank">购物车</a></div>
 					<div class="fr">
 						<ul sec:authorize="isAnonymous()">
 							<li><a th:href="@{/login}" target="_blank">登录</a></li>
@@ -29,11 +29,16 @@
 							<li><a th:href="@{/toRegister}" target="_blank" >注册</a></li>
 						</ul>
 						<ul sec:authorize="isAuthenticated()">
-							<li><a th:text="${user.username}">username</a> </li>
+							<li><a th:text="${user.name}">name</a> </li>
+							<li>|</li>
+							<li><a href="/user/user">个人中心</a></li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')">|</li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{/adminIndex}">管理后台</a>
+							</li>
+							<li>|</li>
 							<li>
-								<form action="/logout" th:action="@{/logout}" method="post">
-									<button type="submit">退出登录</button>
-								</form>
+								<a href="/logout">退出登录</a>
 							</li>
 						</ul>
 					</div>
@@ -136,9 +141,8 @@
 
 
 	<footer class="mt20 center" >
-		<div class="mt20" >哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
-		<div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
-		<div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
+		<hr/>
+		<div>小米商城-CDIO-第一组</div>
 	</footer>
 
 
