@@ -10,7 +10,7 @@ a{border:none;text-decoration: none;color:#000;}
 .clear{clear:both;}
 .mt20{margin-top: 20px;}
 .mtd{margin-bottom: 1px;}
-.mt21{margin-top: 40%;}
+.kz{margin-top: 200px}
 .mt10{margin-top: 10px;}
 .ml20{margin-left: 20px;}
 .ml40{margin-left: 40px;}
@@ -168,7 +168,8 @@ xuanze{width: 1226px;height: 58px;line-height: 58px;font-size:
 .jieshao .right .xzbb .banben:hover{border:1px solid #ff6700;}
 .jieshao .right .xzbb .banben a .yuandian{display: inline-block;height: 15px;width: 15px;border-radius: 50%;background: #000;margin-left: 80px;}
 /*选取详情*/
-.xqxq{height: 100px;width: 555px;background: rgb(255,255,255);padding:20px;}
+.xqxq1{height: 210px;width: 555px;background: rgb(255,255,255);padding:20px;}
+.xqxq2{height: 100px;width: 555px;background: rgb(255,255,255);padding:20px;}
 /*是否下单*/
 .xiadan{height: 50px;line-height: 50px;}
 .xiadan .jrgwc{height: 50px;width: 200px;border:none;background:#ff6700;color:#fff;font-size: 18px;font-weight: bold;cursor:pointer;margin-right: 50px;}

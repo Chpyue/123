@@ -249,7 +249,7 @@ public class OrderController {
 
     /**
      * 已输入退货说明，申请退货
-     * @param model
+     * @param
      * @param orderId
      * @param returnReason
      * @return
@@ -342,9 +342,16 @@ public class OrderController {
      * @return
      */
     @GetMapping("/orderCenter")
-    public ModelAndView orderCenter(Model model) {
-
-        return new ModelAndView("order/orderCenter");
+    public ModelAndView orderCenter(Model model,int productId) {
+        model.addAttribute("productInfo",productUserService.productInfo(productId));
+        model.addAttribute("categoryList",productUserService.categoryList());
+        try{
+            model.addAttribute("user",userService.getUser());
+        }catch (Exception e){
+            System.out.println("暂未无用户登录");
+        }
+        System.out.println("商品ID="+productId);
+        return new ModelAndView("order/orderCenter","productModel",model);
     }
 
 
