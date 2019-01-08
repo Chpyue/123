@@ -210,15 +210,17 @@ public class UserController {
     @PostMapping("/changePassword")
     @PreAuthorize("isAuthenticated()")
     public String changePassword(User user,HttpServletRequest request){
+        String oldPassword = user.getPassword();
         String newPassword = request.getParameter("newPassword");
         String reNewPassword = request.getParameter("reNewPassword");
-        System.out.println(user.toString());
+
         System.out.println(newPassword + reNewPassword);
         User oldUser = userService.getUser();
+        System.out.println("olduser:"+user.getPassword());
         System.out.println(oldUser.toString());
-        if(user.getPassword().equals(oldUser.getPassword())){
+        if(MD5Util.encode(oldPassword).equals(oldUser.getPassword())){
             if(newPassword.equals(reNewPassword)){
-                user.setPassword(newPassword);
+                user.setPassword(MD5Util.encode(newPassword));
                 userService.updateUser(user);
                 System.out.println("更新成功");
             }else {
