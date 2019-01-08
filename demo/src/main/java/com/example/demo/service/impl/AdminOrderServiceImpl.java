@@ -137,8 +137,8 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         //获得 orderIds
         List<String> orderIds=new ArrayList<>();
         for(int i=0;i<orders.size();i++) {
-            System.out.println("订单号有："+orders.get(i).getOrderId());
-            System.out.println("字符串组size"+orderIds.size());
+//            System.out.println("订单号有："+orders.get(i).getOrderId());
+//            System.out.println("字符串组size"+orderIds.size());
             List<OrderItem> orderItems;
             OrderItemExample orderItemExample=new OrderItemExample();
             OrderItemExample.Criteria criteria=orderItemExample.createCriteria();
