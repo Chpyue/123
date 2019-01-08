@@ -5,15 +5,14 @@ import com.example.demo.service.AuthorityService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.DateToString;
 import com.example.demo.utils.FileUtil;
+import com.example.demo.utils.MD5Util;
+import com.example.demo.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -187,5 +186,19 @@ public class UserController {
         }
         return "redirect:/user/toUserEdit?userId="+user.getUserId();
     }
+
+    @PostMapping("/checkOldPassword")
+    @ResponseBody
+    public Msg checkOldPassword(User user) {
+        User user1=userService.getUser();
+        System.out.println("数据库："+user1.getPassword());
+        System.out.println("输入："+user.getPassword());
+        if(MD5Util.encode(user.getPassword()).equals(user1.getPassword())) {
+            return Msg.success().add("checkResult","密码正确");
+        }else {
+            return Msg.fail().add("checkResult","密码错误");
+        }
+    }
+
 
  }

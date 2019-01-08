@@ -293,7 +293,8 @@
                                     <div class="form-group">
                                         <label  class="col-lg-2 control-label">请输入原密码</label>
                                         <div class="col-lg-6">
-                                            <input type="password" name="password" class="form-control" required>
+                                            <input type="password" id="old_password" name="password" class="form-control" required>
+                                            <span id="old_password_span"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -374,6 +375,23 @@
         }
 
     }
+
+    $("#old_password").change(function () {
+        var oldPassword=$("#old_password").val();
+        $.ajax({
+            url:"/user/checkOldPassword",
+            type:"POST",
+            data:$(this).parents("form").serialize(),
+            success:function (result) {
+                if(result.code==0){
+                    $("#old_password_span").attr("style","color:red;");
+                }else{
+                    $("#old_password_span").attr("style","");
+                }
+                $("#old_password_span").text(result.extend.checkResult);
+            }
+        });
+    });
 </script>
 
 </body>
