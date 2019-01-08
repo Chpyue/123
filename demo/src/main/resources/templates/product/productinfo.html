@@ -104,10 +104,18 @@
 					</div>
 					<div class="xiadan ml20 mt20">
 
-						<span th:if="${user.isEffective} eq 1">
+						<span sec:authorize="isAuthenticated()">
+							<span th:if="${user.isEffective} eq 1">
+								<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
+							</span>
+						</span>
+						<span sec:authorize="isAnonymous()">
 							<input class="jrgwc" onclick="zhijiegoumai()"  type="button" value="立即选购" />
 						</span>
-						<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车"  />
+
+						<span sec:authorize="isAuthenticated()">
+							<input class="jrgwc" onclick="gouwuche()" type="button"  value="加入购物车"  />
+						</span>
 						<!--<a th:href="@{'/cart/insert/'+${productInfo.productId}+'/'+${}"></a>-->
 					</div>
 				</div>
