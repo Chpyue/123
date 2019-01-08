@@ -111,6 +111,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/user")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView userInfo(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
@@ -121,6 +122,7 @@ public class UserController {
     }
 
     @GetMapping("/userEdit")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView userEdit(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
@@ -155,7 +157,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/updateImage")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateImage(MultipartFile file) throws IOException {
         User user = userService.getUser();
         user.setPortraitUrl(FileUtil.saveFile(file,"portrait"));
@@ -183,7 +185,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updateUser")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateUser(User user){
         System.out.println("用户信息="+user.toString());
         userService.updateUser(user);
@@ -239,6 +241,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/checkOldPassword")
+    @PreAuthorize("isAuthenticated()")
     @ResponseBody
     public Msg checkOldPassword(User user) {
         User user1=userService.getUser();
@@ -252,6 +255,7 @@ public class UserController {
     }
 
     @PostMapping("/checkUsername")
+    @PreAuthorize("isAuthenticated()")
     @ResponseBody
     public Msg checkUsername(User user) {
         System.out.println("用户名："+user.getUsername());

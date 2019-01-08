@@ -108,7 +108,7 @@ public class MainController {
      * @return
              */
     @GetMapping("/adminIndex")
-        @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView adminIndex(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
