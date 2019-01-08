@@ -7,12 +7,12 @@ filePath: /User/chpyue
 spring:
   datasource:
     name: test
-#    url: jdbc:mysql://localhost/cdio?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-    url: jdbc:mysql://112.74.194.121/xiaomi?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
- #   username: root
- #   password: root
-    username: cdio
-    password: cdio
+    url: jdbc:mysql://localhost/cdio?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+#    url: jdbc:mysql://112.74.194.121/xiaomi?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+#    username: cdio
+#    password: cdio
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     encoding: UTF-8
