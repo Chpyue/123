@@ -94,6 +94,14 @@ public class MainController {
         }
 
     }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model){
+        model.addAttribute("loginError",true);
+        model.addAttribute("errorMsg","登录失败，账户或密码错误");
+        return "/userLogin";
+    }
+
     /*
      * 跳转至管理员首页
      * @param model

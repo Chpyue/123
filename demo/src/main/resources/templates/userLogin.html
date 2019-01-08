@@ -33,7 +33,6 @@
 <!-- login -->
 <div class="top center">
     <div class="logo center">
-        <!--此处图片要改-->
         <a href="/" target="_blank"><img src="users/image/mistore_logo.png" alt=""></a>
     </div>
 </div>
@@ -56,6 +55,9 @@
                     cursor:pointer"  /><br />
                     <div class="clear"></div>
                 </div>
+            </div>
+            <div th:if="${loginError}">
+                <p style="color: red;font-size: 20px" th:text="${errorMsg}"></p>
             </div>
             <div class="login_submit">
                 <input class="submit" type="submit" name="submit" value="立即登录" >
