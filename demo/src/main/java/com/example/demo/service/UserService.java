@@ -52,10 +52,16 @@ public interface UserService extends UserDetailsService {
     List<User> getUserList();
 
     /**
-     * 获取超级管理员列表
+     * 获取管理员列表
      * @return
      */
     List<User> getAdminList();
+
+    /**
+     * 获取超级管理员
+     * @return
+     */
+    List<User> getRootList();
 
     /**
      * 禁止调用

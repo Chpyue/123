@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Authority;
+import com.example.demo.model.Category;
 import com.example.demo.model.User;
+import com.example.demo.model.custom.Custom;
 import com.example.demo.service.*;
 import com.example.demo.utils.MD5Util;
 import com.example.demo.utils.UUIDUtil;
@@ -106,7 +108,26 @@ public class MainController {
         model.addAttribute("categoryCount",categoryService.getCategoryList().size());
         model.addAttribute("productCount",productService.getProductList().size());
         model.addAttribute("newOrderCount",adminOrderService.getOrderAndOrderItem(1).size());
-        System.out.println("未接单订单数量："+adminOrderService.getOrderAndOrderItem(1).size());
+        List<Category> categories = categoryService.getCategoryList();
+        List<Custom> categoryList = new ArrayList<>();
+        for (Category category : categories) {
+            Custom custom = new Custom();
+            custom.setId(category.getCategoryId().toString());
+            custom.setName(category.getName());
+            custom.setCount(categoryService.getProductByCategoryId(category.getCategoryId()).size());
+            categoryList.add(custom);
+        }
+
+        model.addAttribute("categoryList",categoryList);
+        //用户信息栏展示
+        model.addAttribute("adminCount",userService.getAdminList().size());
+        model.addAttribute("rootCount",userService.getRootList().size());
+        //订单栏数量展示
+        model.addAttribute("order1",adminOrderService.countOfOrders(1));
+        model.addAttribute("order2",adminOrderService.countOfOrders(2));
+        model.addAttribute("order3",adminOrderService.countOfOrders(3));
+        model.addAttribute("order4",adminOrderService.countOfOrders(4));
+        model.addAttribute("order5",adminOrderService.countOfOrders(5));
         return new ModelAndView("admin/index","userModel",model);
 
     }

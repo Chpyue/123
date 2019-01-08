@@ -77,7 +77,6 @@ public class AdminOrderController {
     @GetMapping("/adminOrder/{path}")
     public String toPath(@PathVariable String path,Model model) {
         model.addAttribute("user",userService.getUser());
-        model.addAttribute("countsNewOrder",orderService.countsNewOrders());
         model.addAttribute("countsAskReturnOrder",orderService.countsAskReturnOrders());
         return "admin/order/"+path;
     }

@@ -175,18 +175,15 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         return orderList.get(0);
     }
 
-    /**
-     * 返回新订单数量
-     * @return
-     */
     @Override
-    public Integer countsNewOrders() {
+    public Integer countOfOrders(Integer status) {
         OrderExample orderExample=new OrderExample();
         OrderExample.Criteria criteria=orderExample.createCriteria();
-        criteria.andStatusEqualTo(1);
+        criteria.andStatusEqualTo(status);
         Integer counts=orderMapper.countByExample(orderExample);
         return counts;
     }
+
 
     @Override
     public Integer countsAskReturnOrders() {

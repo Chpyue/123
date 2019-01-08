@@ -31,6 +31,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    private static final Integer ROLE_ROOT_AUTHORITY_ID = 0;
     private static final Integer ROLE_ADMIN_AUTHORITY_ID = 1;
     private static final Integer ROLE_USER_AUTHORITY_ID = 2;
 //    @Autowired
@@ -129,6 +130,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserAuthorityExample example = new UserAuthorityExample();
         UserAuthorityExample.Criteria criteria = example.createCriteria();
         criteria.andAuthorityIdEqualTo(ROLE_ADMIN_AUTHORITY_ID);
+        List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example);
+        List<User> userList = new ArrayList<>();
+        for (UserAuthority userAuthority : userAuthorityList) {
+            userList.add(findByUserId(userAuthority.getUserId()));
+        }
+        return userList;
+    }
+
+    @Override
+    public List<User> getRootList() {
+        UserAuthorityExample example = new UserAuthorityExample();
+        UserAuthorityExample.Criteria criteria = example.createCriteria();
+        criteria.andAuthorityIdEqualTo(ROLE_ROOT_AUTHORITY_ID);
         List<UserAuthority> userAuthorityList = userAuthorityMapper.selectByExample(example);
         List<User> userList = new ArrayList<>();
         for (UserAuthority userAuthority : userAuthorityList) {

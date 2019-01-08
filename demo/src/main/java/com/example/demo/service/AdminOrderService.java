@@ -48,10 +48,11 @@ public interface AdminOrderService {
     Order getOrderInfo(String orderId);
 
     /**
-     * 获得新订单（待接单也是未发货）数量
+     * 获得订单对应状态的数量
+     * @param status 订单状态 1下单（未发货）， 2发了货的 ，3完成的 ， 4请求退货的 ， 5退货完成的
      * @return
      */
-    Integer countsNewOrders();
+    Integer countOfOrders(Integer status);
 
     Integer countsAskReturnOrders();
 }

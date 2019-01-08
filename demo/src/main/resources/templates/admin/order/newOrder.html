@@ -24,6 +24,9 @@
     <link href="../admins/css/style.css" rel="stylesheet">
     <link href="../admins/css/style-responsive.css" rel="stylesheet" />
     <link href="../admins/css/invoice-print.css" rel="stylesheet" media="print">
+    <link rel="stylesheet" href="../admins/css/owl.carousel.css" type="text/css">
+    <link href="../admins/css/slidebars.css" rel="stylesheet">
+    <link href="../admins/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -141,7 +144,7 @@
                         <span>订单管理</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="/adminOrder/newOrder">待发货</a></li>
+                        <li class="active"><a href="/adminOrder/newOrder">待发货</a></li>
                         <li><a href="/adminOrder/shippedOrder">已发货</a></li>
                         <li><a href="/adminOrder/completeOrder">确认收货</a></li>
                         <li><a href="/adminOrder/askReturnOrder">请求退货</a></li>
@@ -242,6 +245,30 @@
 <script src="../admins/js/common-scripts.js"></script>
 
 <script>
+
+    //owl carousel
+
+    $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+            navigation : true,
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem : true,
+            autoPlay:true
+
+        });
+    });
+
+    //custom select box
+
+    $(function(){
+        $('select.styled').customSelect();
+    });
+
+    $(window).on("resize",function(){
+        var owl = $("#owl-demo").data("owlCarousel");
+        owl.reinit();
+    });
 
     //owl carousel
     var currentPage;
