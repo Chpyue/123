@@ -61,7 +61,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 //主路径可随意访问
-                .antMatchers("/","/toRegister","/register","/login",
+                .antMatchers("/","/toRegister","/register","/login","/login-error",
                         "/product/allProduct","/product/productInfo","/product/findKindProduct",
                         "/admins/**","/users/**","/update/**").permitAll()
                 //其他请求需要经过验证
@@ -71,34 +71,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 .and()
                 //允许表单登录
-                .formLogin().loginPage("/login").defaultSuccessUrl("/login-allot")
+                .formLogin().loginPage("/login").defaultSuccessUrl("/login-allot").failureUrl("/login-error")
                 //处理异常,拒绝访问就重定向到403页面
                 .and().exceptionHandling().accessDeniedPage("/403");
 
         //关闭默认csrf认证
         http.csrf().disable();
-                //都可以访问
-//                .anyRequest().authenticated()
-//                .antMatchers("/css/**","/js/**","/fonts/**","/assets/**",
-//                        "/fragments/**","/img/**","/index").permitAll()
-//                //需要相应角色才能访问
-//                .antMatchers("/admins/**").hasRole("ADMIN")
-//                .and()
-//                //基于 Form 表单的登录验证
-//                .formLogin()
-//                //  自定义登录界面
-//                .loginPage("/login").defaultSuccessUrl("/login-allot").failureUrl("/login-error")
-//                // 启用remember_me
-////                .and().rememberMe().key(KEY)
-//                //处理异常,拒绝访问就重定向到403页面
-//                .and().exceptionHandling().accessDeniedPage("/403");
-//            http.csrf().disable();
 
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        //不拦截
-         web.ignoring().antMatchers("/js/**","/css/**","/images/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        //不拦截
+////         web.ignoring().antMatchers("/js/**","/css/**","/images/**");
+//    }
 }
