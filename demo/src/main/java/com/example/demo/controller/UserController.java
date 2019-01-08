@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.service.AuthorityService;
+import com.example.demo.service.ProductUserService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.DateToString;
 import com.example.demo.utils.FileUtil;
@@ -47,6 +48,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private ProductUserService productUserService;
 
     /**
      * 获取用户列表
@@ -111,7 +114,20 @@ public class UserController {
     public ModelAndView userInfo(Model model){
         User user = userService.getUser();
         model.addAttribute("user",user);
-        return new ModelAndView("/");
+        model.addAttribute("categoryList",productUserService.categoryList());
+        //日期格式化对象
+        model.addAttribute("ds", new DateToString());
+        return new ModelAndView("/user/userInfo");
+    }
+
+    @GetMapping("/userEdit")
+    public ModelAndView userEdit(Model model){
+        User user = userService.getUser();
+        model.addAttribute("user",user);
+        model.addAttribute("categoryList",productUserService.categoryList());
+        //日期格式化对象
+        model.addAttribute("ds", new DateToString());
+        return new ModelAndView("/user/userEdit");
     }
 
     /**
@@ -148,7 +164,7 @@ public class UserController {
     }
 
     /**
-     * 更新用户信息
+     * 更新用户信息(管理员）
      * @param user
      * @return
      */
@@ -161,6 +177,13 @@ public class UserController {
             return "redirect:/user/list";
         }
         return "redirect:/user/"+user.getUserId();
+    }
+    @PostMapping("/updateUsers")
+    @PreAuthorize("isAuthenticated()")
+    public String updateUsers(User user){
+        System.out.println("用户信息="+user.toString());
+        userService.updateUser(user);
+        return "redirect:/user/user";
     }
 
 
