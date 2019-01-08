@@ -248,27 +248,6 @@
 
     //owl carousel
 
-    $(document).ready(function() {
-        $("#owl-demo").owlCarousel({
-            navigation : true,
-            slideSpeed : 300,
-            paginationSpeed : 400,
-            singleItem : true,
-            autoPlay:true
-
-        });
-    });
-
-    //custom select box
-
-    $(function(){
-        $('select.styled').customSelect();
-    });
-
-    $(window).on("resize",function(){
-        var owl = $("#owl-demo").data("owlCarousel");
-        owl.reinit();
-    });
 
     //owl carousel
     var currentPage;
@@ -281,26 +260,7 @@
 
         var selectType=$("#page_info_area").attr("select_Type");
         //类型为模糊查询
-        if(selectType==1){
-            var queryContent=$("#queryContent").val();
-            $.ajax({
-                url:"${APP_PATH}/empsFuzzy"+"?date="+new Date().getTime(),
-                type:"GET",
-                data:"content="+queryContent+"&pn="+pn,
-                success:function (result) {
-                    console.log(result);
 
-                    build_emps_table(result);
-                    //建立分页信息
-                    build_page_info_area(result);
-                    //建立分页导航
-                    build_page_info_nav(result);
-                    //1为模糊查询
-                    $("#page_info_area").attr("select_Type","1");
-                }
-            });
-
-        }else {
             $.ajax({
                 url: "/adminGetOrders/1",
                 type: "GET",
@@ -313,7 +273,7 @@
                     build_page_info_nav(result);
                 }
             });
-        }
+
     }
 
     function build_orders_table(result) {
