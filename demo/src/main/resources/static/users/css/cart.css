@@ -75,3 +75,13 @@ background:#ff6700;
 .money{
 	color: orange;
 }
+
+.imgs{
+	width: 40px;
+	height: 40px;
+}
+
+.top .logo{background: url('../image/logo_top.png') no-repeat center center;width: 50px;height: 100px;}
+
+.fk{float: left;
+margin-left: 50px}

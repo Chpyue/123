@@ -17,6 +17,15 @@ public class CartCustom {
     private String productName;
     private Double productPrice;
     private Double productCount;
+    private String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public String getProductName() {return productName;}
 
@@ -31,7 +40,6 @@ public class CartCustom {
     public void setProductCount(Double productCount) {this.productCount = productCount;}
 
 
-
     @Override
     public String toString() {
         return "CartCustom{" +
@@ -39,6 +47,7 @@ public class CartCustom {
                 ", productName='" + productName + '\'' +
                 ", productPrice=" + productPrice +
                 ", productCount=" + productCount +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 }

@@ -96,6 +96,7 @@ public class CartController {
             Product product= productService.findProductById(cart.getProductId());
             cartCustom.setProductName(product.getProductName());
             cartCustom.setProductPrice(product.getPrice());
+            cartCustom.setImgUrl(product.getImage());
             cartCustom.setProductCount(cart.getCount());
             sum=sum+(product.getPrice())*(cart.getCount());
             cartCustom.setCartId(cart.getCartId());
