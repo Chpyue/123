@@ -8,9 +8,28 @@
     <meta name="author" content="order by dede58.com"/>
     <title>会员登录</title>
     <link rel="stylesheet" type="text/css" href="users/css/login.css">
-
+    <script src="admins/js/jquery.js"></script>
 </head>
 <body>
+
+<style type="text/css">
+    .unchanged
+    {
+        border:0;
+    }
+    .code
+    {
+        background-image:url(admins/img/checkCode.png);
+        font-family:Arial;
+        font-style:italic;
+        color: #e26b7f;
+        border:0;
+        padding:2px 3px;
+        letter-spacing:3px;
+
+        font-size: 25px;
+    }
+</style>
 <!-- login -->
 <div class="top center">
     <div class="logo center">
@@ -19,7 +38,7 @@
     </div>
 </div>
 <!--此处class里有图片  要改-->
-<form th:action="@{/login}" action="/login" method="POST" class="form center">
+<form th:action="@{/login}" id="form_login" action="/login" method="POST" class="form center">
     <div class="login">
         <div class="login_center">
             <div class="login_top">
@@ -32,15 +51,15 @@
                 <div class="username">用户名:&nbsp;<input class="shurukuang" type="text" name="username" placeholder="请输入你的用户名"/></div>
                 <div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input class="shurukuang" type="password" name="password" placeholder="请输入你的密码"/></div>
                 <div class="username">
-                    <div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" name="username" placeholder="请输入验证码"/></div>
-                    <div class="right fl"><img src="users/image/yanzhengma.jpg"></div>
+                    <div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" id="validCode" placeholder="请输入验证码"/></div>
+                    &nbsp;&nbsp;<input type="text" onClick="createCode()" readonly="readonly" id="checkCode" class="unchanged" style="width: 106px;height:37px;
+                    cursor:pointer"  /><br />
                     <div class="clear"></div>
                 </div>
             </div>
             <div class="login_submit">
                 <input class="submit" type="submit" name="submit" value="立即登录" >
             </div>
-            <span><a>管理员登录入口</a></span>
 
         </div>
     </div>
@@ -48,5 +67,47 @@
 <footer>
     <div class="copyright">CDIO第一组版权所有-*ICP备1004****-<img src="users/image/ghs.png" alt="">*公网安备1************号-*ICP证1*****号</div>
 </footer>
+
+<script>
+    var code ; //在全局 定义验证码
+    $(function () {
+        createCode();
+    });
+    function createCode()
+    {
+        code = "";
+        var codeLength = 5;//验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z');//所有候选组成验证码的字符，当然也可以用中文的
+        for(var i=0;i<codeLength;i++)
+        {
+            var charIndex = Math.floor(Math.random()*34);
+            code +=selectChar[charIndex];
+        }
+        if(checkCode)
+        {
+            checkCode.className="code";
+            checkCode.value = code;
+            checkCode.blur();
+        }
+    }
+    function validate () {
+        var inputCode = document.getElementById("validCode").value;
+        if (inputCode.length <= 0) {
+            alert("请输入验证码！");
+            return false;
+        } else if (inputCode.toUpperCase() != code) {
+            alert("验证码输入错误！");
+            createCode();//刷新验证码
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $("#form_login").submit(function () {
+        return validate();
+    });
+
+</script>
 </body>
 </html>

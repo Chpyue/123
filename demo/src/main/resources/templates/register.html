@@ -8,10 +8,29 @@
     <meta name="author" content="order by dede58.com"/>
     <title>用户注册</title>
     <link rel="stylesheet" type="text/css" href="users/css/login.css">
-
+    <script src="admins/js/jquery.js"></script>
 </head>
 <body>
-<form action="/register" th:action="@{/register}" method="post">
+<style type="text/css">
+    .unchanged
+    {
+        border:0;
+    }
+    .code
+    {
+        background-image:url(admins/img/checkCode.png);
+        font-family:Arial;
+        font-style:italic;
+        color: #e26b7f;
+        border:0;
+        padding:2px 3px;
+        letter-spacing:3px;
+        font-size: 22px;
+    }
+</style>
+
+
+<form action="/register" id="form_register" th:action="@{/register}" method="post">
     <div class="regist">
         <div class="regist_center">
             <div class="regist_top">
@@ -22,17 +41,17 @@
             </div>
             <div class="regist_main center">
                 <div class="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名&nbsp;&nbsp;<input class="shurukuang" type="text" name="username" maxlength="30" minlength="5" placeholder="请输入你的用户名" required/><span>请不要输入汉字</span></div>
-                <div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;
+                <div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;
                     <input class="shurukuang" type="password" name="password" maxlength="20" minlength="6" placeholder="请输入你的密码" required/>
                     <span>请输入6位以上字符</span></div>
 
                 <div class="username">确认密码&nbsp;&nbsp;<input class="shurukuang" type="password" name="repassword" maxlength="20" minlength="6" placeholder="请确认你的密码"/><span>两次密码要输入一致哦</span></div>
-                <div class="username">邮箱&nbsp;&nbsp;&nbsp;&nbsp;号&nbsp;&nbsp;<input class="shurukuang" type="email" name="email" placeholder="请填写邮箱号" required/><span>填写下邮箱吧，方便我们联系您！</span></div>
-                <div class="username">生&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;<input class="shurukuang" type="date" name="birth" placeholder="请填写邮箱号" required/><span>填写下生日</span></div>
+                <div class="username">邮&nbsp;&nbsp;箱&nbsp;&nbsp;号&nbsp;&nbsp;<input class="shurukuang" type="email" name="email" placeholder="请填写邮箱号" required/><span>填写下邮箱吧，方便我们联系您！</span></div>
+                <div class="username">生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;<input class="shurukuang" type="date" name="birth" placeholder="请填写邮箱号" required/><span>填写下生日</span></div>
 
                 <div class="username">
-                    <div class="left fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码&nbsp;&nbsp;<input class="yanzhengma" type="text"  placeholder="请输入验证码"/></div>
-                    <div class="right fl"><img src="./image/yanzhengma.jpg"></div>
+                    <div class="left fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码&nbsp;&nbsp;<input id="validCode" class="yanzhengma" type="text"  placeholder="请输入验证码"/></div>
+                    &nbsp;&nbsp;&nbsp;<input type="text" onClick="createCode()" readonly="readonly" id="checkCode" class="unchanged" style="width: 90px;height: 30px; cursor:pointer"  /><br />
                     <div class="clear"></div>
                 </div>
             </div>
@@ -43,5 +62,46 @@
         </div>
     </div>
 </form>
+<script>
+    var code ; //在全局 定义验证码
+    $(function () {
+        createCode();
+    });
+    function createCode()
+    {
+        code = "";
+        var codeLength = 5;//验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var selectChar = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//所有候选组成验证码的字符，当然也可以用中文的
+        for(var i=0;i<codeLength;i++)
+        {
+            var charIndex = Math.floor(Math.random()*36);
+            code +=selectChar[charIndex];
+        }
+        if(checkCode)
+        {
+            checkCode.className="code";
+            checkCode.value = code;
+            checkCode.blur();
+        }
+    }
+    function validate () {
+        var inputCode = document.getElementById("validCode").value;
+        if (inputCode.length <= 0) {
+            alert("请输入验证码！");
+            return false;
+        } else if (inputCode.toUpperCase() != code) {
+            alert("验证码输入错误！");
+            createCode();//刷新验证码
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $("#form_register").submit(function () {
+        return validate();
+    });
+
+</script>
 </body>
 </html>
