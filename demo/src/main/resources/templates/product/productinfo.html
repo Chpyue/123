@@ -9,6 +9,7 @@
 		<title th:text="${productInfo.productName}+'详情'"></title>
 		<link rel="stylesheet" type="text/css" href="../../static/users/css/style.css"
 			  th:href="@{/users/css/style.css}">
+		<script src="../admins/js/jquery.js"></script>
 </head>
 <body>
 <header>
@@ -92,6 +93,7 @@
 					<div class="top1 mt10">
 						<div class="left1 fl">
 							<ul>
+								<li class="left1 fl"><input type="hidden" id="hidden_number" th:value="${productInfo.getCount()}"/></li>
 								<li class="left1 fl"><input type="text" id="vl" value="-" style="width: 10px;height: 30px;" onclick="numberdown()"/></li>
 								<li class="left1 fl"><input type="text" style="width: 40px;height: 30px;" id="num" value="1" readonly="readonly"/></li>
 								<li class="left1 fl"><input type="text" id="" value="+" style="width: 10px;height: 30px;" readonly="readonly" onclick="numberup()"/></li>
@@ -157,6 +159,9 @@
 			var ID = document.getElementById("id").value;						//商品ID
 			var price = document.getElementById("danjia").value;				//商品单价
 			var num = document.getElementById("num").value;					//商品
+		    if($("#hidden_number").val()<num) {
+		        alert("库存不足");
+			}else
 			location.href="/order/buyProduct?productId="+ID+"&num="+num;
 		}
 
