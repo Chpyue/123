@@ -61,9 +61,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 //主路径可随意访问
-                .antMatchers("/","/toRegister","/register").permitAll()
+                .antMatchers("/","/toRegister","/register","/login",
+                        "/product/allProduct","/product/productInfo","/product/findKindProduct",
+                        "/admins/**","/users/**","/update/**").permitAll()
                 //其他请求需要经过验证
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 //注销可随意访问
                 .logout().permitAll()
