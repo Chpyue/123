@@ -20,10 +20,11 @@ import java.util.List;
 @Service
 public class AdminOrderServiceImpl implements AdminOrderService {
 
-    private OrderMapper orderMapper;
-    private OrderItemMapper orderItemMapper;
-    private ProductMapper productMapper;
-    private UserMapper userMapper;
+
+    private final OrderMapper orderMapper;
+    private final OrderItemMapper orderItemMapper;
+    private final ProductMapper productMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     public AdminOrderServiceImpl(OrderMapper orderMapper, OrderItemMapper orderItemMapper
@@ -113,6 +114,7 @@ public class AdminOrderServiceImpl implements AdminOrderService {
     @Override
     public Integer countsOrderProductByStatus(Integer status,Integer productId) {
         //获得orders
+        Integer counts=0;
         List<Order> orders=new ArrayList<>();
         OrderExample orderExample=new OrderExample();
         OrderExample.Criteria orderExampleCriteria =orderExample.createCriteria();
@@ -126,26 +128,31 @@ public class AdminOrderServiceImpl implements AdminOrderService {
             orderExampleCriteria.andStatusEqualTo(4);
         } else if(status==5){
             orderExampleCriteria.andStatusEqualTo(5);
-        } else status=0;
+        } else if(status==6){
+            orderExampleCriteria.andStatusEqualTo(6);
+        }
+        else status=0;
 
         orders=orderMapper.selectByExample(orderExample);
         //获得 orderIds
         List<String> orderIds=new ArrayList<>();
         for(int i=0;i<orders.size();i++) {
-            orderIds.add(orders.get(i).getOrderId());
-//            System.out.println("状态为1订单号"+orderIds.get(i));
+            System.out.println("订单号有："+orders.get(i).getOrderId());
+            System.out.println("字符串组size"+orderIds.size());
+            List<OrderItem> orderItems;
+            OrderItemExample orderItemExample=new OrderItemExample();
+            OrderItemExample.Criteria criteria=orderItemExample.createCriteria();
+            criteria.andOrderIdEqualTo(orders.get(i).getOrderId());
+            criteria.andProductIdEqualTo(productId.toString());
+            orderItems=orderItemMapper.selectByExample(orderItemExample);
+            if(orderItems.size()>0) {
+                for (OrderItem orderItem : orderItems) {
+                    counts += orderItem.getNumber();
+                }
+            }
         }
         //获得状态为1 且 商品号为productId的订单项目
-        List<OrderItem> orderItems=new ArrayList<>();
-        OrderItemExample orderItemExample=new OrderItemExample();
-        OrderItemExample.Criteria criteria=orderItemExample.createCriteria();
-        criteria.andOrderIdIn(orderIds);
-        criteria.andProductIdEqualTo(productId.toString());
-        orderItems=orderItemMapper.selectByExample(orderItemExample);
-        Integer counts=0;
-        for (OrderItem orderItem:orderItems) {
-            counts+=orderItem.getNumber();
-        }
+
 //        System.out.println(counts);
         return counts;
     }

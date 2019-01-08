@@ -210,7 +210,7 @@
                                         <td>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="price"
-                                                       name="price" placeholder="单价" pattern="[1-9]\d*.\d*|0\.\d*[1-9]\d*">
+                                                       name="price" placeholder="单价" pattern="[1-9]\d*.\d*|0\.\d*[1-9]\d*" required>
                                             </div>
                                         </td>
                                         <td><div id="priceTip" style="width:300px"></div></td>
@@ -221,7 +221,7 @@
                                         <td>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="count"
-                                                       name="count" placeholder="库存量" pattern="[1-9]\d*">
+                                                       name="count" placeholder="库存量" pattern="[1-9]\d*" required>
                                             </div>
                                         </td>
                                         <td><div id="countTip" style="width:300px"></div></td>
@@ -274,6 +274,7 @@
                                     </thead>
                                     <!-- 商品有效性默认为1-->
                                     <input type="hidden" id="isEffective" name="isEffective" value="1">
+                                    <!-- 商品销量默认为0-->
                                     <input type="hidden" id="sales" name="sales" value="0">
 
                                 </form>

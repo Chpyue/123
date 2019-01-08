@@ -55,12 +55,14 @@ public class ProductController {
      */
     @RequestMapping("/detailpage")
     public ModelAndView findDetailByProductId(Model model,Integer productId){
-        Integer count1=adminOrderService.countsOrderProductByStatus(2,productId);
-        Integer count2=adminOrderService.countsOrderProductByStatus(3,productId);
-        Integer count3=adminOrderService.countsOrderProductByStatus(4,productId);
-        Integer count4=adminOrderService.countsOrderProductByStatus(5,productId);
-        Integer count=count1+count2+count3-count4;
-        model.addAttribute("count",count);
+        Integer sales=0;
+        Integer sales1=adminOrderService.countsOrderProductByStatus(2,productId);
+        Integer sales2=adminOrderService.countsOrderProductByStatus(3,productId);
+        Integer sales3=adminOrderService.countsOrderProductByStatus(4,productId);
+        Integer sales5=adminOrderService.countsOrderProductByStatus(6,productId);
+        System.out.println(sales1+"  "+sales2+"  "+sales3+"  "+sales5);
+        sales=sales1+sales2+sales3+sales5;
+        model.addAttribute("sales",sales);
         model.addAttribute("productview",productService.findByProductId(productId));
         model.addAttribute("user",userService.getUser());
         return new ModelAndView("product/ProductDetails");
