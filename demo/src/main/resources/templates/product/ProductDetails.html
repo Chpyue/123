@@ -214,11 +214,17 @@
                                 </tr>
                                 <tr>
                                     <th><i class="fa fa-bookmark"></i>上下架状态</th>
-                                    <td th:text="${productview.status}"></td>
+                                    <td th:switch="${productview.status}">
+                                        <a th:case="1">有效</a>
+                                        <a th:case="2">无效</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><i class="fa fa-bookmark"></i>商品有效性</th>
-                                    <td th:text="${productview.isEffective}"></td>
+                                    <td th:switch="${productview.isEffective}">
+                                        <a th:case="1">有效</a>
+                                        <a th:case="2">无效</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><i class="fa fa-bookmark"></i>备注</th>
@@ -237,9 +243,6 @@
                                     </td>
                                 </tr>
                                 </thead>
-                                <!-- 主体部分-->
-                                <li>备注：上下架状态/有效性</li>
-                                <li>1.为上架/有效 2.为下架/无效</li>
                             </table>
                         </div>
                     </div>

@@ -229,11 +229,7 @@ public class UserController {
         }else {
             System.out.println("密码错误");
         }
-        if(userService.getUser().getAuthorityList().toString().contains(ROLE_ADMIN)){
-            return "redirect:/user/toUserEdit?userId="+user.getUserId();
-        }else {
-            return "redirect:/user/user";
-        }
+        return "redirect:/logout";
 
     }
 
