@@ -235,6 +235,11 @@ public class UserController {
 
     }
 
+    /**
+     * 校验密码是否正确
+     * @param user
+     * @return
+     */
     @PostMapping("/checkOldPassword")
     @ResponseBody
     public Msg checkOldPassword(User user) {
@@ -246,6 +251,20 @@ public class UserController {
         }else {
             return Msg.fail().add("checkResult","密码错误");
         }
+    }
+
+    @PostMapping("/checkUsername")
+    @ResponseBody
+    public Msg checkUsername(User user) {
+        System.out.println("用户名："+user.getUsername());
+        User user1=userService.findByUsername(user.getUsername());
+        if(null!=user1) {
+            return Msg.fail().add("checkResult","用户名已存在");
+
+        } else{
+            return Msg.success();
+        }
+
     }
 
 
