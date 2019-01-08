@@ -4,9 +4,10 @@ import com.example.demo.model.Category;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/category")
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CategoryController {
 
 
@@ -31,6 +33,7 @@ public class CategoryController {
      * @return
      */
     @RequestMapping("/list")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getCategoryList(Model model){
 //        System.out.println("---");
         List<Category> categoryList=categoryService.getCategoryList();
@@ -49,6 +52,7 @@ public class CategoryController {
      * @return
      */
     @RequestMapping("/addcategory")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView addCategory(String flag,Model model, Category category){
         model.addAttribute("user",userService.getUser());
         if (flag.equals("1")){
@@ -66,6 +70,7 @@ public class CategoryController {
      * @return
      */
     @RequestMapping("/deletecategory")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView removeCategory(Integer categoryId,ModelAndView mv){
 //        System.out.println(categoryId);
         categoryService.removeCategoryById(categoryId);
@@ -81,6 +86,7 @@ public class CategoryController {
      * @return
      */
     @RequestMapping("/modificategory")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView modifiCategroy(String flag,Model model, Category category){
         model.addAttribute("user",userService.getUser());
         if (flag.equals("1")){
