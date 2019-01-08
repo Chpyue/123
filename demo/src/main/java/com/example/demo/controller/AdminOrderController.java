@@ -10,13 +10,15 @@ import com.example.demo.utils.Msg;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Controller
 public class AdminOrderController {
 
@@ -33,6 +35,7 @@ public class AdminOrderController {
      * @param pn
      * @return 返回订单列表json数据
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @GetMapping("/adminGetOrders/{type}")
     public Msg getOrder(@PathVariable("type") Integer type, @RequestParam(value="pn",defaultValue = "1")Integer pn) {
@@ -49,6 +52,7 @@ public class AdminOrderController {
      * @param seekType 查找类型
      * @return 返回json数据
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/adminSeekOrders")
     public String getOrder(Model model,@RequestParam("seekContent")String seekContent
             ,@RequestParam("seekType")Integer seekType) {
@@ -62,6 +66,7 @@ public class AdminOrderController {
      * 订单发货、同意退货、拒绝退货   编辑订单状态
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @PostMapping("/adminOrderShip")
     public Msg orderShip(Order order) {
@@ -74,6 +79,7 @@ public class AdminOrderController {
      * @param path
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/adminOrder/{path}")
     public String toPath(@PathVariable String path,Model model) {
         model.addAttribute("user",userService.getUser());
@@ -87,6 +93,7 @@ public class AdminOrderController {
      * @param productId
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @GetMapping("/adminGetProductInfo")
     public Msg getProductInfo(@RequestParam("productId")Integer productId) {
@@ -101,6 +108,7 @@ public class AdminOrderController {
      * @param userId
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @GetMapping("/adminGetUserInfo")
     public Msg getProductInfo(@RequestParam("userId")String userId) {
@@ -108,6 +116,7 @@ public class AdminOrderController {
         return Msg.success().add("userName",userName);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     @GetMapping("/adminGetOrderInfo")
     public Msg getOrderInfoDesc(@RequestParam("orderId")String orderId) {
@@ -115,6 +124,7 @@ public class AdminOrderController {
         return Msg.success().add("order",order);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/toOrderInfo")
     public String toOrderInfo(String orderId,Model model) {
 
