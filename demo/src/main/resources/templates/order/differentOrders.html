@@ -31,12 +31,12 @@
         </thead>
         <tbody>
         <tr th:each="order:${orders}">
-            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.orderId}" target="_blank" th:href="@{/order/orderDetail(orderId=${order.orderId},flag=${flag})}"></td>
             <td th:text="${order.totalPrice}"></td>
             <td th:text="${order.orderTime.toLocaleString()}"></td>
             <td th:text="${order.receiver}"></td>
           <!-- <td th:href="@{'/order/orderDetail?orderId='+${order.orderId}}" th:text="订单详情" ></td>-->
-          <td> <a href="#" target="_blank" th:href="@{/order/orderDetail(orderId=${order.orderId},flag=${flag})}">view</a></td>
+          <td> <a href="#" target="_blank" th:href="@{/order/orderDetail(orderId=${order.orderId},flag=${flag})}">查看</a></td>
         </tr>
         </tbody>
     </table>

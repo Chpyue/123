@@ -149,22 +149,7 @@
                         <li><a href="/adminOrder/seekOrder">查找订单</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" >
-                        <i class="fa fa-tasks"></i>
-                        <span>Form Stuff</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a  href="form_component.html">Form Components</a></li>
-                        <li><a  href="advanced_form_components.html">Advanced Components</a></li>
-                        <li><a  href="form_wizard.html">Form Wizard</a></li>
-                        <li><a  href="form_validation.html">Form Validation</a></li>
-                        <li><a  href="dropzone.html">Dropzone File Upload</a></li>
-                        <li><a  href="inline_editor.html">Inline Editor</a></li>
-                        <li><a  href="image_cropping.html">Image Cropping</a></li>
-                        <li><a  href="file_upload.html">Multiple File Upload</a></li>
-                    </ul>
-                </li>
+
 
 
             </ul>
@@ -185,7 +170,7 @@
                             </a>
                             <h1 th:text="${users.name}">Jonathan Smith</h1>
                             <p th:text="${users.email}">jsmith@flatlab.com</p>
-                            <form action="/user/updateImage" id="Picture" method="post"  enctype="multipart/form-data">
+                            <form th:if="${user.userId} eq ${users.userId}" action="/user/updateImage" id="Picture" method="post"  enctype="multipart/form-data">
                                 <input type="file" id="file" name="file" value="更换图片">
                                 <button class="btn btn-success " onclick="pictureSubmit()" >提交</button>
                             </form>
@@ -195,7 +180,7 @@
                             <li class="active"><a th:href="@{'/user/'+${users.userId}}"> <i class="fa fa-user"></i> 个人资料</a></li>
 
                             <li th:if="${user.userId} eq ${users.userId}">
-                                <a th:href="@{'/user/toUserEdit?userId='+${users.userId}}" href="profile-edit.html"> <i class="fa fa-edit"></i> 修改个人资料</a>
+                                <a th:href="@{'/user/toUserEdit?userId='+${users.userId}}" > <i class="fa fa-edit"></i> 修改个人资料</a>
                             </li>
                         </ul>
 

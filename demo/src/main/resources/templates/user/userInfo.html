@@ -86,19 +86,14 @@
             <div class="ddzx">订单中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="orderCenter" >我的订单</a></li>
-                    <li><a >意外保</a></li>
-                    <li><a >团购订单</a></li>
-                    <li><a >评价晒单</a></li>
+                    <li><a href="/order/orderCenter">我的订单</a></li>
                 </ul>
             </div>
             <div class="ddzx">个人中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="./self_info.html" style="color:#ff6700;font-weight:bold;">我的个人中心</a></li>
-                    <li><a >消息通知</a></li>
-                    <li><a >优惠券</a></li>
-                    <li><a >收货地址</a></li>
+                    <li><a href="/user/user" style="color:#ff6700;font-weight:bold;">我的个人中心</a></li>
+                    <li><a href="/user/userEdit">修改个人资料</a></li>
                 </ul>
             </div>
         </div>
@@ -107,8 +102,12 @@
             <div class="grzlbt ml40">头像</div>
             <div>
                 <img th:src="'../update/portrait/'+${user.portraitUrl}" width="100px", hight="100px">
+                <form action="/user/updateImage0" id="Picture" method="post"  enctype="multipart/form-data">
+                    <input type="file" id="file" name="file" value="更换图片">
+                    <button class="btn btn-success " onclick="pictureSubmit()" >提交</button>
+                </form>
             </div>
-            <div class="grzlbt ml40"><a href="/user/user">我的资料</a><a href="userEdit"> 修改资料</a></div>
+            <div class="grzlbt ml40"><a href="/user/user">我的资料</a></div>
             <div class="subgrzl ml40"><span>用户名</span><span th:text="${user.username}">啦啦维吉尔</span><span><a >--</a></span></div>
             <div class="subgrzl ml40"><span>姓名</span><span th:text="${user.name}">15669097417</span><span><a >--</a></span></div>
             <div class="subgrzl ml40"><span>生日</span><span th:text="${ds.format(user.birth)}">************</span><span><a >--</a></span></div>

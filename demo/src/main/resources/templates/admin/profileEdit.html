@@ -59,10 +59,7 @@
         <div class="top-nav ">
             <!--search & user info start-->
             <ul class="nav pull-right top-menu">
-                <!--<li>-->
-                <!--<input type="text" class="form-control search" placeholder="Search">-->
-                <!--</li>-->
-                <!-- user login dropdown start-->
+
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img th:src="'../update/portrait/'+${user.portraitUrl}" width="30px", hight="30px">
@@ -152,22 +149,7 @@
                         <li><a href="/adminOrder/seekOrder">查找订单</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a href="javascript:;" >
-                        <i class="fa fa-tasks"></i>
-                        <span>Form Stuff</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a  href="form_component.html">Form Components</a></li>
-                        <li><a  href="advanced_form_components.html">Advanced Components</a></li>
-                        <li><a  href="form_wizard.html">Form Wizard</a></li>
-                        <li><a  href="form_validation.html">Form Validation</a></li>
-                        <li><a  href="dropzone.html">Dropzone File Upload</a></li>
-                        <li><a  href="inline_editor.html">Inline Editor</a></li>
-                        <li><a  href="image_cropping.html">Image Cropping</a></li>
-                        <li><a  href="file_upload.html">Multiple File Upload</a></li>
-                    </ul>
-                </li>
+
 
 
             </ul>
@@ -188,7 +170,7 @@
                             </a>
                             <h1 th:text="${users.name}">Jonathan Smith</h1>
                             <p th:text="${users.email}">jsmith@flatlab.com</p>
-                            <form action="/user/updateImage" id="Picture" method="post"  enctype="multipart/form-data">
+                            <form th:if="${user.userId} eq ${users.userId}" action="/user/updateImage" id="Picture" method="post"  enctype="multipart/form-data">
                                 <input type="file" id="file" name="file" value="更换图片">
                                 <button class="btn btn-success " onclick="pictureSubmit()" >提交</button>
                             </form>

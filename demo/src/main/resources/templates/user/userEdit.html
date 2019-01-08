@@ -86,19 +86,14 @@
             <div class="ddzx">订单中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="./dingdanzhongxin.html" >我的订单</a></li>
-                    <li><a href="">意外保</a></li>
-                    <li><a href="">团购订单</a></li>
-                    <li><a href="">评价晒单</a></li>
+                    <li><a href="/order/orderCenter">我的订单</a></li>
                 </ul>
             </div>
             <div class="ddzx">个人中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="./self_info.html" style="color:#ff6700;font-weight:bold;">我的个人中心</a></li>
-                    <li><a href="">消息通知</a></li>
-                    <li><a href="">优惠券</a></li>
-                    <li><a href="">收货地址</a></li>
+                    <li><a href="/user/user">我的个人中心</a></li>
+                    <li><a href="/user/userEdit" style="color:#ff6700;font-weight:bold;">修改个人资料</a></li>
                 </ul>
             </div>
         </div>
@@ -108,7 +103,7 @@
             <div>
                 <img th:src="'../update/portrait/'+${user.portraitUrl}" width="100px", hight="100px">
             </div>
-            <div class="grzlbt ml40"><a href="/user/user">我的资料</a><a href="userEdit"> 修改资料</a></div>
+            <div class="grzlbt ml40"><a href="/user/user">我的资料</a></div>
             <form th:action="@{/user/updateUsers}" th:method="post" id="formBase" class="form-horizontal" role="form">
                 <input type="hidden" name="userId" th:value="${user.userId}">
                 <div class="subgrzl ml40"><span>姓名</span><span><input type="text" name="name" th:value="${user.name}" class="form-control" maxlength="30" required>
@@ -116,7 +111,7 @@
                 <div class="subgrzl ml40"><span>生日</span><span><input type="date" name="birth" th:value="${ds.format(user.birth)}" required></span><span><a href="">--</a></span></div>
                 <div class="subgrzl ml40"><span>邮箱</span><span><input type="email" name="email" th:value="${user.email}" class="form-control"  required>
                                     </span><span><a href="">--</a></span></div>
-                <div class="subgrzl ml40"><span>手机号</span><span><input type="number" name="phone" th:value="${user.phone}" class="form-control" maxlength="11" minlength="0">
+                <div class="subgrzl ml40"><span>手机号</span><span><input type="tel" name="phone" th:value="${user.phone}" class="form-control" maxlength="11" minlength="0">
                                     </span><span><a href="">--</a></span></div>
                 <div class="subgrzl ml40"><span>性别</span><span><select name="sex">
                                             <option th:switch="${user.sex}" th:value="${user.sex}">
@@ -134,20 +129,52 @@
                                     </span><span><a href="">--</a></span></div>
                 <input type="submit" value="提交">
             </form>
+            <hr/>
+            <hr/>
+            <div class="grzlbt ml40">修改密码</div>
+            <form th:action="@{/user/changePassword}" th:method="post" class="form-horizontal" role="form">
+                <input type="hidden" name="userId" th:value="${user.userId}">
+                <div class="subgrzl ml40"><span>原密码</span><span><input type="password" id="old_password" name="password" required></span></div>
+                <div class="subgrzl ml40"><span>新密码</span><span><input type="password" maxlength="20" minlength="6" name="newPassword" required></span></div>
+                <div class="subgrzl ml40"><span>新密码</span><span><input type="password" maxlength="20" minlength="6" name="reNewPassword" required></span></div>
+                <input type="submit" value="提交">
+            </form>
+
         </div>
+
+
         <div class="clear"></div>
     </div>
 </div>
 <!-- self_info -->
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
 <footer class="mt20 center" >
     <hr/>
     <div>小米商城-CDIO-第一组</div>
 </footer>
+
+<script>
+    $("#old_password").change(function () {
+        var oldPassword=$("#old_password").val();
+        alert("haha");
+        $.ajax({
+            url:"/user/checkOldPassword",
+            type:"POST",
+            data:$(this).parents("form").serialize(),
+            success:function (result) {
+                if(result.code==0){
+                    $("#old_password_span").attr("style","color:red;");
+                }else{
+                    $("#old_password_span").attr("style","");
+                }
+                $("#old_password_span").text(result.extend.checkResult);
+            }
+        });
+    });
+</script>
 </body>
 </html>

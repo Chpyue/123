@@ -149,7 +149,7 @@ public class UserController {
     }
 
     /**
-     * 修改个人头像
+     * 修改个人头像（管理员）
      * （仅允许修改本人）
      * @param file
      * @return
@@ -161,6 +161,20 @@ public class UserController {
         user.setPortraitUrl(FileUtil.saveFile(file,"portrait"));
         userService.updateUser(user);
         return "redirect:/user/"+user.getUserId();
+    }
+    /**
+     * 修改个人头像（用户）
+     * （仅允许修改本人）
+     * @param file
+     * @return
+     */
+    @PostMapping("/updateImage0")
+    @PreAuthorize("isAuthenticated()")
+    public String updateImage0(MultipartFile file) throws IOException {
+        User user = userService.getUser();
+        user.setPortraitUrl(FileUtil.saveFile(file,"portrait"));
+        userService.updateUser(user);
+        return "redirect:/user/user";
     }
 
     /**
@@ -178,6 +192,12 @@ public class UserController {
         }
         return "redirect:/user/"+user.getUserId();
     }
+
+    /**
+     * 更新用户信息（用户）
+     * @param user
+     * @return
+     */
     @PostMapping("/updateUsers")
     @PreAuthorize("isAuthenticated()")
     public String updateUsers(User user){
@@ -207,7 +227,12 @@ public class UserController {
         }else {
             System.out.println("密码错误");
         }
-        return "redirect:/user/toUserEdit?userId="+user.getUserId();
+        if(userService.getUser().getAuthorityList().toString().contains(ROLE_ADMIN)){
+            return "redirect:/user/toUserEdit?userId="+user.getUserId();
+        }else {
+            return "redirect:/user/user";
+        }
+
     }
 
     @PostMapping("/checkOldPassword")

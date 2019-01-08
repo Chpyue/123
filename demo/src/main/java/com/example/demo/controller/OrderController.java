@@ -248,6 +248,7 @@ public class OrderController {
     public ModelAndView applyReturn(Model model, String orderId) {
         Order order = orderService.findOrder(orderId);
         model.addAttribute("orderId", orderId);
+        model.addAttribute("user",userService.getUser());
         //跳转到退货说明页面
         return new ModelAndView("order/applyReturn", "model", model);
     }
@@ -337,6 +338,8 @@ public class OrderController {
         model.addAttribute("productOrderItems", productOrderItems);
         model.addAttribute("order", order);
         model.addAttribute("flag",flag);
+        model.addAttribute("user",userService.getUser());
+        model.addAttribute("categoryList",productUserService.categoryList());
         //跳转到选择状态的订单明细表页面
         return new ModelAndView("order/orderDetails", "orderItemsModel", model);
 
@@ -348,15 +351,15 @@ public class OrderController {
      * @return
      */
     @GetMapping("/orderCenter")
-    public ModelAndView orderCenter(Model model,int productId) {
-        model.addAttribute("productInfo",productUserService.productInfo(productId));
+    public ModelAndView orderCenter(Model model) {
+//        model.addAttribute("productInfo",productUserService.productInfo(productId));
         model.addAttribute("categoryList",productUserService.categoryList());
         try{
             model.addAttribute("user",userService.getUser());
         }catch (Exception e){
             System.out.println("暂未无用户登录");
         }
-        System.out.println("商品ID="+productId);
+//        System.out.println("商品ID="+productId);
         return new ModelAndView("order/orderCenter","productModel",model);
     }
 

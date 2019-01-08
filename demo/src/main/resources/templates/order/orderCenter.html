@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="author" content="order by dede58.com"/>
     <title>小米商城-订单中心</title>
-
+    <link rel="stylesheet" type="text/css" href="../../static/users/css/style.css"
+          th:href="@{/users/css/style.css}">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
@@ -242,10 +243,18 @@
     <link rel="stylesheet" type="text/css" href="../../static/users/css/style.css"
           th:href="@{/users/css/style.css}">
 </head>
+<!-- start header -->
 <header>
     <div class="top center">
+        <div class="left fl">
+            <ul>
+                <li><a href="/" >小米商城</a></li>
+
+                <div class="clear"></div>
+            </ul>
+        </div>
         <div class="right fr">
-            <div class="gouwuche fr"><a th:href="@{/cart/list}">购物车</a></div>
+            <div class="gouwuche fr"><a th:href="@{/cart/list}" target="_blank">购物车</a></div>
             <div class="fr">
                 <ul sec:authorize="isAnonymous()">
                     <li><a th:href="@{/login}" target="_blank">登录</a></li>
@@ -253,11 +262,16 @@
                     <li><a th:href="@{/toRegister}" target="_blank" >注册</a></li>
                 </ul>
                 <ul sec:authorize="isAuthenticated()">
-                    <!--<li><a th:text="${user.username}">username</a> </li>-->
+                    <li><a th:text="${user.name}">name</a> </li>
+                    <li>|</li>
+                    <li><a href="/user/user">个人中心</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">|</li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/adminIndex}">管理后台</a>
+                    </li>
+                    <li>|</li>
                     <li>
-                        <form action="/logout" th:action="@{/logout}" method="post">
-                            <button type="submit">退出登录</button>
-                        </form>
+                        <a href="/logout">退出登录</a>
                     </li>
                 </ul>
             </div>
@@ -266,8 +280,11 @@
         <div class="clear"></div>
     </div>
 </header>
-<!--类型列表-->
+<!--end header -->
+<!-- 顶部分类及搜索框 start banner_x -->
 <div class="banner_x center">
+    <a href="/" target="_blank"><div class="logo fl"></div></a>
+    <!--<a ><div class="ad_top fl"></div></a>-->
     <div class="nav fl">
         <ul >
             <li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
@@ -280,9 +297,6 @@
             </li>
         </ul>
     </div>
-
-
-    <!--搜索框	-->
     <div class="search fr">
         <form action="/product/findProduct" method="post">
             <div class="text fl">
@@ -296,7 +310,7 @@
         <div class="clear"></div>
     </div>
 </div>
-<!-- 顶部页面结束-->
+<!-- end banner_x -->
 
 <!-- self_info -->
 <div class="grzxbj">
@@ -305,7 +319,7 @@
             <div class="ddzx">订单中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="#"  id="a1">未发货</a></li>
+                    <li><a href="#" id="a1">未发货</a></li>
                     <li><a href="#" id="a2">已发货</a></li>
                     <li><a href="#" id="a3">已收货</a></li>
                     <li><a href="#" id="a4">退货未受理</a></li>
@@ -315,10 +329,8 @@
             <div class="ddzx">个人中心</div>
             <div class="subddzx">
                 <ul>
-                    <li><a href="./self_info.html">我的个人中心</a></li>
-                    <li><a href="">消息通知</a></li>
-                    <li><a href="">优惠券</a></li>
-                    <li><a href="">收货地址</a></li>
+                    <li><a href="/user/user">我的个人中心</a></li>
+                    <li><a href="/user/userEdit">修改个人资料</a></li>
                 </ul>
             </div>
         </div>
@@ -333,10 +345,9 @@
 </div>
 <!-- self_info -->
 
-<footer class="mt20 center">
-    <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
-    <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
-    <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
+<footer class="mt20 center" >
+    <hr/>
+    <div>小米商城-CDIO-第一组</div>
 </footer>
 </body>
 </html>

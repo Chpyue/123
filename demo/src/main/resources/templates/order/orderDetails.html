@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:left="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:margin-right="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>订单详情页面</title>
@@ -53,6 +54,38 @@
         <div class="clear"></div>
     </div>
 </header>
+
+<!-- 顶部分类及搜索框 start banner_x -->
+<div class="banner_x center">
+    <a href="/" target="_blank"><div class="logo fl"></div></a>
+    <!--<a ><div class="ad_top fl"></div></a>-->
+    <div class="nav fl">
+        <ul >
+            <li><a th:href="@{'/product/allProduct?orderbyname=sales'}">全部商品</a></li>
+        </ul>
+    </div>
+    <div class="nav fl">
+        <ul >
+            <li th:each="category:${categoryList}">
+                <a th:href="@{'/product/findKindProduct?kind='+${category.categoryId}+'&orderbyname=sales'}" th:text="${category.name}">全部商品类型</a>
+            </li>
+        </ul>
+    </div>
+    <div class="search fr">
+        <form action="/product/findProduct" method="post">
+            <div class="text fl">
+                <input  type="text" class="shuru" name="name" placeholder="请输入商品名">
+            </div>
+            <div class="submit fl">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- end banner_x -->
+
 <form >
 
     <div class="checkout-box-ft">
@@ -65,6 +98,7 @@
                 <div class="box-bd">
                     <dl class="checkout-goods-list">
                         <dt class="clearfix">
+                            <!--<span class="col col-1">图片</span>-->
                             <span class="col col-1">商品名称</span>
                             <span class="col col-2">购买价格</span>
                             <span class="col col-3">购买数量</span>
@@ -75,7 +109,7 @@
                             <div class="item-row">
                                 <div class="col col-1">
                                     <div class="g-pic">
-                                        <img src="${productOrderItem.image}"  width="40" height="40" />
+                                        <img th:src="'../update/product/'+${productOrderItem.image}"  width="40" height="40" />
                                     </div>
                                     <div class="g-info" th:text="${productOrderItem.productName}">
                                         小米T恤
@@ -98,15 +132,15 @@
 
    <div>订单号：<input style="border: none ;width: 300px;" readonly="readonly" th:type="text" th:value="${order.orderId}"/></div>
    <div>总价：  <input  style="border: none" readonly="readonly"th:type="text" th:value="${order.totalPrice}"/>元</div>
+    <div style="margin-left: auto;
+         margin-right: auto;">
+        <ul class="list-group" >
 
-    <ul class="list-group" >
-      <!--  <span>收货人：<li  th:text="${order.receiver}"></li></span>-->
-        <li>收货人：<span th:text="${order.receiver}"></span></li>
-        <li>联系方式：<span th:text="${order.receivePhone}"></span></li>
-        <li>地址：<span th:text="${order.receiveAddress}"></span></li>
-        <!--电话：<li  th:text="${order.receivePhone}"></li>
-        地址：<li th:text="${order.receiveAddress}"></li>-->
-    </ul>
+            <li>收货人：<span th:text="${order.receiver}"></span></li>
+            <li>联系方式：<span th:text="${order.receivePhone}"></span></li>
+            <li>地址：<span th:text="${order.receiveAddress}"></span></li>
+        </ul>
+    </div>
 
     <div th:if="${flag}==4" >
       <li> 退货理由  <input class="list-group-item"  style="border: none" readonly="readonly" th:value="${order.returnReason}"/></li>
@@ -115,27 +149,23 @@
         退货理由  <input class="list-group-item"  style="border: none" readonly="readonly" th:value="${order.returnReason}"/>
     </div>
 
-<!--<input th:value="${flag}"/>-->
-    <!--/*@thymesVar id="flag" type="java.lang.String"*/-->
 <div th:if="${flag}==2">
-    <!--<button type="button" class="btn btn-info btn-lg">确认收货</button>-->
     <a th:href="@{/order/confirmOrder(orderId=${order.orderId})}"  >确认收货</a>
 </div>
-
-
     <div th:if="${flag} ne 4">
         <div th:if="${flag} ne 5 ">
-            <a th:href="@{/order/applyReturn(orderId=${order.orderId})}"  >申请退货</a>
+            <div th:if="${flag} eq 2">
+                <a th:href="@{/order/applyReturn(orderId=${order.orderId})}"  >申请退货</a>
+            </div>
         </div>
     </div>
 
 
 </form>
 
-<footer class="mt20 center">
-    <div class="mt20">哈哈商城|HAHA|哈聊|哈哈书城|哈哈路由器|哈哈天猫店|哈哈淘宝直营店|哈哈移动|隐私政策|</div>
-    <div>©ha.com *ICP证******号 *ICP备********号 *公网安备**********号 *网文[201*]00**-0***号</div>
-    <div>违法和不良信息举报电话：188-3201-****，本网站所列数据，除特殊说明，所有数据均出自我CDIO第一组测试</div>
+<footer class="mt20 center" >
+    <hr/>
+    <div>小米商城-CDIO-第一组</div>
 </footer>
 </body>
 </html>
