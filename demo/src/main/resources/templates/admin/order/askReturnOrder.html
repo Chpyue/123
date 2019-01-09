@@ -312,8 +312,10 @@
             adminGetUserInfo(item.userId,index);
             var i=index;
             if(item.status==4) {
-                var tdOrderStatus = $("<td width='100'></td>").append("请求退货").appendTo(trOrder2);
+                var tdOrderStatus = $("<td width='100'></td>").append("请求退货<br/>").appendTo(trOrder2);
             }
+            // var tdReturnReason=$("<a></a>").append("退货原因："+item.returnReason).appendTo(tdOrderStatus);
+
             var tdOrderTotalPrice=$("<td width='100'>￥</td>").append(item.totalPrice).appendTo(trOrder2);
             var tdBtn1=$("<td width='30'><a href='#' orderId='"+item.orderId+"' class='do-btn'>同意</a></td>").appendTo(trOrder2);
             var tdBtn2=$("<td width='30'><a href='#' orderId='"+item.orderId+"' class='do-btn'>拒绝</a></td>").appendTo(trOrder2);
@@ -332,6 +334,18 @@
 
             });
 
+            //退货原因
+            var tableOrder5=$("<table></table>").addClass();
+            var tbodyOrder5=$("<tbody></tbody>").appendTo(tableOrder5);
+            var trOrder5=$("<tr></tr>").appendTo(tbodyOrder5);
+            if(null==item.returnReason) {
+                var tdReturnReason = $("<td></td>").append("&nbsp;&nbsp;退货原因：无").appendTo(trOrder5);
+            }else{
+                var tdReturnReason = $("<td></td>").append("&nbsp;&nbsp;退货原因：" + item.returnReason).appendTo(trOrder5);
+
+            }
+            $("#orders").append(tableOrder5).append("</br></br>");
+
             var tableOrder4=$("<table></table>").addClass("table");
             var tbodyOrder4=$("<tbody></tbody>").appendTo(tableOrder4);
             var trOrder4=$("<tr></tr>").appendTo(tbodyOrder4);
@@ -339,6 +353,7 @@
             var tdOrderReceivePhone=$("<td bgcolor='silver'></td>").append("手机号："+item.receivePhone).appendTo(trOrder4);
             var tdOrderreceiveAddress=$("<td bgcolor='silver'></td>").append("收货地址："+item.receiveAddress).appendTo(trOrder4);
             $("#orders").append(tableOrder4).append("</br></br>");
+
         });
     }
     //分页信息

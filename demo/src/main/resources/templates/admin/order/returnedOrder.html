@@ -331,6 +331,18 @@
 
             });
 
+            //退货原因
+            var tableOrder5=$("<table></table>").addClass();
+            var tbodyOrder5=$("<tbody></tbody>").appendTo(tableOrder5);
+            var trOrder5=$("<tr></tr>").appendTo(tbodyOrder5);
+            if(null==item.returnReason) {
+                var tdReturnReason = $("<td></td>").append("&nbsp;&nbsp;退货原因：无").appendTo(trOrder5);
+            }else{
+                var tdReturnReason = $("<td></td>").append("&nbsp;&nbsp;退货原因：" + item.returnReason).appendTo(trOrder5);
+
+            }
+            $("#orders").append(tableOrder5).append("</br></br>");
+
             var tableOrder4=$("<table></table>").addClass("table");
             var tbodyOrder4=$("<tbody></tbody>").appendTo(tableOrder4);
             var trOrder4=$("<tr></tr>").appendTo(tbodyOrder4);
