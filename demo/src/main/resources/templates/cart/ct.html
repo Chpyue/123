@@ -15,7 +15,7 @@
 
 <!--top-->
 <div class="top">
-    <a href="/index" target="_blank"><div class="logo fk"></div></a>
+    <a href="/index" ><div class="logo fk"></div></a>
     <div class="wdgwc fl ml40">我的购物车</div>
     <div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
 </div>
@@ -34,7 +34,6 @@
                     <th>
                         <input type="checkbox" id="allcheck" name="allcheck" onclick="allcheck();"/>全选
                     </th>
-                    <!-- <td>商品图片</td>-->
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>商品名称</th>
                     <th>商品单价</th>
@@ -149,8 +148,9 @@
             type:"post",
             dataType:"json",
             success:function (res) {
-                $("#lalala").html(res);
-                console.log(res)
+                var num=res;
+                num=parseInt(num*100)/100;
+                $("#lalala").html(num);
             },
             error:function () {
 
@@ -175,7 +175,9 @@
             type:"post",
             dataType:"json",
             success:function (res) {
-                $("#lalala").html(res);
+                var num=res;
+                num=parseInt(num*100)/100;
+                $("#lalala").html(num);
             },
             error:function () {
 
@@ -198,7 +200,9 @@
             type:"post",
             dataType:"json",
             success:function (res) {
-                $("#lalala").html(res);
+                var num=res;
+                num=parseInt(num*100)/100;
+                $("#lalala").html(num);
             },
             error:function () {
 
