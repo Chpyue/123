@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import java.text.DecimalFormat;
+
 
 /**
  * Created by ilcy on 2018/12/24.
@@ -87,7 +89,7 @@ public class CartController {
      */
     @GetMapping(value = "/list")
     public ModelAndView getCartList( Model model){
-        Double sum=0.0;
+        Double sum=0.00;
         List<Cart> list=cartService.getAllCarts(userService.getUser().getUserId());
         ArrayList<CartCustom> cartCustomList=new ArrayList<>();
         //遍历购物车，根据商品id获取商品对象
@@ -103,7 +105,7 @@ public class CartController {
             cartCustomList.add(cartCustom);
         }
         model.addAttribute("cartCustomList",cartCustomList);
-        model.addAttribute("summary",sum);
+        model.addAttribute("summary",new DecimalFormat("#.00").format(sum));
         model.addAttribute("user",userService.getUser());
         return  new ModelAndView("cart/ct","cartModel",model);
     }
@@ -155,7 +157,7 @@ public class CartController {
    @PostMapping(value = "/update/count")
    @ResponseBody
    public Double updateCount(String productCount,String cartId){
-       Double s2=0.0;
+       Double s2=0.00;
        Double num= Double.parseDouble(productCount);
        Cart cart=cartService.getSingleCart(cartId);
        cart.setCount(num);
