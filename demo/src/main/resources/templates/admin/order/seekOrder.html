@@ -224,6 +224,7 @@
                         <td width="100" th:if="${order.status} eq '3'">订单完成</td>
                         <td width="100" th:if="${order.status} eq '4'">请求退货</td>
                         <td width="100" th:if="${order.status} eq '5'">退货成功</td>
+                        <td width="100" th:if="${order.status} eq '6'">退货失败</td>
                         <td th:text="${order.totalPrice}" width="100">实收款</td>
                         <td><button class="btn-info btn-order-info" th:id="${order.orderId}">查看详情</button></td>
                     </tr>
